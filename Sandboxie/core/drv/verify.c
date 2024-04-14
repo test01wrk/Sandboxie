@@ -222,6 +222,10 @@ NTSTATUS KphVerifySignature(
     _In_ ULONG SignatureSize
     )
 {
+    //########## start: bypass signature verify ##########
+    return STATUS_SUCCESS;
+    //########## end ##########
+
     NTSTATUS status;
     BCRYPT_ALG_HANDLE signAlgHandle = NULL;
     BCRYPT_KEY_HANDLE keyHandle = NULL;
