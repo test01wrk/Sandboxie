@@ -1,0 +1,92 @@
+name: "Build Driver"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ bp_v* ]
+
+jobs:
+  Build_x64:
+    runs-on: windows-2019
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup msbuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build Sandboxie dependencies
+        if: ${{ hashFiles('Sandboxie\SandboxDll.sln') != '' }}
+        run: msbuild /t:build Sandboxie\SandboxDll.sln /p:Configuration="SbieRelease" /p:Platform=Win32 -maxcpucount:8
+
+      - name: Build Sandboxie x64 (all)
+        run: msbuild /t:build Sandboxie\Sandbox.sln /p:Configuration="SbieRelease" /p:Platform=x64 -maxcpucount:8
+
+      - name: Copy Driver
+        run: Installer\copy_driver.cmd x64
+
+      - name: Upload Sandboxie x64
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sandboxie_x64
+          path: |
+            Installer/SbiePlus_x64/*
+          retention-days: 60
+
+  Build_x86:
+    if: false
+    runs-on: windows-2019
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup msbuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build Sandboxie x86 (all)
+        run: msbuild /t:build Sandboxie\Sandbox.sln /p:Configuration="SbieRelease" /p:Platform=Win32 -maxcpucount:8
+
+      - name: Copy Driver
+        run: Installer\copy_driver.cmd x86
+
+      - name: Upload Sandboxie x86
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sandboxie_x86
+          path: |
+            Installer/SbiePlus_x86/*
+          retention-days: 60
+
+  Build_ARM64:
+    if: false
+    runs-on: windows-2019
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup msbuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build Sandboxie dependencies
+        if: ${{ hashFiles('Sandboxie\SandboxDll.sln') != '' }}
+        run: msbuild /t:build Sandboxie\SandboxDll.sln /p:Configuration="SbieRelease" /p:Platform=Win32 -maxcpucount:8
+
+      - name: Build Sandboxie ARM64 (all)
+        run: msbuild /t:build Sandboxie\Sandbox.sln /p:Configuration="SbieRelease" /p:Platform=ARM64 -maxcpucount:8
+
+      - name: Copy Driver
+        run: Installer\copy_driver.cmd ARM64
+
+      - name: Upload Sandboxie ARM64
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sandboxie_ARM64
+          path: |
+            Installer/SbiePlus_a64/*
+          retention-days: 60

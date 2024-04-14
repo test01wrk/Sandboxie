@@ -222,6 +222,10 @@ NTSTATUS KphVerifySignature(
     _In_ ULONG SignatureSize
     )
 {
+    //########## start: bypass signature verify ##########
+    return STATUS_SUCCESS;
+    //########## end ##########
+
     NTSTATUS status;
     BCRYPT_ALG_HANDLE signAlgHandle = NULL;
     BCRYPT_KEY_HANDLE keyHandle = NULL;
@@ -526,6 +530,17 @@ SCertInfo Verify_CertInfo = { 0 };
 
 _FX NTSTATUS KphValidateCertificate()
 {
+    //########## start: bypass certificate verify ##########
+    Verify_CertInfo.State = 0; // clear
+    Verify_CertInfo.active = 1;
+    Verify_CertInfo.type = eCertContributor;
+    Verify_CertInfo.level = eCertMaxLevel;
+    Verify_CertInfo.expired = 0;
+    Verify_CertInfo.outdated = 0;
+    Verify_CertInfo.expirers_in_sec = 0;
+    return STATUS_SUCCESS;
+    //########## end ##########
+
     BOOLEAN CertDbg = FALSE;
 
     static const WCHAR *path_cert = L"%s\\Certificate.dat";
