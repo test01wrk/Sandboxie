@@ -226,6 +226,10 @@ SBIE1319 Druckerwarteschlangendruck zu Datei, %2 %3 verhindert
 SBIE1320 Um zu erlauben, dass die Druckerwarteschlange für diesen Prozess außerhalb der Sandbox schreiben darf, doppelklicken Sie bitte auf diese Nachricht
 .
 
+1321;pop;inf;01
+SBIE1321 Programm '%2' wurde in die Sandbox %3 gezwungen
+.
+
 1399;pop;inf;01
 %0
 .
@@ -371,7 +375,7 @@ SBIE2193 Die Sandbox nach dem erfolgreichen Aktualisierungsprozess unbedingt lö
 .
 
 2194;pop;inf;01
-SBIE2194 MSI-Installer benötigt die Aktivierung der %2 option in der ini-Datei, was jedoch die Sicherheit schwächen kann.
+SBIE2194 Der MSI-Installer erfordert, um korrekt arbeiten zu können, dass die Option %2 in der ini-Datei gesetzt wird. Diese Option schwächt jedoch die Isolation.
 .
 
 2195;pop;inf;01
@@ -702,6 +706,10 @@ SBIE2337 Konnte Programm nicht starten:  %2
 SBIE2338 Nicht unterstützte Architektur in Prozess %2 vorgefunden
 .
 
+2360;pop;err;01
+SBIE2360 Fehler beim Injizieren des SOCKS5-Proxy:  %2
+.
+
 #----------------------------------------------------------------------------
 # SbieSvc
 #----------------------------------------------------------------------------
@@ -806,12 +814,21 @@ Sandboxie Startmenü - %2  %0
 Desktop
 .
 
+3113;txt;01
+(Ordner öffnen)
+.
+
 3114;txt;01
 Programme
 .
 
-3113;txt;01
-(Ordner öffnen)
+3198;txt;01
+Möchten Sie ein neues Programm in der Sandbox %2 starten?
+Sie haben diese Meldung erhalten, weil Sie AlertBeforeStart=y gesetzt haben.
+.
+
+3199;txt;01
+Diese Startanforderung scheint nicht von der SANDBOXIE-Komponente aufgerufen zu werden. Sind Sie sicher, dass Sie sie ausführen wollen? Wenn dies Ihre Aktion ist, können Sie es ignorieren und Ja wählen.
 .
 
 3202;txt;01

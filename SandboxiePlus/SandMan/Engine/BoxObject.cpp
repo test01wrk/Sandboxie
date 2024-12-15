@@ -8,7 +8,7 @@
 
 quint32 CBoxObject::StartTask(const QString& Command, const QVariantMap& Options) 
 {
-    SB_RESULT(quint32) result = theGUI->RunStart(getName(), Command, Options["elevalted"].toBool(), Options["directory"].toString());
+    SB_RESULT(quint32) result = theGUI->RunStart(getName(), Command, Options["elevalted"].toBool() ? CSbieAPI::eStartElevated : CSbieAPI::eStartDefault, Options["directory"].toString());
     return result.IsError() ? -1 : result.GetValue();
 }
 
@@ -97,6 +97,11 @@ bool CBoxObject::MakeShortcut(const QString& Target, const QVariantMap& Options)
         return CSbieUtils::CreateShortcut(StartExe, Path, "", getName(), Target);
     }
     return CSbieView::CreateShortcutEx(Target, getName(), Name, Options["iconPath"].toString(), Options["iconIndex"].toInt(), Options["workDir"].toString());
+}
+
+void CSBoxObject::Start(const QString& Command, bool bElevale)
+{
+    m_pIni.objectCast<CSandBox>()->RunStart(Command.isEmpty() ? "run_dialog" : Command, bElevale);
 }
 
 void CSBoxObject::ApplyChanges(bool bApply)

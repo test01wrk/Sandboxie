@@ -160,7 +160,7 @@ int	CRecoveryWindow::exec()
 {
 	//QDialog::setWindowModality(Qt::WindowModal);
 	ui.btnDeleteAll->setVisible(true);
-	SafeShow(this);
+	CSandMan::SafeShow(this);
 	return QDialog::exec();
 }
 
@@ -242,10 +242,12 @@ void CRecoveryWindow::OnDelete()
 {
 	QMap<QString, SRecItem> FileMap = GetFiles();
 
-	if (FileMap.isEmpty())
+	if (FileMap.isEmpty()) {
+		QMessageBox::information(this, "Sandboxie-Plus", tr("No Files selected!"), QMessageBox::Ok);
 		return;
+	}
 
-	if (QMessageBox::Yes != QMessageBox("Sandboxie-Plus", tr("Do you really want to delete %1 selected files?").arg(FileMap.count()), QMessageBox::Question, QMessageBox::Yes, QMessageBox::No | QMessageBox::Default | QMessageBox::Escape, QMessageBox::NoButton, this).exec())
+	if (QMessageBox::question(this, "Sandboxie-Plus", tr("Do you really want to delete %1 selected files?").arg(FileMap.count()), QMessageBox::Yes, QMessageBox::No | QMessageBox::Default | QMessageBox::Escape, QMessageBox::NoButton) != QMessageBox::Yes)
 		return;
 
 	foreach(const QString & FilePath, FileMap.keys())

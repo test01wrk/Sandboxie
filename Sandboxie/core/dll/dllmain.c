@@ -89,6 +89,7 @@ ULONG Dll_SidStringLen = 0;
 ULONG Dll_ProcessId = 0;
 ULONG Dll_SessionId = 0;
 
+ULONG Dll_DriverFlags = 0;
 ULONG64 Dll_ProcessFlags = 0;
 
 #ifndef _WIN64
@@ -313,6 +314,12 @@ _FX void Dll_InitInjected(void)
     //Dll_HomeDosPathLen = wcslen(Dll_HomeDosPath);
 
     //
+    // get features flags
+    //
+
+    SbieApi_QueryDrvInfo(0, &Dll_DriverFlags, sizeof(Dll_DriverFlags));
+
+    //
     // get process type and flags
     //
 
@@ -495,6 +502,9 @@ _FX void Dll_InitInjected(void)
 
     if (ok)
         ok = Proc_Init();
+
+    if (ok)
+        ok = Kernel_Init();
 
     if (ok)
         ok = Gui_InitConsole1();
@@ -723,9 +733,9 @@ _FX void Dll_SelectImageType(void)
 {
     Dll_ImageType = Dll_GetImageType(Dll_ImageName);
 
-    if (Dll_ImageType == DLL_IMAGE_UNSPECIFIED &&
-            _wcsnicmp(Dll_ImageName, L"FlashPlayerPlugin_", 18) == 0)
-        Dll_ImageType = DLL_IMAGE_FLASH_PLAYER_SANDBOX;
+    //if (Dll_ImageType == DLL_IMAGE_UNSPECIFIED &&
+    //        _wcsnicmp(Dll_ImageName, L"FlashPlayerPlugin_", 18) == 0)
+    //    Dll_ImageType = DLL_IMAGE_FLASH_PLAYER_SANDBOX;
 
     if (Dll_ImageType == DLL_IMAGE_DLLHOST) {
 
@@ -763,8 +773,8 @@ _FX void Dll_SelectImageType(void)
 
         if (Dll_ImageType == DLL_IMAGE_GOOGLE_CHROME ||
             Dll_ImageType == DLL_IMAGE_MOZILLA_FIREFOX ||
-            Dll_ImageType == DLL_IMAGE_ACROBAT_READER ||
-            Dll_ImageType == DLL_IMAGE_FLASH_PLAYER_SANDBOX) {
+            //Dll_ImageType == DLL_IMAGE_FLASH_PLAYER_SANDBOX
+            Dll_ImageType == DLL_IMAGE_ACROBAT_READER) {
 
             Dll_ChromeSandbox = TRUE;
         }
@@ -876,10 +886,16 @@ _FX VOID Dll_Ordinal1(INJECT_DATA * inject)
         // msi installer requires COM to be sandboxed, else the installation will be done outside the sandbox
         //
 
-        if (Dll_ImageType == DLL_IMAGE_MSI_INSTALLER && SbieDll_IsOpenCOM()) {
+        if (Dll_ImageType == DLL_IMAGE_MSI_INSTALLER) {
 
-            SbieApi_Log(2196, NULL);
-            ExitProcess(0);
+            if (SbieDll_IsOpenCOM()) {
+                SbieApi_Log(2196, NULL);
+                ExitProcess(0);
+            }
+
+            if (!SbieApi_QueryConfBool(NULL, L"MsiInstallerExemptions", FALSE) && SbieApi_QueryConfBool(NULL, L"NotifyMsiInstaller", TRUE)) {
+                SbieApi_Log(2194, L"MsiInstallerExemptions=y");
+            }
         }
     }
     else

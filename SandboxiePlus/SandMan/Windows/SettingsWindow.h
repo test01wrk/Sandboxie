@@ -59,6 +59,8 @@ public:
 	static QColor GetCertColor();
 	static QString GetCertLevel();
 
+	static void StartEval(QWidget* parent, QObject* receiver, const char* member);
+
 signals:
 	void OptionsChanged(bool bRebuildUI = false);
 	void Closed();
@@ -87,6 +89,8 @@ private slots:
 	void OnRunChanged() { m_RunChanged = true; OnOptChanged(); }
 
 	void OnOptChanged();
+
+	void OnSkipUAC() { m_SkipUACChanged = true; OnOptChanged(); }
 
 	void OnChangeGUI() { m_bRebuildUI = true; OnOptChanged(); }
 	void OnFeaturesChanged() { m_FeaturesChanged = true; OnGeneralChanged(); }
@@ -120,6 +124,7 @@ private slots:
 	void OnFilterTemplates()		{ LoadTemplates(); }
 	void OnAddTemplates();
 	void OnTemplateWizard();
+	void OnOpenTemplate();
 	void OnDelTemplates();
 
 	void SetIniEdit(bool bEnable);
@@ -130,11 +135,13 @@ private slots:
 
 
 	void CertChanged();
+	void KeyChanged();
 	void UpdateCert();
 	void OnGetCert();
 	void OnCertData(const QByteArray& Certificate, const QVariantMap& Params);
 	void ApplyCert();
 	void UpdateUpdater();
+	void OnStartEval();
 
 	void GetUpdates();
 	void OnUpdateData(const QVariantMap& Data, const QVariantMap& Params);
@@ -174,6 +181,7 @@ protected:
 	bool    m_VolumeChanged;
 	bool	m_CompatChanged;
 	bool	m_RunChanged;
+	bool	m_SkipUACChanged;
 	bool	m_ProtectionChanged;
 	bool	m_GeneralChanged;
 	bool	m_FeaturesChanged;
@@ -187,6 +195,8 @@ private:
 	void WriteTextList(const QString& Setting, const QStringList& List);
 
 	Ui::SettingsWindow ui;
+
+	class CCodeEdit* m_pCodeEdit;
 };
 
 QVariantMap GetRunEntry(const QString& sEntry);
@@ -203,3 +213,6 @@ extern QByteArray g_Certificate;
 #include "..\..\Sandboxie\core\drv\verify.h"
 
 extern SCertInfo g_CertInfo;
+
+#define EVAL_MAX 3		// for UI only actual limits enforced on server
+#define EVAL_DAYS 10	

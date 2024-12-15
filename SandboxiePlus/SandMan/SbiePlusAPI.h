@@ -31,8 +31,7 @@ public:
 
 	virtual void			StopMonitor();
 
-	virtual SB_RESULT(quint32) RunStart(const QString& BoxName, const QString& Command, bool Elevated = false, const QString& WorkingDir = QString(), QProcess* pProcess = NULL);
-
+	virtual SB_RESULT(quint32) RunStart(const QString& BoxName, const QString& Command, EStartFlags Flags = eStartDefault, const QString& WorkingDir = QString(), QProcess* pProcess = NULL);
 	virtual bool			IsStarting(qint64 pid) const { return m_PendingStarts.contains(pid); }
 
 private slots:
@@ -73,8 +72,10 @@ public:
 	CSandBoxPlus(const QString& BoxName, class CSbieAPI* pAPI);
 	virtual ~CSandBoxPlus();
 
+	virtual QString			GetDisplayName() const;
+
 	SB_PROGRESS				ExportBox(const QString& FileName, const QString& Password = "", int Level = 5, bool Solid = false);
-	SB_PROGRESS				ImportBox(const QString& FileName, const QString& Password = "");
+	SB_PROGRESS				ImportBox(const QString& FileName, const QString& Password);
 
 	virtual void			UpdateDetails();
 
@@ -257,6 +258,7 @@ protected:
 	bool					m_BoxDel;
 	bool					m_NoForce;
 	QRgb					m_BoxColor;
+	QString					m_BoxAlias;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

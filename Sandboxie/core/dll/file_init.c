@@ -282,19 +282,23 @@ _FX BOOLEAN File_Init(void)
         }
     }
 
-    //
-    // support for Google Chrome flash plugin process
-    //
+    // $Workaround$ - 3rd party fix
+    if (!Dll_CompartmentMode) {
 
-    void *GetVolumeInformationW =
-        GetProcAddress(Dll_KernelBase ? Dll_KernelBase : Dll_Kernel32,
-            "GetVolumeInformationW");
-    SBIEDLL_HOOK(File_,GetVolumeInformationW);
+        //
+        // support for Google Chrome flash plugin process
+        //
+        // $Workaround$ - 3rd party fix
+        //void *GetVolumeInformationW =
+        //    GetProcAddress(Dll_KernelBase ? Dll_KernelBase : Dll_Kernel32,
+        //        "GetVolumeInformationW");
+        //SBIEDLL_HOOK(File_,GetVolumeInformationW);
 
-    void *WriteProcessMemory =
-        GetProcAddress(Dll_KernelBase ? Dll_KernelBase : Dll_Kernel32,
-            "WriteProcessMemory");
-    SBIEDLL_HOOK(File_, WriteProcessMemory);
+        void* WriteProcessMemory =
+            GetProcAddress(Dll_KernelBase ? Dll_KernelBase : Dll_Kernel32,
+                "WriteProcessMemory");
+        SBIEDLL_HOOK(File_, WriteProcessMemory);
+    }
 
     return TRUE;
 }
@@ -740,6 +744,7 @@ _FX void File_InitLinks(THREAD_DATA *TlsData)
     WCHAR save_char;
     FILE_GUID* guid;
     ULONG alloc_len;
+    WCHAR text[256];
 
     //
     // cleanup old guid entries
@@ -809,8 +814,7 @@ _FX void File_InitLinks(THREAD_DATA *TlsData)
         ULONG VolumeNameLen =
             MountPoint->SymbolicLinkNameLength / sizeof(WCHAR);
 
-        WCHAR text[256];
-        Sbie_snwprintf(text, 256, L"Found mountpoint: %.*s <-> %.*s", VolumeNameLen, VolumeName, DeviceNameLen, DeviceName);
+        Sbie_snwprintf(text, 256, L"Found Mountpoint: %.*s <-> %.*s", VolumeNameLen, VolumeName, DeviceNameLen, DeviceName);
         SbieApi_MonitorPut2(MONITOR_DRIVE | MONITOR_TRACE, text, FALSE);
 
         if (VolumeNameLen != 48 && VolumeNameLen != 49)
@@ -874,6 +878,8 @@ _FX void File_InitLinks(THREAD_DATA *TlsData)
 
                 DosPath += DosPathLen + 1;
                 while (*DosPath) {
+                    Sbie_snwprintf(text, 256, L"Mountpoint AddLink: %s <-> %s", DosPath, DeviceName);
+                    SbieApi_MonitorPut2(MONITOR_DRIVE | MONITOR_TRACE, text, FALSE);
                     File_AddLink(TRUE, DosPath, DeviceName);
                     DosPath += wcslen(DosPath) + 1;
                 }
@@ -890,9 +896,13 @@ _FX void File_InitLinks(THREAD_DATA *TlsData)
                 //
 
                 WCHAR *FirstDosPath = DosPath;
+                Sbie_snwprintf(text, 256, L"Mountpoint AddLink: %s <-> %s", FirstDosPath, DeviceName);
+                SbieApi_MonitorPut2(MONITOR_DRIVE | MONITOR_TRACE, text, FALSE);
                 File_AddLink(TRUE, FirstDosPath, DeviceName);
                 DosPath += DosPathLen + 1;
                 while (*DosPath) {
+                    Sbie_snwprintf(text, 256, L"Mountpoint AddLink: %s <-> %s", DosPath, DeviceName);
+                    SbieApi_MonitorPut2(MONITOR_DRIVE | MONITOR_TRACE, text, FALSE);
                     File_AddLink(TRUE, DosPath, DeviceName);
                     DosPath += wcslen(DosPath) + 1;
                 }
@@ -915,9 +925,13 @@ _FX void File_InitLinks(THREAD_DATA *TlsData)
                 //
 
                 WCHAR *FirstDosPath = DosPath;
+                Sbie_snwprintf(text, 256, L"Mountpoint AddLink: %s <-> %s", DeviceName, FirstDosPath);
+                SbieApi_MonitorPut2(MONITOR_DRIVE | MONITOR_TRACE, text, FALSE);
                 File_AddLink(TRUE, DeviceName, FirstDosPath);
                 DosPath += DosPathLen + 1;
                 while (*DosPath) {
+                    Sbie_snwprintf(text, 256, L"Mountpoint AddLink: %s <-> %s", DosPath, FirstDosPath);
+                    SbieApi_MonitorPut2(MONITOR_DRIVE | MONITOR_TRACE, text, FALSE);
                     File_AddLink(TRUE, DosPath, FirstDosPath);
                     DosPath += wcslen(DosPath) + 1;
                 }
@@ -1665,14 +1679,29 @@ _FX WCHAR *File_AllocAndInitEnvironment_2(
 
 
 //---------------------------------------------------------------------------
-// File_TranslateDosToNtPath
+// File_ConcatPath2
 //---------------------------------------------------------------------------
 
 
-_FX WCHAR *File_TranslateDosToNtPath(const WCHAR *DosPath)
+_FX WCHAR *File_ConcatPath2(const WCHAR *Path1, ULONG Path1Len, const WCHAR *Path2, ULONG Path2Len)
+{
+    ULONG Length = Path1Len + Path2Len;
+    WCHAR* Path = Dll_Alloc((Length + 1) * sizeof(WCHAR));
+    wmemcpy(Path, Path1, Path1Len);
+    wmemcpy(Path + Path1Len, Path2, Path2Len);
+    Path[Length] = L'\0';
+    return Path;
+}
+
+
+//---------------------------------------------------------------------------
+// File_TranslateDosToNtPath2
+//---------------------------------------------------------------------------
+
+
+_FX WCHAR *File_TranslateDosToNtPath2(const WCHAR *DosPath, ULONG DosPathLen)
 {
     WCHAR *NtPath = NULL;
-    ULONG len_dos;
 
     if (DosPath && DosPath[0] && DosPath[1]) {
 
@@ -1682,11 +1711,7 @@ _FX WCHAR *File_TranslateDosToNtPath(const WCHAR *DosPath)
             // network path
             //
 
-            DosPath += 2;
-            len_dos = wcslen(DosPath) + 1;
-            NtPath = Dll_Alloc((File_MupLen + len_dos) * sizeof(WCHAR));
-            wmemcpy(NtPath, File_Mup, File_MupLen);
-            wmemcpy(NtPath + File_MupLen, DosPath, len_dos);
+            NtPath = File_ConcatPath2(File_Mup, File_MupLen, DosPath + 2, DosPathLen - 2);
 
         } else if (DosPath[1] == L':' &&
                         (DosPath[2] == L'\\' || DosPath[2] == L'\0')) {
@@ -1698,11 +1723,7 @@ _FX WCHAR *File_TranslateDosToNtPath(const WCHAR *DosPath)
             FILE_DRIVE *drive = File_GetDriveForLetter(DosPath[0]);
             if (drive) {
 
-                DosPath += 2;
-                len_dos = wcslen(DosPath) + 1;
-                NtPath = Dll_Alloc((drive->len + len_dos) * sizeof(WCHAR));
-                wmemcpy(NtPath, drive->path, drive->len);
-                wmemcpy(NtPath + drive->len, DosPath, len_dos);
+                NtPath = File_ConcatPath2(drive->path, drive->len, DosPath + 2, DosPathLen - 2);
 
                 LeaveCriticalSection(File_DrivesAndLinks_CritSec);
             }
@@ -1710,6 +1731,17 @@ _FX WCHAR *File_TranslateDosToNtPath(const WCHAR *DosPath)
     }
 
     return NtPath;
+}
+
+
+//---------------------------------------------------------------------------
+// File_TranslateDosToNtPath
+//---------------------------------------------------------------------------
+
+
+_FX WCHAR *File_TranslateDosToNtPath(const WCHAR *DosPath)
+{
+    return File_TranslateDosToNtPath2(DosPath, DosPath ? wcslen(DosPath) : 0);
 }
 
 

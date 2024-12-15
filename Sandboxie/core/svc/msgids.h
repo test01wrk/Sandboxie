@@ -100,6 +100,9 @@
 #define MSGID_SBIE_INI_GET_VERSION              0x18AA
 #define MSGID_SBIE_INI_GET_WAIT_HANDLE          0x18AB
 #define MSGID_SBIE_INI_RUN_SBIE_CTRL            0x180A
+#define MSGID_SBIE_INI_RC4_CRYPT                0x180F
+
+//#define MSGID_SBIE_MGR                          0x1900
 
 #define MSGID_NETAPI                            0x1A00
 #define MSGID_NETAPI_USE_ADD                    0x1A01
@@ -140,6 +143,7 @@
 #define MSGID_QUEUE_PUTRPL                      0x1E03
 #define MSGID_QUEUE_PUTREQ                      0x1E04
 #define MSGID_QUEUE_GETRPL                      0x1E05
+#define MSGID_QUEUE_STARTUP                     0x1E10
 #define MSGID_QUEUE_NOTIFICATION                0x1EFF
 
 #define MSGID_EPMAPPER                          0x1F00

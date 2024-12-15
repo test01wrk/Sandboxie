@@ -115,7 +115,7 @@ _FX int Trace_Init(void)
     //
 
     WCHAR wsTraceOptions[4];
-    if (SbieApi_QueryConf(NULL, L"CallTrace", 0, wsTraceOptions, sizeof(wsTraceOptions)) == STATUS_SUCCESS && wsTraceOptions[0] != L'\0') {
+    if (SbieApi_QueryConf(NULL, L"CallTraceEx", 0, wsTraceOptions, sizeof(wsTraceOptions)) == STATUS_SUCCESS && wsTraceOptions[0] != L'\0') {
         if (!NT_SUCCESS(InstallInstrumentationCallback()))
             SbieApi_Log(2205, L"ProcessInstrumentationCallback");
     }
@@ -597,6 +597,7 @@ const wchar_t* Trace_SbieSvcFunc2Str(ULONG func)
         case MSGID_QUEUE_PUTRPL:                return L"MSGID_QUEUE_PUTRPL";
         case MSGID_QUEUE_PUTREQ:                return L"MSGID_QUEUE_PUTREQ";
         case MSGID_QUEUE_GETRPL:                return L"MSGID_QUEUE_GETRPL";
+        case MSGID_QUEUE_STARTUP:               return L"MSGID_QUEUE_STARTUP";
         case MSGID_QUEUE_NOTIFICATION:          return L"MSGID_QUEUE_NOTIFICATION";
 
         case MSGID_EPMAPPER_GET_PORT_NAME:      return L"MSGID_EPMAPPER_GET_PORT_NAME";

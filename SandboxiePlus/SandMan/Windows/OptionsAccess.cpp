@@ -13,10 +13,12 @@
 void COptionsWindow::CreateAccess()
 {
 	// Resource Access
-	connect(ui.chkPrivacy, SIGNAL(clicked(bool)), this, SLOT(OnAccessChanged()));
-	connect(ui.chkUseSpecificity, SIGNAL(clicked(bool)), this, SLOT(OnAccessChanged()));
-	connect(ui.chkCloseForBox, SIGNAL(clicked(bool)), this, SLOT(OnAccessChanged()));
-	connect(ui.chkNoOpenForBox, SIGNAL(clicked(bool)), this, SLOT(OnAccessChanged()));
+	connect(ui.chkPrivacy, SIGNAL(clicked(bool)), this, SLOT(OnAccessChangedEx()));
+	connect(ui.chkUseSpecificity, SIGNAL(clicked(bool)), this, SLOT(OnAccessChangedEx()));
+	connect(ui.chkBlockWMI, SIGNAL(clicked(bool)), this, SLOT(OnAccessChangedEx()));
+	connect(ui.chkHideHostApps, SIGNAL(clicked(bool)), this, SLOT(OnAccessChangedEx()));
+	connect(ui.chkCloseForBox, SIGNAL(clicked(bool)), this, SLOT(OnAccessChangedEx()));
+	connect(ui.chkNoOpenForBox, SIGNAL(clicked(bool)), this, SLOT(OnAccessChangedEx()));
 	//
 
 	connect(ui.btnAddFile, SIGNAL(clicked(bool)), this, SLOT(OnAddFile()));
@@ -53,11 +55,11 @@ void COptionsWindow::CreateAccess()
 	connect(ui.tabsAccess, SIGNAL(currentChanged(int)), this, SLOT(OnAccessTab()));
 }
 
-void COptionsWindow::OnAccessChanged()
-{ 
+void COptionsWindow::OnAccessChangedEx()
+{
 	if (sender() == ui.chkPrivacy || sender() == ui.chkUseSpecificity) {
 		if (ui.chkPrivacy->isChecked() || (ui.chkUseSpecificity->isEnabled() && ui.chkUseSpecificity->isChecked()))
-			theGUI->CheckCertificate(this);
+			theGUI->CheckCertificate(this, 0);
 	}
 
 	UpdateAccessPolicy();
@@ -66,7 +68,14 @@ void COptionsWindow::OnAccessChanged()
 		ui.chkUseSpecificity->setChecked(m_pBox->GetBool("UseRuleSpecificity", false));
 	}
 
-	m_AccessChanged = true; 
+	OnAccessChanged();
+}
+
+void COptionsWindow::OnAccessChanged()
+{ 
+	UpdateJobOptions();
+
+	m_AccessChanged = true;
 	OnOptChanged();
 }
 
@@ -104,8 +113,7 @@ void COptionsWindow::SetAccessEntry(EAccessType Type, const QString& Program, EA
 {
 	if (GetAccessEntry(Type, Program, Mode, Path) != NULL)
 		return; // already set
-	m_AccessChanged = true;
-	OnOptChanged();
+	OnAccessChanged();
 	AddAccessEntry(Type, Mode, Program, Path);
 }
 
@@ -114,8 +122,7 @@ void COptionsWindow::DelAccessEntry(EAccessType Type, const QString& Program, EA
 	if(QTreeWidgetItem* pItem = GetAccessEntry(Type, Program, Mode, Path))
 	{
 		delete pItem;
-		m_AccessChanged = true;
-		OnOptChanged();
+		OnAccessChanged();
 	}
 }
 
@@ -156,6 +163,8 @@ void COptionsWindow::LoadAccessList()
 {
 	ui.chkPrivacy->setChecked(m_pBox->GetBool("UsePrivacyMode", false));
 	ui.chkUseSpecificity->setChecked(m_pBox->GetBool("UseRuleSpecificity", false));
+	ui.chkBlockWMI->setChecked(m_BoxTemplates.contains("BlockAccessWMI"));
+	ui.chkHideHostApps->setChecked(m_BoxTemplates.contains("HideInstalledPrograms"));
 	ui.chkCloseForBox->setChecked(m_pBox->GetBool("AlwaysCloseForBoxed", true));
 	ui.chkNoOpenForBox->setChecked(m_pBox->GetBool("DontOpenForBoxed", true));
 
@@ -238,10 +247,10 @@ void COptionsWindow::LoadAccessListTmpl(EAccessType Type, bool bChecked, bool bU
 	}
 }
 
-void COptionsWindow::ParseAndAddAccessEntry(EAccessEntry EntryType, const QString& Value, bool disabled, const QString& Template)
+QPair<COptionsWindow::EAccessType, COptionsWindow::EAccessMode> COptionsWindow::SplitAccessType(EAccessEntry EntryType)
 {
-	EAccessType	Type;
-	EAccessMode	Mode;
+	EAccessType	Type = eMaxAccessType;
+	EAccessMode	Mode = eMaxAccessMode;
 	switch (EntryType)
 	{
 	case eNormalFilePath:	Type = eFile;	Mode = eNormal;	break;
@@ -269,11 +278,18 @@ void COptionsWindow::ParseAndAddAccessEntry(EAccessEntry EntryType, const QStrin
 	case eOpenCOM:			Type = eCOM;	Mode = eOpen;	break;
 	case eClosedCOM:		Type = eCOM;	Mode = eClosed;	break;
 	case eClosedCOM_RT:		Type = eCOM;	Mode = eClosedRT; break;
-
-	default:				return;
 	}
 
-	ParseAndAddAccessEntry(Type, Mode, Value, disabled, Template);
+	return qMakePair(Type, Mode);
+}
+
+void COptionsWindow::ParseAndAddAccessEntry(EAccessEntry EntryType, const QString& Value, bool disabled, const QString& Template)
+{
+	QPair<EAccessType, EAccessMode> Type = SplitAccessType(EntryType);
+	if (Type.first == eMaxAccessType || Type.first == eMaxAccessMode)
+		return;
+
+	ParseAndAddAccessEntry(Type.first, Type.second, Value, disabled, Template);
 }
 
 void COptionsWindow::ParseAndAddAccessEntry(EAccessType Type, EAccessMode Mode, const QString& Value, bool disabled, const QString& Template)
@@ -356,8 +372,7 @@ void COptionsWindow::OnBrowseFile()
 
 	AddAccessEntry(eFile, eOpen, "", Value);
 
-	m_AccessChanged = true;
-	OnOptChanged();
+	OnAccessChanged();
 }
 
 void COptionsWindow::OnBrowseFolder()
@@ -366,10 +381,13 @@ void COptionsWindow::OnBrowseFolder()
 	if (Value.isEmpty())
 		return;
 
+	// Add a trailing backslash if it does not exist
+	if (!Value.endsWith("\\"))
+		Value.append("\\");
+
 	AddAccessEntry(eFile, eOpen, "", Value);
 
-	m_AccessChanged = true;
-	OnOptChanged();
+	OnAccessChanged();
 }
 
 QString COptionsWindow::ExpandPath(EAccessType Type, const QString& Path)
@@ -577,8 +595,7 @@ void COptionsWindow::CloseAccessEdit(QTreeWidgetItem* pItem, bool bSave)
 		pItem->setText(3, ExpandPath(Type, Path));
 		pItem->setData(3, Qt::UserRole, Path);
 
-		m_AccessChanged = true;
-		OnOptChanged();
+		OnAccessChanged();
 	}
 
 	pTree->setItemWidget(pItem, 1, NULL);
@@ -666,8 +683,7 @@ void COptionsWindow::OnAccessChanged(QTreeWidgetItem* pItem, int Column)
 	if (Column != 0)
 		return;
 
-	m_AccessChanged = true;
-	OnOptChanged();
+	OnAccessChanged();
 }
 
 void COptionsWindow::DeleteAccessEntry(QTreeWidgetItem* pItem, int Column)
@@ -687,6 +703,8 @@ void COptionsWindow::SaveAccessList()
 {
 	WriteAdvancedCheck(ui.chkPrivacy, "UsePrivacyMode", "y", "");
 	WriteAdvancedCheck(ui.chkUseSpecificity, "UseRuleSpecificity", "y", "");
+	SetTemplate("BlockAccessWMI", ui.chkBlockWMI->isChecked());
+	SetTemplate("HideInstalledPrograms", ui.chkHideHostApps->isChecked());
 	WriteAdvancedCheck(ui.chkCloseForBox, "AlwaysCloseForBoxed", "", "n");
 	WriteAdvancedCheck(ui.chkNoOpenForBox, "DontOpenForBoxed", "", "n");
 

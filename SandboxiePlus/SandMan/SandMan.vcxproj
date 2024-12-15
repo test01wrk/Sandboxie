@@ -114,28 +114,28 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <QtInstall>Qt5.15.13_msvc2019_64</QtInstall>
+    <QtInstall>msvc2019_64</QtInstall>
     <QtModules>core;network;gui;widgets;qml;winextras;concurrent;widgets-private;qml-private</QtModules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="QtSettings">
     <QtInstall>msvc2019_64</QtInstall>
-    <QtModules>concurrent;core;gui;network;widgets;winextras</QtModules>
+    <QtModules>core;network;gui;widgets;qml;winextras;concurrent;widgets-private;qml-private</QtModules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="QtSettings">
     <QtInstall>msvc2019</QtInstall>
-    <QtModules>concurrent;core;gui;network;widgets;winextras</QtModules>
+    <QtModules>core;network;gui;widgets;qml;winextras;concurrent;widgets-private;qml-private</QtModules>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <QtInstall>Qt5.15.13_msvc2019_64</QtInstall>
+    <QtInstall>Qt5.15.15_msvc2019_64</QtInstall>
     <QtModules>core;network;gui;widgets;qml;winextras;concurrent;widgets-private;qml-private</QtModules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="QtSettings">
     <QtInstall>msvc2019_64</QtInstall>
-    <QtModules>concurrent;core;gui;network;widgets;winextras</QtModules>
+    <QtModules>core;network;gui;widgets;qml;winextras;concurrent;widgets-private;qml-private</QtModules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="QtSettings">
     <QtInstall>msvc2019</QtInstall>
-    <QtModules>concurrent;core;gui;network;widgets;winextras</QtModules>
+    <QtModules>core;network;gui;widgets;qml;winextras;concurrent;widgets-private;qml-private</QtModules>
   </PropertyGroup>
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
     <Import Project="$(QtMsBuild)\qt.props" />
@@ -160,7 +160,7 @@
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>QSbieAPI.lib;MiscHelpers.lib;ntdll.lib;QtSingleApp.lib;UGlobalHotkey.lib;comctl32.lib;bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>QSbieAPI.lib;MiscHelpers.lib;ntdll.lib;QtSingleApp.lib;UGlobalHotkey.lib;comctl32.lib;bcrypt.lib;taskschd.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
@@ -182,7 +182,7 @@
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>QSbieAPI.lib;MiscHelpers.lib;ntdll.lib;QtSingleApp.lib;UGlobalHotkey.lib;comctl32.lib;bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>QSbieAPI.lib;MiscHelpers.lib;ntdll.lib;QtSingleApp.lib;UGlobalHotkey.lib;comctl32.lib;bcrypt.lib;taskschd.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -207,7 +207,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalOptions> /SUBSYSTEM:WINDOWS</AdditionalOptions>
-      <AdditionalDependencies>QSbieAPI.lib;MiscHelpers.lib;ntdll.lib;QtSingleApp.lib;UGlobalHotkey.lib;comctl32.lib;bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>QSbieAPI.lib;MiscHelpers.lib;ntdll.lib;QtSingleApp.lib;UGlobalHotkey.lib;comctl32.lib;bcrypt.lib;taskschd.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -228,7 +228,7 @@
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>QSbieAPI.lib;MiscHelpers.lib;ntdll.lib;QtSingleApp.lib;UGlobalHotkey.lib;comctl32.lib;bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>QSbieAPI.lib;MiscHelpers.lib;ntdll.lib;QtSingleApp.lib;UGlobalHotkey.lib;comctl32.lib;bcrypt.lib;taskschd.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
@@ -249,7 +249,7 @@
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>QSbieAPI.lib;MiscHelpers.lib;ntdll.lib;QtSingleApp.lib;UGlobalHotkey.lib;comctl32.lib;bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>QSbieAPI.lib;MiscHelpers.lib;ntdll.lib;QtSingleApp.lib;UGlobalHotkey.lib;comctl32.lib;bcrypt.lib;taskschd.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -273,7 +273,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalOptions> /SUBSYSTEM:WINDOWS</AdditionalOptions>
-      <AdditionalDependencies>QSbieAPI.lib;MiscHelpers.lib;ntdll.lib;QtSingleApp.lib;UGlobalHotkey.lib;comctl32.lib;bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>QSbieAPI.lib;MiscHelpers.lib;ntdll.lib;QtSingleApp.lib;UGlobalHotkey.lib;comctl32.lib;bcrypt.lib;taskschd.lib;Version.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -287,7 +287,6 @@
     </ClCompile>
     <ClCompile Include="BoxJob.cpp" />
     <ClCompile Include="BoxMonitor.cpp" />
-    <ClCompile Include="Dialogs\MultiErrorDialog.cpp" />
     <ClCompile Include="Engine\BoxEngine.cpp" />
     <ClCompile Include="Engine\BoxObject.cpp" />
     <ClCompile Include="Engine\IniObject.cpp" />
@@ -300,6 +299,7 @@
     <ClCompile Include="Helpers\ReadDirectoryChanges.cpp" />
     <ClCompile Include="Helpers\ReadDirectoryChangesPrivate.cpp" />
     <ClCompile Include="Helpers\StorageInfo.cpp" />
+    <ClCompile Include="Helpers\TabOrder.cpp" />
     <ClCompile Include="Helpers\WinAdmin.cpp" />
     <ClCompile Include="Helpers\WindowFromPointEx.cpp" />
     <ClCompile Include="Helpers\WinHelper.cpp" />
@@ -349,6 +349,7 @@
     <ClCompile Include="Views\StackView.cpp" />
     <ClCompile Include="Views\TraceView.cpp" />
     <ClCompile Include="Windows\CompressDialog.cpp" />
+    <ClCompile Include="Windows\ExtractDialog.cpp" />
     <ClCompile Include="Windows\OptionsAccess.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -441,8 +442,11 @@
     <ClCompile Include="Wizards\NewBoxWizard.cpp" />
     <ClCompile Include="Wizards\SetupWizard.cpp" />
     <ClCompile Include="Wizards\TemplateWizard.cpp" />
+    <ClCompile Include="Windows\TestProxyDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="Windows\ExtractDialog.h" />
+    <QtMoc Include="Windows\TestProxyDialog.h" />
     <QtMoc Include="Windows\CompressDialog.h" />
     <QtMoc Include="Wizards\BoxAssistant.h" />
     <QtMoc Include="Windows\BoxImageWindow.h" />
@@ -464,7 +468,6 @@
     <QtMoc Include="SandMan.h" />
     <QtMoc Include="Models\SbieModel.h" />
     <QtMoc Include="Models\TraceModel.h" />
-    <QtMoc Include="Dialogs\MultiErrorDialog.h" />
     <QtMoc Include="BoxJob.h" />
     <ClInclude Include="..\version.h" />
     <QtMoc Include="BoxMonitor.h" />
@@ -480,9 +483,11 @@
     <ClInclude Include="Engine\V4ScriptDebuggerApi.h" />
     <ClInclude Include="Helpers\FindTool.h" />
     <ClInclude Include="Helpers\FullScreen.h" />
+    <QtMoc Include="Helpers\IniHighlighter.h" />
     <ClInclude Include="Helpers\ReadDirectoryChanges.h" />
     <ClInclude Include="Helpers\ReadDirectoryChangesPrivate.h" />
     <ClInclude Include="Helpers\StorageInfo.h" />
+    <ClInclude Include="Helpers\TabOrder.h" />
     <ClInclude Include="Helpers\ThreadSafeQueue.h" />
     <ClInclude Include="Helpers\WinAdmin.h" />
     <QtMoc Include="Models\MonitorModel.h" />
@@ -504,15 +509,18 @@
   <ItemGroup>
     <QtUic Include="Forms\BoxImageWindow.ui" />
     <QtUic Include="Forms\CompressDialog.ui" />
+    <QtUic Include="Forms\ExtractDialog.ui" />
     <QtUic Include="Forms\OptionsWindow.ui" />
     <QtUic Include="Forms\PopUpWindow.ui" />
     <QtUic Include="Forms\RecoveryWindow.ui" />
     <QtUic Include="Forms\SelectBoxWindow.ui" />
     <QtUic Include="Forms\SettingsWindow.ui" />
     <QtUic Include="Forms\SnapshotsWindow.ui" />
+    <QtUic Include="Forms\TestProxyDialog.ui" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\finder.cur" />
+    <None Include="sandman_ar.ts" />
     <None Include="sandman_cs.ts" />
     <None Include="sandman_de.ts" />
     <None Include="sandman_en.ts" />

@@ -16,7 +16,6 @@ HEADERS += ./stdafx.h \
     ./Views/FileView.h \
     ./Views/TraceView.h \
     ./Views/StackView.h \
-    ./Dialogs/MultiErrorDialog.h \
     ./Helpers/FindTool.h \
     ./Helpers/FullScreen.h \
     ./Helpers/WinAdmin.h \
@@ -24,13 +23,16 @@ HEADERS += ./stdafx.h \
     ./Helpers/StorageInfo.h \
     ./Helpers/ReadDirectoryChanges.h \
     ./Helpers/ReadDirectoryChangesPrivate.h \
+    ./Helpers/TabOrder.h \
+    ./Helpers/IniHighlighter.h \
     ./Windows/RecoveryWindow.h \
     ./Windows/PopUpWindow.h \
     ./Windows/SnapshotsWindow.h \
     ./Windows/SettingsWindow.h \
     ./Windows/OptionsWindow.h \
     ./Windows/SelectBoxWindow.h \
-    ./Windows/SupportDialog.h\
+    ./Windows/SupportDialog.h \
+    ./Windows/TestProxyDialog.h \
     ./OnlineUpdater.h \
     ./Wizards/NewBoxWizard.h \
     ./Wizards/TemplateWizard.h \
@@ -38,6 +40,7 @@ HEADERS += ./stdafx.h \
     ./Wizards/BoxAssistant.h \
     ./Windows/BoxImageWindow.h \
     ./Windows/CompressDialog.h \
+    ./Windows/ExtractDialog.h \
     ./Engine/BoxEngine.h \
     ./Engine/ScriptManager.h \
     ./Engine/BoxObject.h \
@@ -65,7 +68,6 @@ SOURCES += ./main.cpp \
     ./Views/FileView.cpp \
     ./Views/TraceView.cpp \
     ./Views/StackView.cpp \
-    ./Dialogs/MultiErrorDialog.cpp \
     ./Helpers/FindTool.cpp \
     ./Helpers/FullScreen.cpp \
     ./Helpers/WinAdmin.cpp \
@@ -73,14 +75,17 @@ SOURCES += ./main.cpp \
     ./Helpers/StorageInfo.cpp \
     ./Helpers/ReadDirectoryChanges.cpp \
     ./Helpers/ReadDirectoryChangesPrivate.cpp \
+    ./Helpers/IniHighlighter.cpp \
     ./Helpers/WindowFromPointEx.cpp \
+    ./Helpers/TabOrder.cpp \
     ./Windows/OptionsWindow.cpp \
     ./Windows/PopUpWindow.cpp \
     ./Windows/RecoveryWindow.cpp \
     ./Windows/SettingsWindow.cpp \
     ./Windows/SnapshotsWindow.cpp \
     ./Windows/SelectBoxWindow.cpp \
-    ./Windows/SupportDialog.cpp\
+    ./Windows/SupportDialog.cpp \
+    ./Windows/TestProxyDialog.cpp \
     ./OnlineUpdater.cpp \
     ./Wizards/NewBoxWizard.cpp \
     ./Wizards/TemplateWizard.cpp \
@@ -88,6 +93,7 @@ SOURCES += ./main.cpp \
     ./Wizards/BoxAssistant.cpp \
     ./Windows/BoxImageWindow.cpp \
     ./Windows/CompressDialog.cpp \
+    ./Windows/ExtractDialog.cpp \
     ./Engine/BoxEngine.cpp \
     ./Engine/ScriptManager.cpp \
     ./Engine/BoxObject.cpp \
@@ -104,9 +110,12 @@ FORMS += ./Forms/SelectBoxWindow.ui \
     ./Forms/SettingsWindow.ui \
     ./Forms/SnapshotsWindow.ui \
     ./Forms/BoxImageWindow.ui \
-    ./Forms/CompressDialog.ui
+    ./Forms/CompressDialog.ui \
+    ./Forms/ExtractDialog.ui \
+    ./Forms/TestProxyDialog.ui
 
-TRANSLATIONS += sandman_de.ts \
+TRANSLATIONS += sandman_ar.ts \
+    sandman_de.ts \
     sandman_en.ts \
     sandman_es.ts \
     sandman_fr.ts \

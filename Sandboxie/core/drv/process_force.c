@@ -43,6 +43,7 @@ typedef struct _FORCE_BOX {
     BOX *box;
     LIST ForceFolder;
     LIST ForceProcess;
+    LIST ForceChildren;
 	LIST AlertFolder;
     LIST AlertProcess;
     LIST HostInjectProcess;
@@ -79,6 +80,16 @@ typedef struct _FORCE_PROCESS_2 {
 } FORCE_PROCESS_2;
 
 
+typedef struct _FORCE_PROCESS_3 {
+
+#ifndef USE_PROCESS_MAP
+    LIST_ELEM list_elem;
+#endif
+    HANDLE pid;
+    WCHAR boxname[BOXNAME_COUNT];
+
+} FORCE_PROCESS_3;
+
 //---------------------------------------------------------------------------
 // Functions
 //---------------------------------------------------------------------------
@@ -98,10 +109,12 @@ static void Process_GetDocArg(
 
 static BOOLEAN Process_IsDcomLaunchParent(HANDLE ParentId);
 
-static BOOLEAN Process_IsWindowsExplorerParent(HANDLE ParentId);
+//static BOOLEAN Process_IsWindowsExplorerParent(HANDLE ParentId);
 
 static BOOLEAN Process_IsImmersiveProcess(
     PEPROCESS ProcessObject, HANDLE ParentId, ULONG SessionId);
+
+//static BOOLEAN Process_IsProcessParent(HANDLE ParentId, WCHAR* Name);
 
 void Process_CreateForceData(
     LIST *boxes, const WCHAR *SidString, ULONG SessionId);
@@ -114,7 +127,7 @@ static BOX *Process_CheckForceFolder(
     LIST *boxes, const WCHAR *path, BOOLEAN alert, ULONG *IsAlert);
 
 static BOX *Process_CheckForceProcess(
-    LIST *boxes, const WCHAR *name, BOOLEAN alert, ULONG *IsAlert);
+    LIST *boxes, const WCHAR *name, BOOLEAN alert, ULONG *IsAlert, const WCHAR *ParentName);
 
 static void Process_CheckAlertFolder(
 	LIST *boxes, const WCHAR *path, ULONG *IsAlert);
@@ -149,9 +162,15 @@ _FX BOX *Process_GetForcedStartBox(
     ULONG alert;
     BOOLEAN check_force;
     BOOLEAN is_start_exe;
+    BOOLEAN image_sbie;
     BOOLEAN force_alert;
     BOOLEAN dfp_already_added;
     BOOLEAN same_image_name;
+
+
+	void* nbuf = NULL;
+	ULONG nlen = 0;
+	WCHAR* ParentName = NULL;
 
     check_force = TRUE;
 
@@ -203,6 +222,16 @@ _FX BOX *Process_GetForcedStartBox(
     }
 
     //
+    // initialize ParentName but only if the parent is not a system process
+    // 
+
+    if (!MyIsProcessRunningAsSystemAccount(ParentId)) {
+
+        Process_GetProcessName(
+            Driver_Pool, (ULONG_PTR)ParentId, &nbuf, &nlen, &ParentName);
+    }
+
+    //
     // initialize some more state before checking process
     //
 
@@ -236,7 +265,7 @@ _FX BOX *Process_GetForcedStartBox(
         // when the process is start.exe we ignore the CurDir and DocArg
         //
 
-        Process_IsSbieImage(ImagePath, NULL, &is_start_exe);
+        Process_IsSbieImage(ImagePath, &image_sbie, &is_start_exe);
 
         if ((! box) && CurDir && !is_start_exe)
             box = Process_CheckBoxPath(&boxes, CurDir);
@@ -248,7 +277,7 @@ _FX BOX *Process_GetForcedStartBox(
 
             if ((! box) && (! alert)) {
                 box = Process_CheckForceProcess(
-                    &boxes, ImageName, force_alert, &alert);
+                    &boxes, ImageName, force_alert, &alert, ParentName);
             }
 
             if ((! box) && CurDir && !is_start_exe && (! alert)) {
@@ -270,6 +299,31 @@ _FX BOX *Process_GetForcedStartBox(
 
             if ((alert == 1) && (! dfp_already_added))
                 Process_DfpInsert(PROCESS_TERMINATED, ProcessId);
+        }
+
+        //
+        // Check if the parent process has its children forced to be sandboxes
+        // exempt sandboxie components from this as start.exe can be used to 
+        // open selected processes in other boxes or set Dfp when desired.
+        // 
+        // we also must exempt conhost.exe for console applications
+        //
+
+        if (!box && !image_sbie && _wcsicmp(ImageName, L"conhost.exe") != 0) {
+
+            WCHAR boxname[BOXNAME_COUNT];
+
+            if (Process_FcpCheck(ParentId, boxname)) {
+
+                ULONG boxname_len = (wcslen(boxname) + 1) * sizeof(WCHAR);
+                for (FORCE_BOX* cur_box = List_Head(&boxes); cur_box; cur_box = List_Next(cur_box)) {
+                    if (cur_box->box->name_len == boxname_len
+                        && _wcsicmp(cur_box->box->name, boxname) == 0) {
+                        box = cur_box->box;
+                        break;
+                    }
+                }
+            }
         }
 
 		if (alert != 1)
@@ -324,11 +378,19 @@ _FX BOX *Process_GetForcedStartBox(
 		}
     }
 
+    if (box && Conf_Get_Boolean(NULL, L"NotifyForceProcessEnabled", 0, FALSE) && box != (BOX *)-1)
+    {
+        Log_Msg_Process(MSG_1321, ImageName, box->name, SessionId, ProcessId);
+    }
+
     //
     // finish
     //
 
     Process_DeleteForceData(&boxes);
+
+    if (nbuf)
+		Mem_Free(nbuf, nlen);
 
     if (DocArg)
         Mem_Free(DocArg, DocArg_len);
@@ -756,35 +818,43 @@ _FX BOOLEAN Process_IsDcomLaunchParent(HANDLE ParentId)
 
 
 //---------------------------------------------------------------------------
-// Process_IsWindowsExplorerParent
-//
-// Note: Not used at the moment but leaving in place
-//       as it may prove to be useful later.
+// Process_IsProcessParent
 //---------------------------------------------------------------------------
 
 
-_FX BOOLEAN Process_IsWindowsExplorerParent(HANDLE ParentId)
-{
-    BOOLEAN retval = FALSE;
+//_FX BOOLEAN Process_IsProcessParent(HANDLE ParentId, WCHAR* Name)
+//{
+//	BOOLEAN retval = FALSE;
+//
+//	void* nbuf;
+//	ULONG nlen;
+//	WCHAR* nptr;
+//
+//	Process_GetProcessName(
+//		Driver_Pool, (ULONG_PTR)ParentId, &nbuf, &nlen, &nptr);
+//	if (nbuf) {
+//
+//		if (_wcsicmp(nptr, Name) == 0) {
+//
+//			retval = TRUE;
+//		}
+//
+//		Mem_Free(nbuf, nlen);
+//	}
+//
+//	return retval;
+//}
 
-    void *nbuf;
-    ULONG nlen;
-    WCHAR *nptr;
 
-    Process_GetProcessName(
-                    Driver_Pool, (ULONG_PTR)ParentId, &nbuf, &nlen, &nptr);
-    if (nbuf) {
+//---------------------------------------------------------------------------
+// Process_IsWindowsExplorerParent
+//---------------------------------------------------------------------------
 
-        if (_wcsicmp(nptr, L"explorer.exe") == 0) {
 
-            retval = TRUE;
-        }
-
-        Mem_Free(nbuf, nlen);
-    }
-
-    return retval;
-}
+//_FX BOOLEAN Process_IsWindowsExplorerParent(HANDLE ParentId)
+//{
+//    return Process_IsProcessParent(ParentId,L"explorer.exe");
+//}
 
 
 //---------------------------------------------------------------------------
@@ -1065,6 +1135,7 @@ _FX void Process_CreateForceData(
 
         List_Init(&box->ForceFolder);
         List_Init(&box->ForceProcess);
+        List_Init(&box->ForceChildren);
 		List_Init(&box->AlertFolder);
         List_Init(&box->AlertProcess);
         List_Init(&box->HostInjectProcess);
@@ -1082,6 +1153,12 @@ _FX void Process_CreateForceData(
         //
 
         Process_AddForceProcesses(&box->ForceProcess, L"ForceProcess", section);
+
+        //
+        // scan list of ForceChildren settings for the box
+        //
+
+        Process_AddForceProcesses(&box->ForceChildren, L"ForceChildren", section);
 
 		//
         // scan list of AlertFolder settings for the box
@@ -1173,6 +1250,7 @@ _FX void Process_DeleteForceData(LIST *boxes)
 
         Process_DeleteForceDataFolders(&box->ForceFolder);
         Process_DeleteForceDataProcesses(&box->ForceProcess);
+        Process_DeleteForceDataProcesses(&box->ForceChildren);
         Process_DeleteForceDataFolders(&box->AlertFolder);
         Process_DeleteForceDataProcesses(&box->AlertProcess);
         Process_DeleteForceDataProcesses(&box->HostInjectProcess);
@@ -1368,7 +1446,7 @@ _FX BOOLEAN Process_CheckForceProcessList(
 
 
 _FX BOX *Process_CheckForceProcess(
-    LIST *boxes, const WCHAR *name, BOOLEAN alert, ULONG *IsAlert)
+    LIST *boxes, const WCHAR *name, BOOLEAN alert, ULONG *IsAlert, const WCHAR *ParentName)
 {
     FORCE_BOX *box;
 
@@ -1387,6 +1465,20 @@ _FX BOX *Process_CheckForceProcess(
 
             return box->box;
         }
+
+        if (ParentName && Process_CheckForceProcessList(box->box, &box->ForceChildren, ParentName) && _wcsicmp(name, L"Sandman.exe") != 0) { // except for sandman exe
+            if (alert) {
+                *IsAlert = 1;
+                return NULL;
+            }
+
+            return box->box;
+        }
+
+        //if (Process_IsWindowsExplorerParent(ParentId) && Conf_Get_Boolean(box->box->name, L"ForceExplorerChild", 0, FALSE)) {
+        //    if (_wcsicmp(name, L"Sandman.exe") != 0)
+        //        return box->box;
+        //}
 
         box = List_Next(box);
     }
@@ -1728,6 +1820,115 @@ _FX BOOLEAN Process_DfpCheck(HANDLE ProcessId, BOOLEAN *silent)
                 proc->silent = TRUE;
             else
                 *silent = proc->silent;
+
+            found = TRUE;
+#ifndef USE_PROCESS_MAP
+            break;
+        }
+
+        proc = List_Next(proc);
+#endif
+    }
+
+    ExReleaseResourceLite(Process_ListLock);
+    KeLowerIrql(irql);
+
+    return found;
+}
+
+
+//---------------------------------------------------------------------------
+// Process_FcpInsert
+//---------------------------------------------------------------------------
+
+
+_FX VOID Process_FcpInsert(HANDLE ProcessId, const WCHAR* boxname)
+{
+    FORCE_PROCESS_3 *proc;
+    KIRQL irql;
+
+    //
+    // called by Session_Api_ForceChildren, process list not locked
+    //
+
+    KeRaiseIrql(APC_LEVEL, &irql);
+    ExAcquireResourceExclusiveLite(Process_ListLock, TRUE);
+
+    Process_FcpDelete(ProcessId);
+
+    proc = Mem_Alloc(Driver_Pool, sizeof(FORCE_PROCESS_3));
+    proc->pid = ProcessId;
+    wmemcpy(proc->boxname, boxname, BOXNAME_COUNT);
+
+#ifdef USE_PROCESS_MAP
+    map_insert(&Process_MapFcp, ProcessId, proc, 0);
+#else
+    List_Insert_After(&Process_ListFcp, NULL, proc);
+#endif
+
+    ExReleaseResourceLite(Process_ListLock);
+    KeLowerIrql(irql);
+
+
+}
+
+
+//---------------------------------------------------------------------------
+// Process_FcpDelete
+//---------------------------------------------------------------------------
+
+
+_FX void Process_FcpDelete(HANDLE ProcessId)
+{
+    FORCE_PROCESS_3 *proc;
+
+#ifdef USE_PROCESS_MAP
+    if(map_take(&Process_MapFcp, ProcessId, &proc, 0))
+        Mem_Free(proc, sizeof(FORCE_PROCESS_3));
+#else
+    proc = List_Head(&Process_ListFcp);
+    while (proc) {
+
+        if (proc->pid == ProcessId) {
+
+            List_Remove(&Process_ListFcp, proc);
+
+            Mem_Free(proc, sizeof(FORCE_PROCESS_3));
+
+            return;
+        }
+
+        proc = List_Next(proc);
+    }
+#endif
+}
+
+
+//---------------------------------------------------------------------------
+// Process_FcpCheck
+//---------------------------------------------------------------------------
+
+
+_FX BOOLEAN Process_FcpCheck(HANDLE ProcessId, WCHAR* boxname)
+{
+    FORCE_PROCESS_3 *proc;
+    KIRQL irql;
+    BOOLEAN found = FALSE;
+
+    KeRaiseIrql(APC_LEVEL, &irql);
+    ExAcquireResourceExclusiveLite(Process_ListLock, TRUE);
+
+#ifdef USE_PROCESS_MAP
+    proc = map_get(&Process_MapFcp, ProcessId);
+    if (proc) {
+#else
+    proc = List_Head(&Process_ListFcp);
+    while (proc) {
+
+        if (proc->pid == ProcessId) {
+#endif
+            if(boxname)
+                wmemcpy(boxname, proc->boxname, BOXNAME_COUNT);
 
             found = TRUE;
 #ifndef USE_PROCESS_MAP

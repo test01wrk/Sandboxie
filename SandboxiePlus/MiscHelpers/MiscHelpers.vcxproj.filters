@@ -63,6 +63,9 @@
     <ClCompile Include="Common\ListItemModel.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+	 <ClCompile Include="Common\MultiErrorDialog.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
     <ClCompile Include="Common\MultiLineInputDialog.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -128,6 +131,12 @@
     </ClCompile>
     <ClCompile Include="Archive\ArchiveFS.cpp">
       <Filter>Archive</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\CheckableComboBox.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\CodeEdit.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +228,9 @@
     <QtMoc Include="Common\ListItemModel.h">
       <Filter>Common</Filter>
     </QtMoc>
+	<QtMoc Include="Common\MultiErrorDialog.h">
+      <Filter>Common</Filter>
+    </QtMoc>
     <QtMoc Include="Common\MultiLineInputDialog.h">
       <Filter>Common</Filter>
     </QtMoc>
@@ -268,6 +280,12 @@
       <Filter>Archive</Filter>
     </QtMoc>
     <QtMoc Include="Common\NeonEffect.h">
+      <Filter>Common</Filter>
+    </QtMoc>
+    <QtMoc Include="Common\CheckableComboBox.h">
+      <Filter>Common</Filter>
+    </QtMoc>
+    <QtMoc Include="Common\CodeEdit.h">
       <Filter>Common</Filter>
     </QtMoc>
   </ItemGroup>

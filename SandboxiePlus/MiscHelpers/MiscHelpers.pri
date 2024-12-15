@@ -35,6 +35,9 @@ HEADERS += ./MiscHelpers.h \
     ./Common/NeonEffect.h \
     ./Common/NetworkAccessManager.h \
     ./Common/MT/ThreadLock.h \
+    ./Common/MultiErrorDialog.h \
+    ./Common/CheckableComboBox.h \
+    ./Common/CodeEdit.h \
     ./Archive/Archive.h \
     ./Archive/ArchiveFS.h \
     ./Archive/ArchiveExtractor.h \
@@ -70,6 +73,9 @@ SOURCES += ./MiscHelpers.cpp \
     ./Common/TreeItemModel.cpp \
     ./Common/Xml.cpp \
     ./Common/MT/ThreadLock.cpp \
+    ./Common/MultiErrorDialog.cpp \
+    ./Common/CheckableComboBox.cpp \
+    ./Common/CodeEdit.cpp \
     ./Archive/Archive.cpp \
     ./Archive/ArchiveFS.cpp \
     ./Archive/ArchiveExtractor.cpp \

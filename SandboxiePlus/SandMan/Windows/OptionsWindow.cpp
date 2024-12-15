@@ -8,6 +8,9 @@
 #include "../MiscHelpers/Common/SettingsWidgets.h"
 #include "Helpers/WinAdmin.h"
 #include "../Wizards/TemplateWizard.h"
+#include "Helpers/TabOrder.h"
+#include "../MiscHelpers/Common/CodeEdit.h"
+#include "Helpers/IniHighlighter.h"
 
 
 class NoEditDelegate : public QStyledItemDelegate {
@@ -207,13 +210,15 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 	ui.tabsGeneral->setTabIcon(1, CSandMan::GetIcon("Folder"));
 	ui.tabsGeneral->setTabIcon(2, CSandMan::GetIcon("Move"));
 	ui.tabsGeneral->setTabIcon(3, CSandMan::GetIcon("NoAccess"));
-	ui.tabsGeneral->setTabIcon(4, CSandMan::GetIcon("Run"));
+	ui.tabsGeneral->setTabIcon(4, CSandMan::GetIcon("EFence"));
+	ui.tabsGeneral->setTabIcon(5, CSandMan::GetIcon("Run"));
 
 	ui.tabsSecurity->setCurrentIndex(0);
 	ui.tabsSecurity->setTabIcon(0, CSandMan::GetIcon("Shield7"));
 	ui.tabsSecurity->setTabIcon(1, CSandMan::GetIcon("Fence"));
 	ui.tabsSecurity->setTabIcon(2, CSandMan::GetIcon("Shield15"));
-	ui.tabsSecurity->setTabIcon(3, CSandMan::GetIcon("Shield12"));
+	ui.tabsSecurity->setTabIcon(3, CSandMan::GetIcon("Job"));
+	ui.tabsSecurity->setTabIcon(4, CSandMan::GetIcon("Shield12"));
 
 	ui.tabsForce->setCurrentIndex(0);
 	ui.tabsForce->setTabIcon(0, CSandMan::GetIcon("Force"));
@@ -227,7 +232,9 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 	ui.tabsInternet->setCurrentIndex(0);
 	ui.tabsInternet->setTabIcon(0, CSandMan::GetIcon("EthSocket2"));
 	ui.tabsInternet->setTabIcon(1, CSandMan::GetIcon("Wall"));
-	ui.tabsInternet->setTabIcon(2, CSandMan::GetIcon("Network3"));
+	ui.tabsInternet->setTabIcon(2, CSandMan::GetIcon("DNS"));
+	ui.tabsInternet->setTabIcon(3, CSandMan::GetIcon("Proxy"));
+	ui.tabsInternet->setTabIcon(4, CSandMan::GetIcon("Network3"));
 
 	ui.tabsAccess->setCurrentIndex(0);
 	ui.tabsAccess->setTabIcon(0, CSandMan::GetIcon("Folder"));
@@ -249,15 +256,17 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 	ui.tabsAdvanced->setCurrentIndex(0);
 	ui.tabsAdvanced->setTabIcon(0, CSandMan::GetIcon("Presets"));
 	ui.tabsAdvanced->setTabIcon(1, CSandMan::GetIcon("Trigger"));
-	ui.tabsAdvanced->setTabIcon(2, CSandMan::GetIcon("Anon"));
-	ui.tabsAdvanced->setTabIcon(3, CSandMan::GetIcon("Users"));
-	ui.tabsAdvanced->setTabIcon(4, CSandMan::GetIcon("SetLogging"));
-	ui.tabsAdvanced->setTabIcon(5, CSandMan::GetIcon("Bug"));
+	ui.tabsAdvanced->setTabIcon(2, CSandMan::GetIcon("Shield2"));
+	ui.tabsAdvanced->setTabIcon(3, CSandMan::GetIcon("Anon"));
+	ui.tabsAdvanced->setTabIcon(4, CSandMan::GetIcon("Users"));
+	ui.tabsAdvanced->setTabIcon(5, CSandMan::GetIcon("SetLogging"));
+	ui.tabsAdvanced->setTabIcon(6, CSandMan::GetIcon("Bug"));
 
 	ui.tabsTemplates->setCurrentIndex(0);
 	ui.tabsTemplates->setTabIcon(0, CSandMan::GetIcon("Template"));
 	ui.tabsTemplates->setTabIcon(1, CSandMan::GetIcon("Explore"));
 	ui.tabsTemplates->setTabIcon(2, CSandMan::GetIcon("Accessibility"));
+
 
 	int iViewMode = theConf->GetInt("Options/ViewMode", 1);
 	int iOptionLayout = theConf->GetInt("Options/NewConfigLayout", 2);
@@ -362,12 +371,16 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 #endif
 	AddIconToLabel(ui.lblAppearance, CSandMan::GetIcon("Design").pixmap(size,size));
 	AddIconToLabel(ui.lblBoxType, CSandMan::GetIcon("Maintenance").pixmap(size,size));
+	AddIconToLabel(ui.lblNotes, CSandMan::GetIcon("EditIni").pixmap(size,size));
 	AddIconToLabel(ui.lblStructure, CSandMan::GetIcon("Structure").pixmap(size,size));
 	AddIconToLabel(ui.lblMigration, CSandMan::GetIcon("Move").pixmap(size,size));
 	AddIconToLabel(ui.lblDelete, CSandMan::GetIcon("Erase").pixmap(size,size));
 	AddIconToLabel(ui.lblRawDisk, CSandMan::GetIcon("Disk").pixmap(size,size));
+	AddIconToLabel(ui.lblJob, CSandMan::GetIcon("Job3").pixmap(size,size));
+	AddIconToLabel(ui.lblLimit, CSandMan::GetIcon("Job2").pixmap(size,size));
 	AddIconToLabel(ui.lblSecurity, CSandMan::GetIcon("Shield5").pixmap(size,size));
 	AddIconToLabel(ui.lblElevation, CSandMan::GetIcon("Shield9").pixmap(size,size));
+	AddIconToLabel(ui.lblACLs, CSandMan::GetIcon("Ampel").pixmap(size,size));
 	AddIconToLabel(ui.lblBoxProtection, CSandMan::GetIcon("BoxConfig").pixmap(size,size));
 	AddIconToLabel(ui.lblNetwork, CSandMan::GetIcon("Network").pixmap(size,size));
 	AddIconToLabel(ui.lblPrinting, CSandMan::GetIcon("Printer").pixmap(size,size));
@@ -384,11 +397,15 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 	//AddIconToLabel(ui.lblComRpc, CSandMan::GetIcon("Objects").pixmap(size,size));
 
 	AddIconToLabel(ui.lblPrivilege, CSandMan::GetIcon("Token").pixmap(size,size));
-	AddIconToLabel(ui.lblFence, CSandMan::GetIcon("BFance").pixmap(size,size));
 	AddIconToLabel(ui.lblToken, CSandMan::GetIcon("Sandbox").pixmap(size,size));
 	AddIconToLabel(ui.lblIsolation, CSandMan::GetIcon("Fence").pixmap(size,size));
+	AddIconToLabel(ui.lblDesktop, CSandMan::GetIcon("Monitor").pixmap(size,size));
 	AddIconToLabel(ui.lblAccess, CSandMan::GetIcon("NoAccess").pixmap(size,size));
 	AddIconToLabel(ui.lblProtection, CSandMan::GetIcon("EFence").pixmap(size,size));
+
+	AddIconToLabel(ui.lblPrivacyProtection, CSandMan::GetIcon("Anon").pixmap(size,size));
+	AddIconToLabel(ui.lblProcessHiding, CSandMan::GetIcon("Cmd").pixmap(size,size));
+
 	AddIconToLabel(ui.lblMonitor, CSandMan::GetIcon("Monitor").pixmap(size,size));
 	AddIconToLabel(ui.lblTracing, CSandMan::GetIcon("SetLogging").pixmap(size,size));
 
@@ -397,6 +414,12 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 		foreach(QTreeWidget* pTree, this->findChildren<QTreeWidget*>()) 
 			pTree->setAlternatingRowColors(true);
 	}
+
+	m_pCodeEdit = new CCodeEdit(new CIniHighlighter(theGUI->m_DarkTheme));
+	ui.txtIniSection->parentWidget()->layout()->replaceWidget(ui.txtIniSection, m_pCodeEdit);
+	delete ui.txtIniSection;
+	ui.txtIniSection = NULL;
+	connect(m_pCodeEdit, SIGNAL(textChanged()), this, SLOT(OnIniChanged()));
 
 	CreateDebug();
 
@@ -458,9 +481,16 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 	// Force
 	connect(ui.btnForceProg, SIGNAL(clicked(bool)), this, SLOT(OnForceProg()));
 	QMenu* pFileBtnMenu = new QMenu(ui.btnForceProg);
-	pFileBtnMenu->addAction(tr("Browse for File"), this, SLOT(OnForceBrowse()));
+	pFileBtnMenu->addAction(tr("Browse for File"), this, SLOT(OnForceBrowseProg()));
 	ui.btnForceProg->setPopupMode(QToolButton::MenuButtonPopup);
 	ui.btnForceProg->setMenu(pFileBtnMenu);
+
+	connect(ui.btnForceChild, SIGNAL(clicked(bool)), this, SLOT(OnForceChild()));
+	pFileBtnMenu = new QMenu(ui.btnForceChild);
+	pFileBtnMenu->addAction(tr("Browse for File"), this, SLOT(OnForceBrowseChild()));
+	ui.btnForceChild->setPopupMode(QToolButton::MenuButtonPopup);
+	ui.btnForceChild->setMenu(pFileBtnMenu);
+
 	connect(ui.btnForceDir, SIGNAL(clicked(bool)), this, SLOT(OnForceDir()));
 	connect(ui.btnDelForce, SIGNAL(clicked(bool)), this, SLOT(OnDelForce()));
 	connect(ui.chkShowForceTmpl, SIGNAL(clicked(bool)), this, SLOT(OnShowForceTmpl()));
@@ -476,6 +506,7 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 	ui.btnBreakoutProg->setPopupMode(QToolButton::MenuButtonPopup);
 	ui.btnBreakoutProg->setMenu(pFileBtnMenu2);
 	connect(ui.btnBreakoutDir, SIGNAL(clicked(bool)), this, SLOT(OnBreakoutDir()));
+	connect(ui.btnBreakoutDoc, SIGNAL(clicked(bool)), this, SLOT(OnBreakoutDoc()));
 	connect(ui.btnDelBreakout, SIGNAL(clicked(bool)), this, SLOT(OnDelBreakout()));
 	connect(ui.chkShowBreakoutTmpl, SIGNAL(clicked(bool)), this, SLOT(OnShowBreakoutTmpl()));
 	//ui.treeBreakout->setEditTriggers(QAbstractItemView::DoubleClicked);
@@ -512,6 +543,7 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 	connect(ui.chkStartBlockMsg, SIGNAL(clicked(bool)), this, SLOT(OnStartChanged()));
 	ui.treeStart->setItemDelegateForColumn(0, new ProgramsDelegate(this, ui.treeStart, -1, this));
 	connect(ui.treeStart, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, SLOT(OnStartChanged(QTreeWidgetItem *, int)));
+	connect(ui.chkAlertBeforeStart, SIGNAL(clicked(bool)), this, SLOT(OnStartChanged()));
 	//
 
 	CreateNetwork();
@@ -543,6 +575,7 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 		pTmplBtnMenu->addAction(tr("Add %1 Template").arg(CTemplateWizard::GetTemplateLabel((CTemplateWizard::ETemplateType)i)), this, SLOT(OnTemplateWizard()))->setData(i);
 	ui.btnAddTemplate->setPopupMode(QToolButton::MenuButtonPopup);
 	ui.btnAddTemplate->setMenu(pTmplBtnMenu);
+	connect(ui.btnOpenTemplate, SIGNAL(clicked(bool)), this, SLOT(OnOpenTemplate()));
 	connect(ui.btnDelTemplate, SIGNAL(clicked(bool)), this, SLOT(OnDelTemplates()));
 	connect(ui.chkScreenReaders, SIGNAL(clicked(bool)), this, SLOT(OnScreenReaders()));
 	//
@@ -555,9 +588,7 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 	connect(ui.btnEditIni, SIGNAL(clicked(bool)), this, SLOT(OnEditIni()));
 	connect(ui.btnSaveIni, SIGNAL(clicked(bool)), this, SLOT(OnSaveIni()));
 	connect(ui.btnCancelEdit, SIGNAL(clicked(bool)), this, SLOT(OnCancelEdit()));
-	connect(ui.txtIniSection, SIGNAL(textChanged()), this, SLOT(OnIniChanged()));
-
-	//
+	//connect(ui.txtIniSection, SIGNAL(textChanged()), this, SLOT(OnIniChanged()));
 
 	connect(ui.buttonBox->button(QDialogButtonBox::Ok), SIGNAL(clicked(bool)), this, SLOT(ok()));
 	connect(ui.buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked(bool)), this, SLOT(apply()));
@@ -624,11 +655,13 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 	if (iOptionTree == 2)
 		iOptionTree = iViewMode == 2 ? 1 : 0;
 
-	if (iOptionTree) 
+	if (iOptionTree) {
+		m_HoldChange = true;
 		OnSetTree();
+		m_HoldChange = false;
+	}
 	else {
-		//this->setMinimumHeight(490);
-		this->setMinimumHeight(390);
+		//this->setMinimumHeight(390);
 
 		QWidget* pSearch = AddConfigSearch(ui.tabs);
 		ui.horizontalLayout->insertWidget(0, pSearch);
@@ -643,6 +676,8 @@ COptionsWindow::COptionsWindow(const QSharedPointer<CSbieIni>& pBox, const QStri
 		this->addAction(pSetTree);
 	}
 	m_pSearch->setPlaceholderText(tr("Search for options"));
+	
+	SetTabOrder(this);
 }
 
 void COptionsWindow::ApplyIniEditFont()
@@ -650,7 +685,8 @@ void COptionsWindow::ApplyIniEditFont()
 	QFont font; // defaults to application font
 	auto fontName = theConf->GetString("UIConfig/IniFont", "").trimmed();
 	if (!fontName.isEmpty()) bool dummy = font.fromString(fontName); // ignore fromString() fail
-	ui.txtIniSection->setFont(font);
+	//ui.txtIniSection->setFont(font);
+	m_pCodeEdit->setFont(font);
 }
 
 void COptionsWindow::OnSetTree()
@@ -698,6 +734,7 @@ bool COptionsWindow::eventFilter(QObject *source, QEvent *event)
 		CloseNetFwEdit(false);
 		CloseAccessEdit(false);
 		CloseOptionEdit(false);
+        CloseNetProxyEdit(false);
 		return true; // cancel event
 	}
 
@@ -709,6 +746,7 @@ bool COptionsWindow::eventFilter(QObject *source, QEvent *event)
 		CloseNetFwEdit(true);
 		CloseAccessEdit(true);
 		CloseOptionEdit(true);
+        CloseNetProxyEdit(true);
 		return true; // cancel event
 	}
 	
@@ -725,6 +763,11 @@ bool COptionsWindow::eventFilter(QObject *source, QEvent *event)
 	if (source == ui.treeNetFw->viewport() && event->type() == QEvent::MouseButtonPress)
 	{
 		CloseNetFwEdit();
+	}
+
+    if (source == ui.treeProxy->viewport() && event->type() == QEvent::MouseButtonPress)
+	{
+		CloseNetProxyEdit();
 	}
 
 	if (//source == ui.treeAccess->viewport() 
@@ -821,6 +864,8 @@ void COptionsWindow::LoadConfig()
 
 	LoadINetAccess();
 	LoadNetFwRules();
+	LoadDnsFilter();
+	LoadNetProxy();
 
 	LoadAccessList();
 
@@ -877,7 +922,7 @@ void COptionsWindow::WriteAdvancedCheck(QCheckBox* pCheck, const QString& Name, 
 	}
 
 	if (!StrValue.isEmpty()) {
-		SB_STATUS Status = m_pBox->InsertText(Name, StrValue);
+		SB_STATUS Status = m_pBox->AppendText(Name, StrValue);
 		if (!Status)
 			throw Status;
 	}
@@ -954,6 +999,10 @@ void COptionsWindow::SaveConfig()
 			SaveINetAccess();
 		if (m_NetFwRulesChanged)
 			SaveNetFwRules();
+		if (m_DnsFilterChanged)
+			SaveDnsFilter();
+		if (m_NetProxyChanged)
+			SaveNetProxy();
 
 		if (m_AccessChanged) {
 			SaveAccessList();
@@ -996,6 +1045,7 @@ bool COptionsWindow::apply()
 	CloseNetFwEdit();
 	CloseAccessEdit();
 	CloseOptionEdit();
+    CloseNetProxyEdit();
 
 	if (!ui.btnEditIni->isEnabled())
 		SaveIniSection();
@@ -1043,6 +1093,8 @@ void COptionsWindow::reject()
 	// ||  m_RestrictionChanged
 	 || m_INetBlockChanged
 	 || m_NetFwRulesChanged
+	 || m_DnsFilterChanged
+	 || m_NetProxyChanged
 	 || m_AccessChanged
 	 || m_TemplatesChanged
 	 || m_FoldersChanged
@@ -1080,7 +1132,7 @@ void COptionsWindow::showTab(const QString& Name)
 	else
 		m_pStack->setCurrentWidget(pWidget);
 
-	SafeShow(this);
+	CSandMan::SafeShow(this);
 }
 
 void COptionsWindow::SetProgramItem(QString Program, QTreeWidgetItem* pItem, int Column, const QString& Suffix, bool bList)
@@ -1150,19 +1202,6 @@ void COptionsWindow::UpdateCurrentTab()
 	{
 		ui.chkVmRead->setChecked(IsAccessEntrySet(eIPC, "", eReadOnly, "$:*"));
 	}
-	else if (m_pCurrentTab ==ui.tabPrivileges || m_pCurrentTab == ui.tabSecurity)
-	{
-		if (IsAccessEntrySet(eWnd, "", eOpen, "*"))
-		{
-			ui.chkAddToJob->setEnabled(false);
-			ui.chkAddToJob->setChecked(false);
-		}
-		else
-		{
-			ui.chkAddToJob->setEnabled(true);
-			ui.chkAddToJob->setChecked(!m_pBox->GetBool("NoAddProcessToJob", false));
-		}
-	}
 	else if (m_pCurrentTab == ui.tabStart || m_pCurrentTab == ui.tabForce)
 	{
 		if (IsAccessEntrySet(eIPC, "!<StartRunAccess>", eClosed, "*"))
@@ -1180,6 +1219,11 @@ void COptionsWindow::UpdateCurrentTab()
 	else if (m_pCurrentTab == ui.tabInternet || m_pCurrentTab == ui.tabINet || m_pCurrentTab == ui.tabNetConfig)
 	{
 		LoadBlockINet();
+	}
+	else if (m_pCurrentTab == ui.tabDNS || m_pCurrentTab == ui.tabNetProxy)
+	{
+		if (!m_HoldChange && !m_pCurrentTab->isEnabled())
+			theGUI->CheckCertificate(this, 2);
 	}
 	else if (m_pCurrentTab == ui.tabCOM) {
 		CheckOpenCOM();
@@ -1263,7 +1307,8 @@ void COptionsWindow::LoadIniSection()
 		Section = m_pBox->GetAPI()->SbieIniGetEx(m_pBox->GetName(), "");
 
 	m_HoldChange = true;
-	ui.txtIniSection->setPlainText(Section);
+	//ui.txtIniSection->setPlainText(Section);
+	m_pCodeEdit->SetCode(Section);
 	m_HoldChange = false;
 }
 
@@ -1292,19 +1337,20 @@ void COptionsWindow::SaveIniSection()
 		//if (!OldSettings.removeOne(Settings))
 		//	NewSettings.append(Settings);
 
-		m_pBox->InsertText(Settings.first, Settings.second);
+		m_pBox->AppendText(Settings.first, Settings.second);
 	}
 
 	//for (QList<QPair<QString, QString>>::const_iterator I = OldSettings.begin(); I != OldSettings.end(); ++I)
 	//	m_pBox->DelValue(I->first, I->second);
 	//
 	//for (QList<QPair<QString, QString>>::const_iterator I = NewSettings.begin(); I != NewSettings.end(); ++I)
-	//	m_pBox->InsertText(I->first, I->second);
+	//	m_pBox->AppendText(I->first, I->second);
 
 	m_pBox->SetRefreshOnChange(true);
 	m_pBox->GetAPI()->CommitIniChanges();*/
 
-	m_pBox->GetAPI()->SbieIniSet(m_pBox->GetName(), "", ui.txtIniSection->toPlainText());
+	//m_pBox->GetAPI()->SbieIniSet(m_pBox->GetName(), "", ui.txtIniSection->toPlainText());
+	m_pBox->GetAPI()->SbieIniSet(m_pBox->GetName(), "", m_pCodeEdit->GetCode());
 
 	LoadIniSection();
 }

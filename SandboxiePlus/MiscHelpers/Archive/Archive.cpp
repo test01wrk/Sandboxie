@@ -216,7 +216,7 @@ bool CArchive::Close()
 	return false;
 }
 
-bool CArchive::Update(QMap<int, QIODevice*> *FileList, bool bDelete, const SCompressParams* Params)
+bool CArchive::Update(QMap<int, QIODevice*> *FileList, bool bDelete, const SCompressParams* Params, QMap<int, quint32> *AttribList)
 {
 	if(!theArc.IsOperational())
 	{
@@ -255,21 +255,22 @@ bool CArchive::Update(QMap<int, QIODevice*> *FileList, bool bDelete, const SComp
 		*/
 		const wchar_t *names[] =
 		{
-			L"s",
 			L"x",
 			//L"mt",
+			L"s",
 			L"he"
 		};
 		const int kNumProps = sizeof(names) / sizeof(names[0]);
 		NWindows::NCOM::CPropVariant values[kNumProps] =
 		{
-			(Params ? Params->bSolid : false),		// solid mode OFF
 			(UInt32)(Params ? Params->iLevel : 5),	// compression level = 9 - ultra
 			//(UInt32)8,							// set number of CPU threads
-			true									// file name encryption (7z only)
+			// 7z only
+			(Params ? Params->bSolid : false),		// solid mode OFF
+			(Params ? Params->b7z : false)		    // file name encryption
 		};
 
-		if(setProperties->SetProperties(names, values, kNumProps) != S_OK)
+		if(setProperties->SetProperties(names, values, Params->b7z ? kNumProps : (kNumProps - 2)) != S_OK)
 		{
 			TRACE(L"ISetProperties failed");
 			Q_ASSERT(0);
@@ -281,7 +282,7 @@ bool CArchive::Update(QMap<int, QIODevice*> *FileList, bool bDelete, const SComp
 	{
 		Files.insert(ArcIndex, new CArchiveIO(FileList->value(ArcIndex), QIODevice::NotOpen, bDelete));
 		FileProperty(ArcIndex, "Size", FileList->value(ArcIndex)->size());
-		FileProperty(ArcIndex, "Attrib", 32);
+		FileProperty(ArcIndex, "Attrib", AttribList ? AttribList->value(ArcIndex, 32) : 32); // FILE_ATTRIBUTE_ARCHIVE
 	}
 
 	//TRACE(L"%S Archive %S Opened for update", QS2CS(theArc.GetArchiveName(Info.FormatIndex)), QS2CS(m_ArchivePath));

@@ -119,6 +119,8 @@ bool DriverAssist::InitializePortAndThreads()
     PSECURITY_DESCRIPTOR sd;
     ULONG i, n;
 
+    InitSIDs();
+
     //
     // create a security descriptor with a limited DACL
     // owner:system, group:system, dacl(allow;generic_all;system)
@@ -301,7 +303,7 @@ void DriverAssist::MsgWorkerThread(void *MyMsg)
     }
     else if (msgid == SVC_LOG_MESSAGE) {
 
-        LogMessage();
+        LogMessage(data_ptr);
 
     }
     else if (msgid == SVC_CONFIG_UPDATED) {

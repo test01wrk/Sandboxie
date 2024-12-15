@@ -1092,11 +1092,26 @@ HANDLE GuiServer::GetJobObjectForAssign(const WCHAR *boxname)
                     //
 
                     if (ok) {
+
                         JOBOBJECT_EXTENDED_LIMIT_INFORMATION jobELInfo = {0};
                         jobELInfo.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_BREAKAWAY_OK
                                                                    | JOB_OBJECT_LIMIT_SILENT_BREAKAWAY_OK;
-                    
-                        ok = SetInformationJobObject(hJobObject, JobObjectExtendedLimitInformation, &jobELInfo, sizeof(jobELInfo));
+                        SIZE_T TotalMemoryLimit = (SIZE_T)SbieApi_QueryConfNumber64(boxname, L"TotalMemoryLimit", 0);
+                        ULONG ProcessNumberLimit = SbieApi_QueryConfNumber(boxname, L"ProcessNumberLimit", 0);
+                        SIZE_T ProcessMemoryLimit = (SIZE_T)SbieApi_QueryConfNumber64(boxname, L"ProcessMemoryLimit", 0);
+						if (TotalMemoryLimit != 0) {
+							jobELInfo.JobMemoryLimit = TotalMemoryLimit;
+							jobELInfo.BasicLimitInformation.LimitFlags |= JOB_OBJECT_LIMIT_JOB_MEMORY;
+						}
+						if (ProcessNumberLimit != 0) {
+							jobELInfo.BasicLimitInformation.ActiveProcessLimit = ProcessNumberLimit;
+							jobELInfo.BasicLimitInformation.LimitFlags |= JOB_OBJECT_LIMIT_ACTIVE_PROCESS;
+						}
+						if (ProcessMemoryLimit != 0) {
+							jobELInfo.ProcessMemoryLimit = ProcessMemoryLimit;
+							jobELInfo.BasicLimitInformation.LimitFlags |= JOB_OBJECT_LIMIT_PROCESS_MEMORY;
+						}
+						ok = SetInformationJobObject(hJobObject, JobObjectExtendedLimitInformation, &jobELInfo, sizeof(jobELInfo));
                     }
                 }
                 if (! ok) {
@@ -1343,6 +1358,9 @@ bool GuiServer::GetWindowStationAndDesktopName(WCHAR *out_name)
             }
         }
     }
+
+    if(label_sd != NULL)
+        LocalFree(label_sd);
 
     ReportError2336(-1, errlvl, GetLastError());
     return false;
@@ -3514,26 +3532,28 @@ ULONG GuiServer::GetRawInputDeviceInfoSlave(SlaveArgs *args)
         return STATUS_INFO_LENGTH_MISMATCH;
 
     LPVOID reqData = req->hasData ? (BYTE*)req + sizeof(GUI_GET_RAW_INPUT_DEVICE_INFO_REQ) : NULL;
-    PUINT pcbSize = NULL;
-    if (req->cbSize != -1)
-        pcbSize = &req->cbSize;
+
+    ULONG lenData = 0;
+    if (reqData && req->cbSize > 0) {
+        lenData = req->cbSize;
+        if (req->uiCommand == RIDI_DEVICENAME && req->unicode) {
+            lenData *= sizeof(WCHAR);
+        }
+    }
 
     SetLastError(ERROR_SUCCESS);
     if (req->unicode) {
-        rpl->retval = GetRawInputDeviceInfoW((HANDLE)req->hDevice, req->uiCommand, reqData, pcbSize);
+        rpl->retval = GetRawInputDeviceInfoW((HANDLE)req->hDevice, req->uiCommand, reqData, &req->cbSize);
     }
     else {
-        rpl->retval = GetRawInputDeviceInfoA((HANDLE)req->hDevice, req->uiCommand, reqData, pcbSize);
+        rpl->retval = GetRawInputDeviceInfoA((HANDLE)req->hDevice, req->uiCommand, reqData, &req->cbSize);
     }
     rpl->error = GetLastError();
 
     rpl->cbSize = req->cbSize;
-    if (pcbSize && req->hasData)
-    {
-        // Note: pcbSize seems to be in tchars not in bytes!
-        ULONG lenData = (*pcbSize) * (req->unicode ? sizeof(WCHAR) : 1);
 
-        rpl->hasData = TRUE;
+    if (lenData) {
+		rpl->hasData = TRUE;
         LPVOID rplData = (BYTE*)rpl + sizeof(GUI_GET_RAW_INPUT_DEVICE_INFO_RPL);
         memcpy(rplData, reqData, lenData);
     }
@@ -4650,3 +4670,50 @@ ULONG GuiServer::KillJob(SlaveArgs* args)
       
     return STATUS_SUCCESS;
 }
+
+
+//---------------------------------------------------------------------------
+// StartAsync
+//---------------------------------------------------------------------------
+
+struct SStartupParam
+{
+    ULONG session_id;
+    HANDLE hEvent;
+};
+
+ULONG GuiServer__StartupWorker(void* _Param)
+{
+    SStartupParam* pParam = (SStartupParam*)_Param;
+
+    //
+    // thart the proxy process
+    //
+
+    GuiServer::GetInstance()->StartSlave(pParam->session_id);
+
+    //
+    // notify the requesting party that the server is now up and running
+    //
+
+    SetEvent(pParam->hEvent);
+
+    HeapFree(GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS, pParam);
+    return 0;
+}
+
+ULONG GuiServer::StartAsync(ULONG session_id, HANDLE hEvent)
+{
+    SStartupParam* pParam = (SStartupParam*)HeapAlloc(GetProcessHeap(), 0, sizeof(SStartupParam));
+    pParam->session_id = session_id;
+    pParam->hEvent = hEvent;
+
+    HANDLE hThread = CreateThread(NULL, 0, GuiServer__StartupWorker, (void *)pParam, 0, NULL);
+    if (!hThread) {
+        HeapFree(GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS, pParam);
+        return STATUS_UNSUCCESSFUL;
+    }
+    CloseHandle(hThread);
+    return STATUS_SUCCESS;
+}
+

@@ -33,6 +33,7 @@ UsedUserAreasWarning=no
 VersionInfoCopyright=Copyright (C) 2020-2024 by David Xanatos (xanasoft.com)
 VersionInfoVersion={#MyAppVersion}
 SetupIconFile=SandManInstall.ico
+SignTool=sha256
 
 ; Handled in code section as always want DirPage for portable mode.
 DisableDirPage=no
@@ -52,9 +53,23 @@ Name: "RefreshBuild"; Description: "{cm:RefreshBuild}"; MinVersion: 0.0,5.0; Che
 [Files]
 ; Both portable and install.
 Source: ".\Release\{#MyAppSrc}\*"; DestDir: "{app}"; MinVersion: 0.0,5.0; Flags: recursesubdirs ignoreversion; Excludes: "*.pdb"
-; include the driver pdb
+
+; Include the .pdb files for all builds.
 Source: ".\Release\{#MyAppSrc}\SbieDrv.pdb"; DestDir: "{app}"; MinVersion: 0.0,5.0; Flags: ignoreversion
 Source: ".\Release\{#MyAppSrc}\SbieDll.pdb"; DestDir: "{app}"; MinVersion: 0.0,5.0; Flags: ignoreversion
+
+; Include 32-bit .pdb file only in x64 and ARM64 builds.
+#if MyAppArch == "x64"
+Source: ".\Release\{#MyAppSrc}\32\SbieDll.pdb"; DestDir: "{app}\32\"; MinVersion: 0.0,5.0; Flags: ignoreversion
+#endif
+#if MyAppArch == "arm64"
+Source: ".\Release\{#MyAppSrc}\32\SbieDll.pdb"; DestDir: "{app}\32\"; MinVersion: 0.0,5.0; Flags: ignoreversion
+#endif
+
+; Include 64-bit .pdb file only in ARM64 builds.
+#if MyAppArch == "arm64"
+Source: ".\Release\{#MyAppSrc}\64\SbieDll.pdb"; DestDir: "{app}\64\"; MinVersion: 0.0,5.0; Flags: ignoreversion
+#endif
 
 ; Only if portable.
 Source: ".\Sandboxie.ini"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist; Check: IsPortable
@@ -79,11 +94,15 @@ Filename: "{app}\{#MyAppName}.ini"; Section: "Options"; Key: "UiLanguage"; Strin
 
 
 [InstallDelete]
-; Remove deprecated files at install time.
+; Delete obsolete files as the first step of installation.
 Type: filesandordirs; Name: "{app}\translations"
 Type: files; Name: "{app}\SbieDrv.sys.w10"
 Type: files; Name: "{app}\SbieDrv.sys.rc4"
 Type: files; Name: "{app}\SbieIni.exe.sig"
+Type: files; Name: "{app}\libcrypto-1_1-x64.dll"
+Type: files; Name: "{app}\libssl-1_1-x64.dll"
+; Delete existing .pdb files before installing new ones.
+Type: files; Name: "{app}\*.pdb"
 
 
 [Registry]
@@ -132,7 +151,10 @@ Filename: "{app}\Start.exe"; Parameters: "open_agent:sandman.exe"; Description: 
 
 [UninstallDelete]
 Type: dirifempty; Name: "{app}"
+Type: files; Name: "{localappdata}\{#MyAppName}\addons.json"
 Type: dirifempty; Name: "{localappdata}\{#MyAppName}"
+Type: files; Name: "{localappdata}\Temp\qtsingleapp-sandma-*"
+Type: dirifempty; Name: "{localappdata}\Temp\sandboxie-updater"
 
 
 [Messages]
@@ -155,6 +177,16 @@ begin
   if (ExpandConstant('{param:portable|0}') = '1') or Portable then begin
     Result := True;
   end;
+end;
+
+function Is64BitInstallMode: Boolean;
+begin
+  Result := (ProcessorArchitecture = paX64) or (ProcessorArchitecture = paARM64);
+end;
+
+function IsARM64InstallMode: Boolean;
+begin
+  Result := ProcessorArchitecture = paARM64;
 end;
 
 function IsOpenSandMan(): Boolean;
@@ -463,7 +495,7 @@ begin
   end;
 
   begin
-  
+
     // Return the path to use for the value of IniPath.
     if RegQueryStringValue(HKLM, 'SYSTEM\CurrentControlSet\Services\SbieDrv', 'IniPath', IniPath) then
     begin
@@ -636,6 +668,14 @@ begin
     Log('Debug: SbieCtrl /uninstall');
     Exec(ExpandConstant('{app}\sbiectrl.exe'), '/uninstall', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ExecRet);
   end;
+  if RegKeyExists(HKCU, 'Software\Xanasoft\{#MyAppName}') then begin
+    Log('Debug: RegDeleteKeyIncludingSubkeys HKCU\Software\Xanasoft\Sandboxie-Plus');
+    RegDeleteKeyIncludingSubkeys(HKCU, 'Software\Xanasoft\{#MyAppName}');
+  end;
+  if RegKeyExists(HKCU, 'Software\Xanasoft') then begin
+    Log('Debug: RegDeleteKeyIfEmpty HKCU\Software\Xanasoft');
+    RegDeleteKeyIfEmpty(HKCU, 'Software\Xanasoft');
+  end;
 end;
 
 
@@ -667,7 +707,7 @@ begin
     exit;
   end;
 
-  // remove shell integration.
+  // Remove shell integration.
   ShellUninstall();
 
 end;

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>785</width>
-    <height>539</height>
+    <width>817</width>
+    <height>555</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -31,8 +31,8 @@
   <property name="windowTitle">
    <string>SandboxiePlus Options</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
-   <item>
+  <layout class="QGridLayout" name="gridLayout_93">
+   <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QTabWidget" name="tabs">
@@ -45,7 +45,7 @@
         <enum>QTabWidget::North</enum>
        </property>
        <property name="currentIndex">
-        <number>7</number>
+        <number>10</number>
        </property>
        <widget class="QWidget" name="tabGeneral">
         <attribute name="title">
@@ -55,7 +55,7 @@
          <item row="0" column="0">
           <widget class="QTabWidget" name="tabsGeneral">
            <property name="currentIndex">
-            <number>3</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="tabOptions">
             <attribute name="title">
@@ -64,77 +64,11 @@
             <layout class="QGridLayout" name="gridLayout_27">
              <item row="1" column="0">
               <layout class="QGridLayout" name="gridLayout_8">
-               <item row="0" column="1">
-                <widget class="QLabel" name="label_30">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
+               <item row="2" column="3" colspan="2">
+                <widget class="QComboBox" name="cmbBoxBorder"/>
                </item>
-               <item row="4" column="1" colspan="7">
-                <widget class="QCheckBox" name="chkPinToTray">
-                 <property name="text">
-                  <string>Always show this sandbox in the systray list (Pinned)</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0" colspan="3">
-                <widget class="QLabel" name="label_20">
-                 <property name="text">
-                  <string>Sandbox Indicator in title:</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0" colspan="3">
-                <widget class="QLabel" name="label_21">
-                 <property name="text">
-                  <string>Sandboxed window border:</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="11" column="2" colspan="5">
-                <spacer name="horizontalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="2" column="6">
-                <widget class="QSpinBox" name="spinBorderWidth">
-                 <property name="minimum">
-                  <number>1</number>
-                 </property>
-                 <property name="maximum">
-                  <number>10</number>
-                 </property>
-                 <property name="value">
-                  <number>1</number>
-                 </property>
-                </widget>
+               <item row="1" column="3" colspan="2">
+                <widget class="QComboBox" name="cmbBoxIndicator"/>
                </item>
                <item row="10" column="1" colspan="6">
                 <widget class="QLabel" name="lblSupportCert">
@@ -152,27 +86,16 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="3" colspan="2">
-                <widget class="QComboBox" name="cmbBoxIndicator"/>
-               </item>
-               <item row="2" column="5">
-                <widget class="QToolButton" name="btnBorderColor">
+               <item row="7" column="0" colspan="3">
+                <widget class="QLabel" name="label_57">
                  <property name="text">
-                  <string/>
+                  <string>Box Type Preset:</string>
                  </property>
-                </widget>
-               </item>
-               <item row="8" column="1" colspan="6">
-                <widget class="QLabel" name="label_58">
-                 <property name="text">
-                  <string/>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                  </property>
-                </widget>
-               </item>
-               <item row="3" column="1" colspan="7">
-                <widget class="QCheckBox" name="chkShowForRun">
-                 <property name="text">
-                  <string>Show this box in the 'run in box' selection prompt</string>
+                 <property name="buddy">
+                  <cstring>cmbBoxType</cstring>
                  </property>
                 </widget>
                </item>
@@ -192,7 +115,48 @@
                  </property>
                 </widget>
                </item>
-               <item row="11" column="1">
+               <item row="2" column="5">
+                <widget class="QToolButton" name="btnBorderColor">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1" colspan="7">
+                <widget class="QCheckBox" name="chkPinToTray">
+                 <property name="text">
+                  <string>Always show this sandbox in the systray list (Pinned)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="13" column="2" colspan="5">
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="8" column="1" colspan="6">
+                <widget class="QLabel" name="label_58">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1" colspan="7">
+                <widget class="QCheckBox" name="chkShowForRun">
+                 <property name="text">
+                  <string>Show this box in the 'run in box' selection prompt</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="13" column="1">
                 <spacer name="verticalSpacer_17">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
@@ -205,57 +169,22 @@
                  </property>
                 </spacer>
                </item>
-               <item row="7" column="3" colspan="2">
-                <widget class="QComboBox" name="cmbBoxType"/>
-               </item>
-               <item row="2" column="3" colspan="2">
-                <widget class="QComboBox" name="cmbBoxBorder"/>
-               </item>
-               <item row="7" column="0" colspan="3">
-                <widget class="QLabel" name="label_57">
-                 <property name="text">
-                  <string>Box Type Preset:</string>
+               <item row="0" column="1">
+                <widget class="QLabel" name="label_30">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
                  </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="7">
-                <widget class="QLabel" name="label_14">
-                 <property name="text">
-                  <string>px Width</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="0" colspan="2">
-                <widget class="QLabel" name="lblBoxType">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16</width>
+                   <height>16777215</height>
+                  </size>
                  </property>
                  <property name="text">
-                  <string>General Configuration</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="lblAppearance">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Appearance</string>
+                  <string/>
                  </property>
                 </widget>
                </item>
@@ -267,12 +196,119 @@
                  <property name="alignment">
                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                  </property>
+                 <property name="buddy">
+                  <cstring>cmbDblClick</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0" colspan="3">
+                <widget class="QLabel" name="label_21">
+                 <property name="text">
+                  <string>Sandboxed window border:</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                 <property name="buddy">
+                  <cstring>cmbBoxBorder</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="6">
+                <widget class="QSpinBox" name="spinBorderWidth">
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                 <property name="maximum">
+                  <number>10</number>
+                 </property>
+                 <property name="value">
+                  <number>1</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="7">
+                <widget class="QLabel" name="label_14">
+                 <property name="text">
+                  <string>px Width</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 </property>
+                 <property name="buddy">
+                  <cstring>spinBorderWidth</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0" colspan="3">
+                <widget class="QLabel" name="label_20">
+                 <property name="text">
+                  <string>Sandbox Indicator in title:</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                 <property name="buddy">
+                  <cstring>cmbBoxIndicator</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="0" colspan="2">
+                <widget class="QLabel" name="lblBoxType">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>General Configuration</string>
+                 </property>
                 </widget>
                </item>
                <item row="5" column="3" colspan="4">
                 <widget class="QComboBox" name="cmbDblClick">
                  <property name="editable">
                   <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="lblAppearance">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Appearance</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="3" colspan="2">
+                <widget class="QComboBox" name="cmbBoxType"/>
+               </item>
+               <item row="11" column="0">
+                <widget class="QLabel" name="lblNotes">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Box Notes</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="12" column="1" colspan="6">
+                <widget class="QPlainTextEdit" name="txtNotes">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>100</height>
+                  </size>
                  </property>
                 </widget>
                </item>
@@ -284,203 +320,214 @@
             <attribute name="title">
              <string>File Options</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_28">
+            <layout class="QGridLayout" name="gridLayout_30">
              <item row="0" column="0">
-              <widget class="QLabel" name="lblStructure">
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                 <kerning>true</kerning>
-                </font>
-               </property>
-               <property name="text">
-                <string>Box Structure</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2" colspan="2">
-              <widget class="QLabel" name="lblWhenEmpty">
-               <property name="text">
-                <string>The box structure can only be changed when the sandbox is empty</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1" colspan="3">
-              <widget class="QLabel" name="lblScheme">
-               <property name="text">
-                <string>Virtualization scheme</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="4">
-              <widget class="QComboBox" name="cmbVersion"/>
-             </item>
-             <item row="2" column="1" colspan="3">
-              <widget class="QCheckBox" name="chkSeparateUserFolders">
-               <property name="text">
-                <string>Separate user folders</string>
-               </property>
-               <property name="tristate">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1" colspan="3">
-              <widget class="QCheckBox" name="chkUseVolumeSerialNumbers">
-               <property name="text">
-                <string>Use volume serial numbers for drives, like: \drive\C~1234-ABCD</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="1" colspan="3">
-              <widget class="QCheckBox" name="chkRamBox">
-               <property name="text">
-                <string>Store the sandbox content in a Ram Disk</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="1" colspan="3">
-              <widget class="QCheckBox" name="chkEncrypt">
-               <property name="text">
-                <string>Encrypt sandbox content</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="5">
-              <widget class="QToolButton" name="btnPassword">
-               <property name="text">
-                <string>Set Password</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="2" colspan="4">
-              <widget class="QLabel" name="lblCrypto">
-               <property name="text">
-                <string>When &lt;a href=&quot;sbie://docs/boxencryption&quot;&gt;Box Encryption&lt;/a&gt; is enabled the box’s root folder, including its registry hive, is stored in an encrypted disk image, using &lt;a href=&quot;https://diskcryptor.org&quot;&gt;Disk Cryptor's&lt;/a&gt; AES-XTS implementation.</string>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-               <property name="openExternalLinks">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="2" colspan="2">
-              <widget class="QLabel" name="lblImDisk">
-               <property name="text">
-                <string>&lt;a href=&quot;addon://ImDisk&quot;&gt;Install ImDisk&lt;/a&gt; driver to enable Ram Disk and Disk Image support.</string>
-               </property>
-              </widget>
-             </item>
-             <item row="8" column="2" colspan="2">
-              <widget class="QCheckBox" name="chkForceProtection">
-               <property name="text">
-                <string>Force protection on mount</string>
-               </property>
-              </widget>
-             </item>
-             <item row="9" column="0" colspan="3">
-              <widget class="QLabel" name="lblDelete">
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                 <kerning>true</kerning>
-                </font>
-               </property>
-               <property name="text">
-                <string>Box Delete options</string>
-               </property>
-              </widget>
-             </item>
-             <item row="12" column="0" colspan="2">
-              <widget class="QLabel" name="lblRawDisk">
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                 <kerning>true</kerning>
-                </font>
-               </property>
-               <property name="text">
-                <string>Disk/File access</string>
-               </property>
-              </widget>
-             </item>
-             <item row="13" column="1">
-              <widget class="QLabel" name="label_37">
-               <property name="maximumSize">
-                <size>
-                 <width>20</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="14" column="1" colspan="3">
-              <widget class="QCheckBox" name="chkRawDiskRead">
-               <property name="text">
-                <string>Allow elevated sandboxed applications to read the harddrive</string>
-               </property>
-              </widget>
-             </item>
-             <item row="15" column="2" colspan="2">
-              <widget class="QCheckBox" name="chkRawDiskNotify">
-               <property name="text">
-                <string>Warn when an application opens a harddrive handle</string>
-               </property>
-              </widget>
-             </item>
-             <item row="16" column="1">
-              <spacer name="verticalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>52</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item row="16" column="3">
-              <spacer name="horizontalSpacer_4">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>410</width>
-                 <height>13</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item row="10" column="1" colspan="5">
-              <widget class="QCheckBox" name="chkAutoEmpty">
-               <property name="text">
-                <string>Auto delete content when last sandboxed process terminates</string>
-               </property>
-              </widget>
-             </item>
-             <item row="11" column="1" colspan="5">
-              <widget class="QCheckBox" name="chkProtectBox">
-               <property name="toolTip">
-                <string>Partially checked means prevent box removal but not content deletion.</string>
-               </property>
-               <property name="text">
-                <string>Protect this sandbox from deletion or emptying</string>
-               </property>
-               <property name="tristate">
-                <bool>true</bool>
-               </property>
-              </widget>
+              <layout class="QGridLayout" name="gridLayout_28">
+               <item row="10" column="1" colspan="6">
+                <widget class="QCheckBox" name="chkAutoEmpty">
+                 <property name="text">
+                  <string>Auto delete content changes when last sandboxed process terminates</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="lblStructure">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Box Structure</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="11" column="1" colspan="6">
+                <widget class="QCheckBox" name="chkProtectBox">
+                 <property name="toolTip">
+                  <string>Partially checked means prevent box removal but not content deletion.</string>
+                 </property>
+                 <property name="text">
+                  <string>Protect this sandbox from deletion or emptying</string>
+                 </property>
+                 <property name="tristate">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1" colspan="5">
+                <widget class="QCheckBox" name="chkSeparateUserFolders">
+                 <property name="text">
+                  <string>Separate user folders</string>
+                 </property>
+                 <property name="tristate">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="16" column="1">
+                <spacer name="verticalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="9" column="0" colspan="3">
+                <widget class="QLabel" name="lblDelete">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Box Delete options</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="2" colspan="3">
+                <widget class="QCheckBox" name="chkForceProtection">
+                 <property name="text">
+                  <string>Force protection on mount</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QComboBox" name="cmbVersion"/>
+               </item>
+               <item row="7" column="2" colspan="4">
+                <widget class="QLabel" name="lblImDisk">
+                 <property name="text">
+                  <string>&lt;a href=&quot;addon://ImDisk&quot;&gt;Install ImDisk&lt;/a&gt; driver to enable Ram Disk and Disk Image support.</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1" colspan="5">
+                <widget class="QCheckBox" name="chkUseVolumeSerialNumbers">
+                 <property name="text">
+                  <string>Use volume serial numbers for drives, like: \drive\C~1234-ABCD</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1" colspan="2">
+                <widget class="QLabel" name="lblScheme">
+                 <property name="text">
+                  <string>Virtualization scheme</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>cmbVersion</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2" colspan="4">
+                <widget class="QLabel" name="lblWhenEmpty">
+                 <property name="text">
+                  <string>The box structure can only be changed when the sandbox is empty</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="5">
+                <widget class="QToolButton" name="btnPassword">
+                 <property name="text">
+                  <string>Set Password</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1" colspan="4">
+                <widget class="QCheckBox" name="chkEncrypt">
+                 <property name="text">
+                  <string>Encrypt sandbox content</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="14" column="2" colspan="5">
+                <widget class="QCheckBox" name="chkRawDiskNotify">
+                 <property name="text">
+                  <string>Warn when an application opens a harddrive handle</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="2" colspan="4">
+                <widget class="QLabel" name="lblCrypto">
+                 <property name="text">
+                  <string>When &lt;a href=&quot;sbie://docs/boxencryption&quot;&gt;Box Encryption&lt;/a&gt; is enabled the box's root folder, including its registry hive, is stored in an encrypted disk image, using &lt;a href=&quot;https://diskcryptor.org&quot;&gt;Disk Cryptor's&lt;/a&gt; AES-XTS implementation.</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                 <property name="openExternalLinks">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="13" column="1" colspan="6">
+                <widget class="QCheckBox" name="chkRawDiskRead">
+                 <property name="text">
+                  <string>Allow elevated sandboxed applications to read the harddrive</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="12" column="0" colspan="2">
+                <widget class="QLabel" name="lblRawDisk">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Disk/File access</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="14" column="1">
+                <widget class="QLabel" name="label_37">
+                 <property name="maximumSize">
+                  <size>
+                   <width>20</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1" colspan="4">
+                <widget class="QCheckBox" name="chkRamBox">
+                 <property name="text">
+                  <string>Store the sandbox content in a Ram Disk</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="16" column="2" colspan="5">
+                <spacer name="horizontalSpacer_4">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="15" column="1" colspan="2">
+                <widget class="QCheckBox" name="chkAllowEfs">
+                 <property name="text">
+                  <string>Allow sandboxed processes to open files protected by EFS</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </widget>
@@ -521,7 +568,6 @@
                 <widget class="QLabel" name="lblMigration">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                    <kerning>true</kerning>
                   </font>
@@ -668,12 +714,11 @@
             <attribute name="title">
              <string>Restrictions</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_36">
-             <item row="3" column="0" colspan="2">
+            <layout class="QGridLayout" name="gridLayout_16">
+             <item row="0" column="0" colspan="2">
               <widget class="QLabel" name="lblPrinting">
                <property name="font">
                 <font>
-                 <weight>75</weight>
                  <bold>true</bold>
                  <kerning>true</kerning>
                 </font>
@@ -686,21 +731,21 @@
                </property>
               </widget>
              </item>
-             <item row="4" column="1" colspan="2">
+             <item row="1" column="1" colspan="3">
               <widget class="QCheckBox" name="chkBlockSpooler">
                <property name="text">
                 <string>Block access to the printer spooler</string>
                </property>
               </widget>
              </item>
-             <item row="5" column="2">
+             <item row="2" column="2" colspan="2">
               <widget class="QCheckBox" name="chkOpenSpooler">
                <property name="text">
                 <string>Remove spooler restriction, printers can be installed outside the sandbox</string>
                </property>
               </widget>
              </item>
-             <item row="6" column="2">
+             <item row="3" column="2" colspan="2">
               <widget class="QCheckBox" name="chkPrintToFile">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -713,11 +758,10 @@
                </property>
               </widget>
              </item>
-             <item row="7" column="0">
+             <item row="8" column="0">
               <widget class="QLabel" name="lblOther">
                <property name="font">
                 <font>
-                 <weight>75</weight>
                  <bold>true</bold>
                  <kerning>true</kerning>
                 </font>
@@ -730,14 +774,14 @@
                </property>
               </widget>
              </item>
-             <item row="8" column="1" colspan="2">
+             <item row="9" column="1" colspan="3">
               <widget class="QCheckBox" name="chkOpenProtectedStorage">
                <property name="text">
                 <string>Open System Protected Storage</string>
                </property>
               </widget>
              </item>
-             <item row="9" column="1">
+             <item row="10" column="1">
               <widget class="QLabel" name="label_39">
                <property name="minimumSize">
                 <size>
@@ -756,53 +800,69 @@
                </property>
               </widget>
              </item>
-             <item row="9" column="2">
+             <item row="10" column="2" colspan="2">
               <widget class="QCheckBox" name="chkOpenCredentials">
                <property name="text">
                 <string>Open Windows Credentials Store (user mode)</string>
                </property>
               </widget>
              </item>
-             <item row="10" column="1" colspan="2">
+             <item row="11" column="1" colspan="3">
               <widget class="QCheckBox" name="chkCloseClipBoard">
                <property name="text">
                 <string>Block read access to the clipboard</string>
                </property>
               </widget>
              </item>
-             <item row="11" column="1" colspan="2">
+             <item row="12" column="1" colspan="3">
               <widget class="QCheckBox" name="chkVmRead">
                <property name="text">
                 <string>Allow to read memory of unsandboxed processes (not recommended)</string>
                </property>
               </widget>
              </item>
-             <item row="12" column="2">
+             <item row="13" column="2" colspan="2">
               <widget class="QCheckBox" name="chkVmReadNotify">
                <property name="text">
                 <string>Issue message 2111 when a process access is denied</string>
                </property>
               </widget>
              </item>
-             <item row="13" column="1" colspan="2">
-              <layout class="QVBoxLayout" name="verticalLayout_3">
-               <item>
-                <widget class="QCheckBox" name="chkProtectPower">
-                 <property name="text">
-                  <string>Prevent sandboxed processes from interfering with power operations</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QCheckBox" name="chkBlockCapture">
-                 <property name="text">
-                  <string>Prevent sandboxed processes from using public methods to capture window images</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+             <item row="14" column="1" colspan="3">
+              <widget class="QCheckBox" name="chkProtectPower">
+               <property name="text">
+                <string>Prevent sandboxed processes from interfering with power operations (Experimental)</string>
+               </property>
+              </widget>
              </item>
-             <item row="14" column="1">
+             <item row="15" column="1" colspan="3">
+              <widget class="QCheckBox" name="chkUserOperation">
+               <property name="toolTip">
+                <string>Prevent move mouse, bring in front, and similar operations, this is likely to cause issues with games.</string>
+               </property>
+               <property name="text">
+                <string>Prevent interference with the user interface (Experimental)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="16" column="2" colspan="2">
+              <widget class="QCheckBox" name="chkCoverBar">
+               <property name="text">
+                <string>Allow sandboxed windows to cover the taskbar</string>
+               </property>
+              </widget>
+             </item>
+             <item row="17" column="1" colspan="3">
+              <widget class="QCheckBox" name="chkBlockCapture">
+               <property name="toolTip">
+                <string>This feature does not block all means of obtaining a screen capture, only some common ones.</string>
+               </property>
+               <property name="text">
+                <string>Prevent sandboxed processes from capturing window images (Experimental, may cause UI glitches)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="18" column="1">
               <spacer name="verticalSpacer_12">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
@@ -815,7 +875,7 @@
                </property>
               </spacer>
              </item>
-             <item row="15" column="2">
+             <item row="18" column="2" colspan="2">
               <spacer name="horizontalSpacer_5">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -827,6 +887,97 @@
                 </size>
                </property>
               </spacer>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="tabOtherRestrictions">
+            <attribute name="title">
+             <string>Isolation</string>
+            </attribute>
+            <layout class="QGridLayout" name="gridLayout_84">
+             <item row="0" column="0">
+              <layout class="QGridLayout" name="gridLayout_83">
+               <item row="1" column="1">
+                <widget class="QLabel" name="label_62">
+                 <property name="text">
+                  <string>The below options can be used safely when you don't grant admin rights.</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QCheckBox" name="chkOpenLsaEndpoint">
+                 <property name="text">
+                  <string>Open access to Windows Local Security Authority</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QCheckBox" name="chkOpenSamEndpoint">
+                 <property name="text">
+                  <string>Open access to Windows Security Account Manager</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="1">
+                <spacer name="horizontalSpacer_21">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="lblAccess">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="toolTip">
+                  <string>Protect the sandbox integrity itself</string>
+                 </property>
+                 <property name="text">
+                  <string>Access Isolation</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="0">
+                <spacer name="verticalSpacer_43">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="2" column="1">
+                <widget class="QCheckBox" name="chkOpenDevCMApi">
+                 <property name="text">
+                  <string>Allow sandboxed programs to manage Hardware/Devices</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QCheckBox" name="chkOpenWpadEndpoint">
+                 <property name="text">
+                  <string>Open access to Proxy Configurations</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </widget>
@@ -990,7 +1141,7 @@
          <item row="0" column="0">
           <widget class="QTabWidget" name="tabsSecurity">
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="tabHarden">
             <attribute name="title">
@@ -999,58 +1150,6 @@
             <layout class="QGridLayout" name="gridLayout_53">
              <item row="0" column="0">
               <layout class="QGridLayout" name="gridLayout_52">
-               <item row="2" column="2" colspan="4">
-                <widget class="QCheckBox" name="chkLockDown">
-                 <property name="text">
-                  <string>Use the original token only for approved NT system calls</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1" colspan="5">
-                <widget class="QCheckBox" name="chkSecurityMode">
-                 <property name="text">
-                  <string>Enable all security enhancements (make security hardened box)</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0" colspan="3">
-                <widget class="QLabel" name="lblElevation">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="toolTip">
-                  <string>Protect the system from sandboxed processes</string>
-                 </property>
-                 <property name="text">
-                  <string>Elevation restrictions</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="2" colspan="4">
-                <widget class="QCheckBox" name="chkFakeElevation">
-                 <property name="text">
-                  <string>Make applications think they are running elevated (allows to run installers safely)</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="4">
-                <widget class="QLabel" name="label_40">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>(Recommended)</string>
-                 </property>
-                </widget>
-               </item>
                <item row="3" column="2" colspan="4">
                 <widget class="QCheckBox" name="chkRestrictDevices">
                  <property name="text">
@@ -1058,101 +1157,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="0" column="0" colspan="3">
-                <widget class="QLabel" name="lblSecurity">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="toolTip">
-                  <string>Protect the system from sandboxed processes</string>
-                 </property>
-                 <property name="text">
-                  <string>Security enhancements</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="9" column="1" colspan="5">
-                <widget class="QCheckBox" name="chkMsiExemptions">
-                 <property name="text">
-                  <string>Allow MSIServer to run with a sandboxed system token and apply other exceptions if required</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="11" column="3" colspan="3">
-                <spacer name="horizontalSpacer_10">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="11" column="1">
-                <spacer name="verticalSpacer_29">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="6" column="1" colspan="3">
-                <widget class="QCheckBox" name="chkDropRights">
-                 <property name="text">
-                  <string>Drop rights from Administrators and Power Users groups</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="8" column="1" colspan="4">
-                <widget class="QLabel" name="lblAdmin">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>CAUTION: When running under the built in administrator, processes can not drop administrative privileges.</string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
                <item row="10" column="2" colspan="3">
                 <widget class="QLabel" name="label_28">
                  <property name="text">
                   <string>Note: Msi Installer Exemptions should not be required, but if you encounter issues installing a msi package which you trust, this option may help the installation complete successfully. You can also try disabling drop admin rights.</string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1" colspan="4">
-                <widget class="QLabel" name="label_35">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Security note: Elevated applications running under the supervision of Sandboxie, with an admin or system token, have more opportunities to bypass isolation and modify the system outside the sandbox.</string>
                  </property>
                  <property name="wordWrap">
                   <bool>true</bool>
@@ -1178,6 +1186,167 @@
                  </property>
                 </widget>
                </item>
+               <item row="13" column="3" colspan="3">
+                <spacer name="horizontalSpacer_10">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="13" column="1">
+                <spacer name="verticalSpacer_29">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="9" column="1" colspan="5">
+                <widget class="QCheckBox" name="chkMsiExemptions">
+                 <property name="text">
+                  <string>Allow MSIServer to run with a sandboxed system token and apply other exceptions if required</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="1" colspan="4">
+                <widget class="QLabel" name="lblAdmin">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>CAUTION: When running under the built in administrator, processes can not drop administrative privileges.</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1" colspan="4">
+                <widget class="QLabel" name="label_35">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Security note: Elevated applications running under the supervision of Sandboxie, with an admin or system token, have more opportunities to bypass isolation and modify the system outside the sandbox.</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1" colspan="5">
+                <widget class="QCheckBox" name="chkSecurityMode">
+                 <property name="text">
+                  <string>Enable all security enhancements (make security hardened box)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="1" colspan="3">
+                <widget class="QCheckBox" name="chkDropRights">
+                 <property name="text">
+                  <string>Drop rights from Administrators and Power Users groups</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0" colspan="3">
+                <widget class="QLabel" name="lblElevation">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="toolTip">
+                  <string>Protect the system from sandboxed processes</string>
+                 </property>
+                 <property name="text">
+                  <string>Elevation restrictions</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="11" column="0">
+                <widget class="QLabel" name="lblACLs">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="toolTip">
+                  <string>Protect the system from sandboxed processes</string>
+                 </property>
+                 <property name="text">
+                  <string>File ACLs</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="2" colspan="4">
+                <widget class="QCheckBox" name="chkFakeElevation">
+                 <property name="text">
+                  <string>Make applications think they are running elevated (allows to run installers safely)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="4">
+                <widget class="QLabel" name="label_40">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>(Recommended)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="2" colspan="4">
+                <widget class="QCheckBox" name="chkLockDown">
+                 <property name="text">
+                  <string>Use the original token only for approved NT system calls</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0" colspan="3">
+                <widget class="QLabel" name="lblSecurity">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="toolTip">
+                  <string>Protect the system from sandboxed processes</string>
+                 </property>
+                 <property name="text">
+                  <string>Security enhancements</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="12" column="1" colspan="5">
+                <widget class="QCheckBox" name="chkACLs">
+                 <property name="text">
+                  <string>Use original Access Control Entries for boxed Files and Folders (for MSIServer enable exemptions)</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </item>
             </layout>
@@ -1189,7 +1358,77 @@
             <layout class="QGridLayout" name="gridLayout_39">
              <item row="0" column="0">
               <layout class="QGridLayout" name="gridLayout_38">
-               <item row="11" column="1">
+               <item row="7" column="1" colspan="2">
+                <widget class="QCheckBox" name="chkSbieDesktop">
+                 <property name="text">
+                  <string>Run Processes on an own Sandboxed Desktop</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="9" column="2">
+                <spacer name="horizontalSpacer_8">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>5</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="0" colspan="2">
+                <widget class="QLabel" name="lblIsolation">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="toolTip">
+                  <string>Protect the sandbox integrity itself</string>
+                 </property>
+                 <property name="text">
+                  <string>Security Isolation &amp; Filtering</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="2">
+                <widget class="QLabel" name="label_60">
+                 <property name="text">
+                  <string>Security Isolation through the usage of a heavily restricted process token is Sandboxie's primary means of enforcing sandbox restrictions, when this is disabled the box is operated in the application compartment mode, i.e. it's no longer providing reliable security, just simple application compartmentalization.</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1" colspan="2">
+                <widget class="QCheckBox" name="chkNoSecurityFiltering">
+                 <property name="text">
+                  <string>Disable Security Filtering (not recommended)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1" colspan="2">
+                <widget class="QCheckBox" name="chkNoSecurityIsolation">
+                 <property name="text">
+                  <string>Disable Security Isolation</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="2">
+                <widget class="QLabel" name="label_61">
+                 <property name="text">
+                  <string>Security Filtering used by Sandboxie to enforce filesystem and registry access restrictions, as well as to restrict process access.</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="9" column="1">
                 <spacer name="verticalSpacer_25">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
@@ -1212,89 +1451,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="11" column="2">
-                <spacer name="horizontalSpacer_8">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>5</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="2" column="1" colspan="2">
-                <widget class="QCheckBox" name="chkNoSecurityIsolation">
-                 <property name="text">
-                  <string>Disable Security Isolation</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="9" column="1" colspan="2">
-                <widget class="QCheckBox" name="chkOpenSamEndpoint">
-                 <property name="text">
-                  <string>Open access to Windows Security Account Manager</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1" colspan="2">
-                <widget class="QCheckBox" name="chkNoSecurityFiltering">
-                 <property name="text">
-                  <string>Disable Security Filtering (not recommended)</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="2">
-                <widget class="QLabel" name="label_61">
-                 <property name="text">
-                  <string>Security Filtering used by Sandboxie to enforce filesystem and registry access restrictions, as well as to restrict process access.</string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="2">
-                <widget class="QLabel" name="label_60">
-                 <property name="text">
-                  <string>Security Isolation through the usage of a heavily restricted process token is Sandboxie's primary means of enforcing sandbox restrictions, when this is disabled the box is operated in the application compartment mode, i.e. it’s no longer providing reliable security, just simple application compartmentalization.</string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="10" column="1" colspan="2">
-                <widget class="QCheckBox" name="chkOpenLsaEndpoint">
-                 <property name="text">
-                  <string>Open access to Windows Local Security Authority</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0" colspan="3">
-                <widget class="QLabel" name="lblIsolation">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="toolTip">
-                  <string>Protect the sandbox integrity itself</string>
-                 </property>
-                 <property name="text">
-                  <string>Security Isolation &amp; Filtering</string>
-                 </property>
-                </widget>
-               </item>
                <item row="6" column="0">
-                <widget class="QLabel" name="lblAccess">
+                <widget class="QLabel" name="lblDesktop">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                    <kerning>true</kerning>
                   </font>
@@ -1303,24 +1463,14 @@
                   <string>Protect the sandbox integrity itself</string>
                  </property>
                  <property name="text">
-                  <string>Access Isolation</string>
+                  <string>Desktop Isolation</string>
                  </property>
                 </widget>
                </item>
                <item row="8" column="1" colspan="2">
-                <widget class="QCheckBox" name="chkOpenDevCMApi">
+                <widget class="QCheckBox" name="chkOpenWndStation">
                  <property name="text">
-                  <string>Allow sandboxed programs to manage Hardware/Devices</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="1" colspan="2">
-                <widget class="QLabel" name="label_62">
-                 <property name="text">
-                  <string>The below options can be used safely when you don't grant admin rights.</string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>true</bool>
+                  <string>Open Window Station (improves compatibility by reducing desktop isolation)</string>
                  </property>
                 </widget>
                </item>
@@ -1332,69 +1482,41 @@
             <attribute name="title">
              <string>Box Protection</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_15">
-             <item row="1" column="2">
-              <spacer name="horizontalSpacer_19">
+            <layout class="QGridLayout" name="gridLayout_150">
+             <item row="8" column="3">
+              <widget class="QPushButton" name="btnHostProcessAllow">
+               <property name="text">
+                <string>Allow Process</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" colspan="4">
+              <widget class="QLabel" name="label_52">
+               <property name="text">
+                <string>Sandboxie-Plus is able to create confidential sandboxes that provide robust protection against unauthorized surveillance or tampering by host processes. By utilizing an encrypted sandbox image, this feature delivers the highest level of operational confidentiality, ensuring the safety and integrity of sandboxed processes.</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="3">
+              <spacer name="verticalSpacer_31">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Vertical</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>471</width>
-                 <height>20</height>
+                 <width>20</width>
+                 <height>76</height>
                 </size>
                </property>
               </spacer>
              </item>
-             <item row="12" column="0" colspan="3">
-              <widget class="QCheckBox" name="chkNotifyProtect">
-               <property name="text">
-                <string>Issue message 1318/1317 when a host process tries to access a sandboxed process/the box root</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="0" colspan="3">
-              <widget class="QLabel" name="label_5">
-               <property name="text">
-                <string>Protect processes in this box from being accessed by specified unsandboxed host processes.</string>
-               </property>
-               <property name="wordWrap">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="1" colspan="2">
-              <widget class="QCheckBox" name="chkProtectWindow">
-               <property name="text">
-                <string>Prevent processes from capturing window images from sandboxed windows</string>
-               </property>
-              </widget>
-             </item>
-             <item row="11" column="3">
-              <widget class="QPushButton" name="btnDelHostProcess">
-               <property name="text">
-                <string>Remove</string>
-               </property>
-              </widget>
-             </item>
-             <item row="8" column="3">
-              <widget class="QPushButton" name="btnHostProcessDeny">
-               <property name="text">
-                <string>Deny Process</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1" colspan="2">
+             <item row="2" column="1" colspan="3">
               <widget class="QCheckBox" name="chkConfidential">
                <property name="text">
                 <string>Protect processes within this box from host processes</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="2">
-              <widget class="QCheckBox" name="chkLessConfidential">
-               <property name="text">
-                <string>Allow useful Windows processes access to protected processes</string>
                </property>
               </widget>
              </item>
@@ -1417,18 +1539,57 @@
                </property>
               </widget>
              </item>
-             <item row="10" column="3">
+             <item row="12" column="3">
+              <widget class="QPushButton" name="btnDelHostProcess">
+               <property name="text">
+                <string>Remove</string>
+               </property>
+              </widget>
+             </item>
+             <item row="13" column="0" colspan="3">
+              <widget class="QCheckBox" name="chkNotifyProtect">
+               <property name="text">
+                <string>Issue message 1318/1317 when a host process tries to access a sandboxed process/the box root</string>
+               </property>
+              </widget>
+             </item>
+             <item row="11" column="3">
               <widget class="QCheckBox" name="chkShowHostProcTmpl">
                <property name="text">
                 <string>Show Templates</string>
                </property>
               </widget>
              </item>
+             <item row="6" column="1">
+              <spacer name="verticalSpacer_410">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="1" column="2">
+              <spacer name="horizontalSpacer_19">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>471</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item row="1" column="0">
               <widget class="QLabel" name="lblBoxProtection">
                <property name="font">
                 <font>
-                 <weight>75</weight>
                  <bold>true</bold>
                  <kerning>true</kerning>
                 </font>
@@ -1441,7 +1602,14 @@
                </property>
               </widget>
              </item>
-             <item row="7" column="0" rowspan="5" colspan="3">
+             <item row="3" column="2" colspan="2">
+              <widget class="QCheckBox" name="chkLessConfidential">
+               <property name="text">
+                <string>Allow useful Windows processes access to protected processes</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="0" rowspan="5" colspan="3">
               <widget class="QTreeWidget" name="treeHostProc">
                <property name="sortingEnabled">
                 <bool>true</bool>
@@ -1463,77 +1631,154 @@
                </column>
               </widget>
              </item>
-             <item row="7" column="3">
-              <widget class="QPushButton" name="btnHostProcessAllow">
+             <item row="4" column="1" colspan="3">
+              <widget class="QCheckBox" name="chkProtectWindow">
                <property name="text">
-                <string>Allow Process</string>
+                <string>Prevent processes from capturing window images from sandboxed windows</string>
                </property>
               </widget>
              </item>
              <item row="9" column="3">
-              <spacer name="verticalSpacer_31">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>76</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item row="0" column="0" colspan="4">
-              <widget class="QLabel" name="label_52">
+              <widget class="QPushButton" name="btnHostProcessDeny">
                <property name="text">
-                <string>Sandboxie-Plus is able to create confidential sandboxes that provide robust protection against unauthorized surveillance or tampering by host processes. By utilizing an encrypted sandbox image, this feature delivers the highest level of operational confidentiality, ensuring the safety and integrity of sandboxed processes.</string>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
+                <string>Deny Process</string>
                </property>
               </widget>
              </item>
-             <item row="5" column="1">
-              <spacer name="verticalSpacer_41">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
+             <item row="7" column="0" colspan="3">
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Protect processes in this box from being accessed by specified unsandboxed host processes.</string>
                </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
+               <property name="wordWrap">
+                <bool>false</bool>
                </property>
-              </spacer>
+              </widget>
+             </item>
+             <item row="5" column="1" colspan="3">
+              <widget class="QCheckBox" name="chkAdminOnly">
+               <property name="text">
+                <string>Only Administrator user accounts can make changes to this sandbox</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="tabPrivileges">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-              <kerning>true</kerning>
-             </font>
-            </property>
+           <widget class="QWidget" name="tabJob">
             <attribute name="title">
-             <string>Advanced Security</string>
+             <string>Job Object</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_26">
-             <item row="0" column="1">
-              <layout class="QGridLayout" name="gridLayout_2">
-               <item row="9" column="1" colspan="4">
-                <widget class="QCheckBox" name="chkSbieLogon">
+            <layout class="QGridLayout" name="gridLayout_51">
+             <item row="0" column="0">
+              <layout class="QGridLayout" name="gridLayout_50">
+               <item row="7" column="0">
+                <spacer name="verticalSpacer_45">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="3" column="0" colspan="2">
+                <widget class="QLabel" name="lblLimit">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="toolTip">
+                  <string>Protect the system from sandboxed processes</string>
+                 </property>
                  <property name="text">
-                  <string>Use a Sandboxie login instead of an anonymous token</string>
+                  <string>Limit restrictions</string>
                  </property>
                 </widget>
                </item>
-               <item row="6" column="0">
-                <widget class="QLabel" name="lblFence">
+               <item row="5" column="3">
+                <widget class="QLineEdit" name="txtTotalMemory">
+                 <property name="maximumSize">
+                  <size>
+                   <width>125</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Leave it blank to disable the setting</string>
+                 </property>
+                 <property name="placeholderText">
+                  <string>unlimited</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLabel" name="label_63">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>16</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="1" colspan="2">
+                <widget class="QLabel" name="label_86">
+                 <property name="text">
+                  <string>Total Processes Number Limit:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>txtTotalNumber</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="3">
+                <widget class="QLineEdit" name="txtTotalNumber">
+                 <property name="maximumSize">
+                  <size>
+                   <width>125</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Leave it blank to disable the setting</string>
+                 </property>
+                 <property name="placeholderText">
+                  <string>unlimited</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="2" colspan="4">
+                <widget class="QCheckBox" name="chkNestedJobs">
+                 <property name="text">
+                  <string>Allow use of nested job objects (works on Windows 8 and later)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1" colspan="5">
+                <widget class="QCheckBox" name="chkAddToJob">
+                 <property name="text">
+                  <string>Add sandboxed processes to job objects (recommended)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="lblJob">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                    <kerning>true</kerning>
                   </font>
@@ -1546,27 +1791,123 @@
                  </property>
                 </widget>
                </item>
-               <item row="3" column="1" colspan="3">
-                <widget class="QCheckBox" name="chkElevateRpcss">
+               <item row="4" column="1" colspan="2">
+                <widget class="QLabel" name="label_53">
                  <property name="text">
-                  <string>Start the sandboxed RpcSs as a SYSTEM process (not recommended)</string>
+                  <string>Single Process Memory Limit:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>txtSingleMemory</cstring>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="lblPrivilege">
+               <item row="7" column="5">
+                <spacer name="horizontalSpacer_23">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="5" column="5">
+                <widget class="QLabel" name="lblTotalMemory">
+                 <property name="text">
+                  <string>bytes</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="3">
+                <widget class="QLineEdit" name="txtSingleMemory">
+                 <property name="maximumSize">
+                  <size>
+                   <width>125</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Leave it blank to disable the setting</string>
+                 </property>
+                 <property name="placeholderText">
+                  <string>unlimited</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1" colspan="2">
+                <widget class="QLabel" name="label_56">
+                 <property name="text">
+                  <string>Total Processes Memory Limit:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>txtTotalMemory</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="5">
+                <widget class="QLabel" name="lblSingleMemory">
+                 <property name="text">
+                  <string>bytes</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="5">
+                <widget class="QLabel" name="lblTotalNumber">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="tabPrivileges">
+            <property name="font">
+             <font>
+              <bold>false</bold>
+              <kerning>true</kerning>
+             </font>
+            </property>
+            <attribute name="title">
+             <string>Advanced Security</string>
+            </attribute>
+            <layout class="QGridLayout" name="gridLayout_26">
+             <item row="0" column="1">
+              <layout class="QGridLayout" name="gridLayout_2">
+               <item row="4" column="4">
+                <widget class="QLabel" name="label_65">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                    <kerning>true</kerning>
                   </font>
                  </property>
-                 <property name="toolTip">
-                  <string>Protect the sandbox integrity itself</string>
+                 <property name="text">
+                  <string>(Security Critical)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="4">
+                <widget class="QLabel" name="label_64">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
                  </property>
                  <property name="text">
-                  <string>Privilege isolation</string>
+                  <string>(Security Critical)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1" colspan="3">
+                <widget class="QCheckBox" name="chkProtectSCM">
+                 <property name="text">
+                  <string>Allow only privileged processes to access the Service Control Manager</string>
                  </property>
                 </widget>
                </item>
@@ -1577,11 +1918,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="8" column="0" colspan="2">
+               <item row="7" column="0" colspan="2">
                 <widget class="QLabel" name="lblToken">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                    <kerning>true</kerning>
                   </font>
@@ -1594,17 +1934,13 @@
                  </property>
                 </widget>
                </item>
-               <item row="4" column="4">
-                <widget class="QLabel" name="label_65">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
+               <item row="9" column="2" colspan="2">
+                <widget class="QLabel" name="label_74">
                  <property name="text">
-                  <string>(Security Critical)</string>
+                  <string>Using a custom Sandboxie Token allows to isolate individual sandboxes from each other better, and it shows in the user column of task managers the name of the box a process belongs to. Some 3rd party security solutions may however have problems with custom tokens.</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -1612,6 +1948,49 @@
                 <widget class="QCheckBox" name="chkDropPrivileges">
                  <property name="text">
                   <string>Drop critical privileges from processes running with a SYSTEM token</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="12" column="2">
+                <spacer name="horizontalSpacer_13">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="lblPrivilege">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="toolTip">
+                  <string>Protect the sandbox integrity itself</string>
+                 </property>
+                 <property name="text">
+                  <string>Privilege isolation</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1" colspan="3">
+                <widget class="QCheckBox" name="chkElevateRpcss">
+                 <property name="text">
+                  <string>Start the sandboxed RpcSs as a SYSTEM process (not recommended)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="1" colspan="4">
+                <widget class="QCheckBox" name="chkSbieLogon">
+                 <property name="text">
+                  <string>Use a Sandboxie login instead of an anonymous token</string>
                  </property>
                 </widget>
                </item>
@@ -1635,54 +2014,24 @@
                  </property>
                 </spacer>
                </item>
-               <item row="1" column="1" colspan="3">
-                <widget class="QCheckBox" name="chkProtectSCM">
-                 <property name="text">
-                  <string>Allow only privileged processes to access the Service Control Manager</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="4">
-                <widget class="QLabel" name="label_64">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
+               <item row="10" column="1" colspan="4">
+                <widget class="QCheckBox" name="chkCreateToken">
+                 <property name="toolTip">
+                  <string>Checked: A local group will also be added to the newly created sandboxed token, which allows addressing all sandboxes at once. Would be useful for auditing policies.
+Partially checked: No groups will be added to the newly created sandboxed token.</string>
                  </property>
                  <property name="text">
-                  <string>(Security Critical)</string>
+                  <string>Create a new sandboxed token instead of stripping down the original token</string>
                  </property>
-                </widget>
-               </item>
-               <item row="11" column="2">
-                <spacer name="horizontalSpacer_13">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="7" column="1" colspan="2">
-                <widget class="QCheckBox" name="chkAddToJob">
-                 <property name="text">
-                  <string>Add sandboxed processes to job objects (recommended)</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="10" column="2" colspan="2">
-                <widget class="QLabel" name="label_74">
-                 <property name="text">
-                  <string>Using a custom Sandboxie Token allows to isolate individual sandboxes from each other better, and it shows in the user column of task managers the name of the box a process belongs to. Some 3rd party security solutions may however have problems with custom tokens.</string>
-                 </property>
-                 <property name="wordWrap">
+                 <property name="tristate">
                   <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="1" colspan="2">
+                <widget class="QCheckBox" name="chkDropConHostIntegrity">
+                 <property name="text">
+                  <string>Drop ConHost.exe Process Integrity Level</string>
                  </property>
                 </widget>
                </item>
@@ -1788,7 +2137,7 @@
          <item row="0" column="1">
           <widget class="QTabWidget" name="tabsForce">
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="tabForceProgs">
             <attribute name="title">
@@ -1819,60 +2168,18 @@
                  </property>
                 </widget>
                </item>
-               <item row="4" column="1">
-                <spacer name="verticalSpacer_5">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="3" column="1">
-                <widget class="QToolButton" name="btnForceDir">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>23</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>Force Folder</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
+               <item row="6" column="1">
                 <widget class="QCheckBox" name="chkShowForceTmpl">
                  <property name="text">
                   <string>Show Templates</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="0" rowspan="5">
-                <widget class="QTreeWidget" name="treeForced">
-                 <property name="sortingEnabled">
-                  <bool>true</bool>
+               <item row="7" column="1">
+                <widget class="QPushButton" name="btnDelForce">
+                 <property name="text">
+                  <string>Remove</string>
                  </property>
-                 <column>
-                  <property name="text">
-                   <string>Type</string>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
-                   <string>Name</string>
-                  </property>
-                 </column>
                 </widget>
                </item>
                <item row="2" column="1">
@@ -1894,17 +2201,78 @@
                  </property>
                 </widget>
                </item>
-               <item row="6" column="1">
-                <widget class="QPushButton" name="btnDelForce">
-                 <property name="text">
-                  <string>Remove</string>
+               <item row="2" column="0" rowspan="6">
+                <widget class="QTreeWidget" name="treeForced">
+                 <property name="sortingEnabled">
+                  <bool>true</bool>
                  </property>
+                 <column>
+                  <property name="text">
+                   <string>Type</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Name</string>
+                  </property>
+                 </column>
                 </widget>
                </item>
-               <item row="7" column="0">
+               <item row="8" column="0">
                 <widget class="QCheckBox" name="chkDisableForced">
                  <property name="text">
                   <string>Disable forced Process and Folder for this sandbox</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <spacer name="verticalSpacer_5">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="4" column="1">
+                <widget class="QToolButton" name="btnForceDir">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Force Folder</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QToolButton" name="btnForceChild">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Force Children</string>
                  </property>
                 </widget>
                </item>
@@ -1931,7 +2299,7 @@
              </property>
              <item row="0" column="0">
               <layout class="QGridLayout" name="gridLayout_55">
-               <item row="2" column="0" rowspan="5">
+               <item row="2" column="0" rowspan="6">
                 <widget class="QTreeWidget" name="treeBreakout">
                  <property name="sortingEnabled">
                   <bool>true</bool>
@@ -1948,14 +2316,20 @@
                  </column>
                 </widget>
                </item>
-               <item row="6" column="1">
-                <widget class="QPushButton" name="btnDelBreakout">
-                 <property name="text">
-                  <string>Remove</string>
-                 </property>
-                </widget>
-               </item>
                <item row="5" column="1">
+                <spacer name="verticalSpacer_26">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="6" column="1">
                 <widget class="QCheckBox" name="chkShowBreakoutTmpl">
                  <property name="text">
                   <string>Show Templates</string>
@@ -1968,19 +2342,6 @@
                   <string>Programs entered here will be allowed to break out of this sandbox when they start. It is also possible to capture them into another sandbox, for example to have your web browser always open in a dedicated box.</string>
                  </property>
                  <property name="wordWrap">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="0">
-                <widget class="QLabel" name="lblBreakOut">
-                 <property name="text">
-                  <string>&lt;b&gt;&lt;font color='red'&gt;SECURITY ADVISORY&lt;/font&gt;:&lt;/b&gt; Using &lt;a href=&quot;sbie://docs/breakoutfolder&quot;&gt;BreakoutFolder&lt;/a&gt; and/or &lt;a href=&quot;sbie://docs/breakoutprocess&quot;&gt;BreakoutProcess&lt;/a&gt; in combination with Open[File/Pipe]Path directives can compromise security, as can the use of &lt;a href=&quot;sbie://docs/breakoutdocument&quot;&gt;BreakoutDocument&lt;/a&gt; allowing any * or insecure (*.exe;*.dll;*.ocx;*.cmd;*.bat;*.lnk;*.pif;*.url;*.ps1;etc…) extensions. Please review the security section for each option in the documentation before use.</string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>true</bool>
-                 </property>
-                 <property name="openExternalLinks">
                   <bool>true</bool>
                  </property>
                 </widget>
@@ -2004,6 +2365,13 @@
                  </property>
                 </widget>
                </item>
+               <item row="7" column="1">
+                <widget class="QPushButton" name="btnDelBreakout">
+                 <property name="text">
+                  <string>Remove</string>
+                 </property>
+                </widget>
+               </item>
                <item row="2" column="1">
                 <widget class="QToolButton" name="btnBreakoutProg">
                  <property name="sizePolicy">
@@ -2024,17 +2392,36 @@
                 </widget>
                </item>
                <item row="4" column="1">
-                <spacer name="verticalSpacer_26">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
+                <widget class="QToolButton" name="btnBreakoutDoc">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
                  </property>
-                 <property name="sizeHint" stdset="0">
+                 <property name="minimumSize">
                   <size>
-                   <width>20</width>
-                   <height>40</height>
+                   <width>0</width>
+                   <height>23</height>
                   </size>
                  </property>
-                </spacer>
+                 <property name="text">
+                  <string>Breakout Document</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="0" colspan="2">
+                <widget class="QLabel" name="lblBreakOut">
+                 <property name="text">
+                  <string>&lt;b&gt;&lt;font color='red'&gt;SECURITY ADVISORY&lt;/font&gt;:&lt;/b&gt; Using &lt;a href=&quot;sbie://docs/breakoutfolder&quot;&gt;BreakoutFolder&lt;/a&gt; and/or &lt;a href=&quot;sbie://docs/breakoutprocess&quot;&gt;BreakoutProcess&lt;/a&gt; in combination with Open[File/Pipe]Path directives can compromise security, as can the use of &lt;a href=&quot;sbie://docs/breakoutdocument&quot;&gt;BreakoutDocument&lt;/a&gt; allowing any * or insecure (*.exe;*.dll;*.ocx;*.cmd;*.bat;*.lnk;*.pif;*.url;*.ps1;etc...) extensions. Please review the security section for each option in the documentation before use.</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                 <property name="openExternalLinks">
+                  <bool>true</bool>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -2223,7 +2610,6 @@
                 <widget class="QLabel" name="lblStopOpt">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                    <kerning>true</kerning>
                   </font>
@@ -2288,60 +2674,31 @@
         <attribute name="title">
          <string>Start Restrictions</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_19">
+        <layout class="QGridLayout" name="gridLayout_85">
          <item row="0" column="0">
-          <layout class="QGridLayout" name="gridLayout_16">
-           <item row="9" column="0">
-            <widget class="QCheckBox" name="chkStartBlockMsg">
-             <property name="text">
-              <string>Issue message 1308 when a program fails to start</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0" rowspan="4">
-            <widget class="QTreeWidget" name="treeStart">
-             <property name="sortingEnabled">
-              <bool>true</bool>
-             </property>
-             <column>
-              <property name="text">
-               <string>Name</string>
-              </property>
-             </column>
-            </widget>
-           </item>
-           <item row="6" column="1">
-            <spacer name="verticalSpacer_8">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="5" column="1">
-            <widget class="QPushButton" name="btnAddStartProg">
-             <property name="text">
-              <string>Add Program</string>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="1">
-            <widget class="QPushButton" name="btnDelStartProg">
-             <property name="text">
-              <string>Remove</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
+          <layout class="QGridLayout" name="gridLayout_19">
+           <item row="0" column="0">
             <layout class="QGridLayout" name="gridLayout_23">
              <property name="verticalSpacing">
               <number>0</number>
              </property>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>* Note: Programs installed to this sandbox won't be able to start at all.</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QRadioButton" name="radStartAll">
+               <property name="text">
+                <string>Allow all programs to start in this sandbox.</string>
+               </property>
+              </widget>
+             </item>
              <item row="2" column="0">
               <widget class="QRadioButton" name="radStartSelected">
                <property name="text">
@@ -2356,30 +2713,69 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="0">
-              <widget class="QRadioButton" name="radStartAll">
-               <property name="text">
-                <string>Allow all programs to start in this sandbox.</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>* Note: Programs installed to this sandbox won't be able to start at all.</string>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
-           <item row="7" column="1">
+           <item row="1" column="1">
+            <widget class="QPushButton" name="btnAddStartProg">
+             <property name="text">
+              <string>Add Program</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <spacer name="verticalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>299</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="1">
             <widget class="QCheckBox" name="chkShowStartTmpl">
              <property name="text">
               <string>Show Templates</string>
              </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QPushButton" name="btnDelStartProg">
+             <property name="text">
+              <string>Remove</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QCheckBox" name="chkStartBlockMsg">
+             <property name="text">
+              <string>Issue message 1308 when a program fails to start</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QCheckBox" name="chkAlertBeforeStart">
+             <property name="toolTip">
+              <string>This setting can be used to prevent programs from running in the sandbox without the user's knowledge or consent.</string>
+             </property>
+             <property name="text">
+              <string>Display a pop-up warning before starting a process in the sandbox from an external source</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" rowspan="4">
+            <widget class="QTreeWidget" name="treeStart">
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+             <column>
+              <property name="text">
+               <string>Name</string>
+              </property>
+             </column>
             </widget>
            </item>
           </layout>
@@ -2947,125 +3343,107 @@ To specify a process use '$:program.exe' as path.</string>
             <attribute name="title">
              <string>Access Policies</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_51">
-             <property name="leftMargin">
-              <number>9</number>
-             </property>
-             <property name="topMargin">
-              <number>9</number>
-             </property>
-             <property name="rightMargin">
-              <number>9</number>
-             </property>
-             <property name="bottomMargin">
-              <number>9</number>
-             </property>
+            <layout class="QGridLayout" name="gridLayout_36">
+             <item row="7" column="1" colspan="2">
+              <widget class="QCheckBox" name="chkNoOpenForBox">
+               <property name="text">
+                <string>Apply File and Key Open directives only to binaries located outside the sandbox.</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1" colspan="2">
+              <widget class="QCheckBox" name="chkCloseForBox">
+               <property name="text">
+                <string>Apply Close...=!&lt;program&gt;,... rules also to all binaries located in the sandbox.</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QLabel" name="label_55">
+               <property name="text">
+                <string>When the Privacy Mode is enabled, sandboxed processes will be only able to read C:\Windows\*, C:\Program Files\*, and parts of the HKLM registry, all other locations will need explicit access to be readable and/or writable. In this mode, Rule Specificity is always enabled.</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1" colspan="2">
+              <widget class="QCheckBox" name="chkUseSpecificity">
+               <property name="text">
+                <string>Prioritize rules based on their Specificity and Process Match Level</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="1">
+              <spacer name="verticalSpacer_24">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>81</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item row="0" column="0">
-              <layout class="QGridLayout" name="gridLayout_50">
-               <item row="3" column="1">
-                <widget class="QLabel" name="lblPolicy">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Rule Policies</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="2" colspan="2">
-                <widget class="QCheckBox" name="chkCloseForBox">
-                 <property name="text">
-                  <string>Apply Close...=!&lt;program&gt;,... rules also to all binaries located in the sandbox.</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="2" colspan="2">
-                <widget class="QCheckBox" name="chkUseSpecificity">
-                 <property name="text">
-                  <string>Prioritize rules based on their Specificity and Process Match Level</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="2" colspan="2">
-                <widget class="QCheckBox" name="chkNoOpenForBox">
-                 <property name="text">
-                  <string>Apply File and Key Open directives only to binaries located outside the sandbox.</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="8" column="3">
-                <spacer name="horizontalSpacer_9">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="lblMode">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Access Mode</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="3">
-                <widget class="QLabel" name="label_54">
-                 <property name="text">
-                  <string>The rule specificity is a measure to how well a given rule matches a particular path, simply put the specificity is the length of characters from the begin of the path up to and including the last matching non-wildcard substring. A rule which matches only file types like &quot;*.tmp&quot; would have the highest specificity as it would always match the entire file path.
+              <widget class="QLabel" name="lblMode">
+               <property name="font">
+                <font>
+                 <bold>true</bold>
+                 <kerning>true</kerning>
+                </font>
+               </property>
+               <property name="text">
+                <string>Access Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="2">
+              <spacer name="horizontalSpacer_9">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>638</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="1" column="1" colspan="2">
+              <widget class="QCheckBox" name="chkPrivacy">
+               <property name="text">
+                <string>Privacy Mode, block file and registry access to all locations except the generic system ones</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="lblPolicy">
+               <property name="font">
+                <font>
+                 <bold>true</bold>
+                 <kerning>true</kerning>
+                </font>
+               </property>
+               <property name="text">
+                <string>Rule Policies</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="2">
+              <widget class="QLabel" name="label_54">
+               <property name="text">
+                <string>The rule specificity is a measure to how well a given rule matches a particular path, simply put the specificity is the length of characters from the begin of the path up to and including the last matching non-wildcard substring. A rule which matches only file types like &quot;*.tmp&quot; would have the highest specificity as it would always match the entire file path.
 The process match level has a higher priority than the specificity and describes how a rule applies to a given process. Rules applying by process name or group have the strongest match level, followed by the match by negation (i.e. rules applying to all processes but the given one), while the lowest match levels have global matches, i.e. rules that apply to any process.</string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="2" colspan="2">
-                <widget class="QCheckBox" name="chkPrivacy">
-                 <property name="text">
-                  <string>Privacy Mode, block file and registry access to all locations except the generic system ones</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="8" column="2">
-                <spacer name="verticalSpacer_24">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="2" column="3">
-                <widget class="QLabel" name="label_55">
-                 <property name="text">
-                  <string>When the Privacy Mode is enabled, sandboxed processes will be only able to read C:\Windows\*, C:\Program Files\*, and parts of the HKLM registry, all other locations will need explicit access to be readable and/or writable. In this mode, Rule Specificity is always enabled.</string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -3081,7 +3459,7 @@ The process match level has a higher priority than the specificity and describes
          <item row="1" column="0">
           <widget class="QTabWidget" name="tabsInternet">
            <property name="currentIndex">
-            <number>2</number>
+            <number>3</number>
            </property>
            <widget class="QWidget" name="tabINet">
             <attribute name="title">
@@ -3174,6 +3552,9 @@ The process match level has a higher priority than the specificity and describes
                    <property name="text">
                     <string>Set network/internet access for unlisted processes:</string>
                    </property>
+                   <property name="buddy">
+                    <cstring>cmbBlockINet</cstring>
+                   </property>
                   </widget>
                  </item>
                  <item>
@@ -3221,6 +3602,9 @@ The process match level has a higher priority than the specificity and describes
                    <property name="text">
                     <string>Test Rules, Program:</string>
                    </property>
+                   <property name="buddy">
+                    <cstring>txtProgFwTest</cstring>
+                   </property>
                   </widget>
                  </item>
                  <item>
@@ -3230,6 +3614,9 @@ The process match level has a higher priority than the specificity and describes
                   <widget class="QLabel" name="label_49">
                    <property name="text">
                     <string>Port:</string>
+                   </property>
+                   <property name="buddy">
+                    <cstring>txtPortFwTest</cstring>
                    </property>
                   </widget>
                  </item>
@@ -3241,6 +3628,9 @@ The process match level has a higher priority than the specificity and describes
                    <property name="text">
                     <string>IP:</string>
                    </property>
+                   <property name="buddy">
+                    <cstring>txtIPFwTest</cstring>
+                   </property>
                   </widget>
                  </item>
                  <item>
@@ -3250,6 +3640,9 @@ The process match level has a higher priority than the specificity and describes
                   <widget class="QLabel" name="label_51">
                    <property name="text">
                     <string>Protocol:</string>
+                   </property>
+                   <property name="buddy">
+                    <cstring>cmbProtFwTest</cstring>
                    </property>
                   </widget>
                  </item>
@@ -3322,7 +3715,6 @@ The process match level has a higher priority than the specificity and describes
                 <widget class="QLabel" name="lblNoWfp">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                    <kerning>true</kerning>
                   </font>
@@ -3339,34 +3731,251 @@ The process match level has a higher priority than the specificity and describes
              </item>
             </layout>
            </widget>
+           <widget class="QWidget" name="tabDNS">
+            <attribute name="title">
+             <string>DNS Filter</string>
+            </attribute>
+            <layout class="QGridLayout" name="gridLayout_66">
+             <property name="leftMargin">
+              <number>3</number>
+             </property>
+             <property name="rightMargin">
+              <number>3</number>
+             </property>
+             <property name="bottomMargin">
+              <number>3</number>
+             </property>
+             <item row="0" column="0">
+              <layout class="QGridLayout" name="gridLayout_65">
+               <item row="1" column="1">
+                <widget class="QPushButton" name="btnAddDns">
+                 <property name="text">
+                  <string>Add Filter</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <spacer name="verticalSpacer_32">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_19">
+                 <property name="text">
+                  <string>With the DNS filter individual domains can be blocked, on a per process basis. Leave the IP column empty to block or enter an ip to redirect.</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QPushButton" name="btnDelDns">
+                 <property name="text">
+                  <string>Remove</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0" rowspan="3">
+                <widget class="QTreeWidget" name="treeDns">
+                 <property name="sortingEnabled">
+                  <bool>true</bool>
+                 </property>
+                 <column>
+                  <property name="text">
+                   <string>Program</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Domain</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>IP</string>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="tabNetProxy">
+            <attribute name="title">
+             <string>Internet Proxy</string>
+            </attribute>
+            <layout class="QGridLayout" name="gridLayout_64">
+             <property name="leftMargin">
+              <number>3</number>
+             </property>
+             <property name="rightMargin">
+              <number>3</number>
+             </property>
+             <property name="bottomMargin">
+              <number>3</number>
+             </property>
+             <item row="0" column="0">
+              <layout class="QGridLayout" name="gridLayout_15">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_180">
+                 <property name="text">
+                  <string>Sandboxed programs can be forced to use a preset SOCKS5 proxy.</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="1">
+                <widget class="QCheckBox" name="chkProxyResolveHostnames">
+                 <property name="text">
+                  <string>Resolve hostnames via proxy</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QPushButton" name="btnTestProxy">
+                 <property name="text">
+                  <string>Test Proxy</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="1">
+                <widget class="QPushButton" name="btnDelProxy">
+                 <property name="text">
+                  <string>Remove</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <spacer name="verticalSpacer_33">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="1">
+                <widget class="QPushButton" name="btnAddProxy">
+                 <property name="text">
+                  <string>Add Proxy</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0" rowspan="7">
+                <widget class="QTreeWidget" name="treeProxy">
+                 <property name="sortingEnabled">
+                  <bool>false</bool>
+                 </property>
+                 <column>
+                  <property name="text">
+                   <string>Program</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>IP</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Port</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Auth</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Login</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Password</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Bypass IPs</string>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <layout class="QVBoxLayout" name="verticalLayout_3">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_4">
+                   <item>
+                    <widget class="QPushButton" name="btnMoveProxyUp">
+                     <property name="text">
+                      <string>Move Up</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_5">
+                   <item>
+                    <widget class="QPushButton" name="btnMoveProxyDown">
+                     <property name="text">
+                      <string>Move Down</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+               <item row="5" column="1">
+                <spacer name="verticalSpacer_41">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
            <widget class="QWidget" name="tabNetConfig">
             <attribute name="title">
              <string>Other Options</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_64">
+            <layout class="QGridLayout" name="gridLayout_81">
              <item row="0" column="0">
-              <layout class="QGridLayout" name="gridLayout_30">
-               <item row="5" column="1">
-                <widget class="QCheckBox" name="chkBlockNetParam">
+              <layout class="QGridLayout" name="gridLayout_80">
+               <item row="1" column="1">
+                <widget class="QCheckBox" name="chkBlockSamba">
                  <property name="text">
-                  <string>Prevent change to network and firewall parameters (user mode)</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="lblPorts">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="toolTip">
-                  <string>Protect the system from sandboxed processes</string>
-                 </property>
-                 <property name="text">
-                  <string>Port Blocking</string>
+                  <string>Block common SAMBA ports</string>
                  </property>
                 </widget>
                </item>
@@ -3377,20 +3986,10 @@ The process match level has a higher priority than the specificity and describes
                  </property>
                 </widget>
                </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="lblNetwork">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="toolTip">
-                  <string>Protect the system from sandboxed processes</string>
-                 </property>
+               <item row="2" column="1">
+                <widget class="QCheckBox" name="chkBlockDns">
                  <property name="text">
-                  <string>Network restrictions</string>
+                  <string>Block DNS, UDP port 53</string>
                  </property>
                 </widget>
                </item>
@@ -3407,10 +4006,16 @@ The process match level has a higher priority than the specificity and describes
                  </property>
                 </spacer>
                </item>
-               <item row="1" column="1">
-                <widget class="QCheckBox" name="chkBlockSamba">
+               <item row="0" column="0">
+                <widget class="QLabel" name="lblPorts">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
                  <property name="text">
-                  <string>Block common SAMBA ports</string>
+                  <string>Port Blocking</string>
                  </property>
                 </widget>
                </item>
@@ -3427,10 +4032,26 @@ The process match level has a higher priority than the specificity and describes
                  </property>
                 </spacer>
                </item>
-               <item row="2" column="1">
-                <widget class="QCheckBox" name="chkBlockDns">
+               <item row="3" column="0">
+                <widget class="QLabel" name="lblNetwork">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="toolTip">
+                  <string>Protect the system from sandboxed processes</string>
+                 </property>
                  <property name="text">
-                  <string>Block DNS, UDP port 53</string>
+                  <string>Network restrictions</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QCheckBox" name="chkBlockNetParam">
+                 <property name="text">
+                  <string>Prevent change to network and firewall parameters (user mode)</string>
                  </property>
                 </widget>
                </item>
@@ -3450,7 +4071,7 @@ The process match level has a higher priority than the specificity and describes
          <item row="0" column="0">
           <widget class="QTabWidget" name="tabsRecovery">
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="tabQuickRecovery">
             <attribute name="title">
@@ -3637,7 +4258,6 @@ The process match level has a higher priority than the specificity and describes
           <widget class="QTabWidget" name="tabsOther">
            <property name="font">
             <font>
-             <weight>50</weight>
              <bold>false</bold>
              <kerning>true</kerning>
             </font>
@@ -3659,45 +4279,34 @@ The process match level has a higher priority than the specificity and describes
                  </property>
                 </widget>
                </item>
+               <item row="0" column="1">
+                <widget class="QCheckBox" name="chkNoPanic">
+                 <property name="toolTip">
+                  <string>When the global hotkey is pressed 3 times in short succession this exception will be ignored.</string>
+                 </property>
+                 <property name="text">
+                  <string>Exclude this sandbox from being terminated when &quot;Terminate All Processes&quot; is invoked.</string>
+                 </property>
+                </widget>
+               </item>
                <item row="6" column="1">
-                <widget class="QCheckBox" name="chkUseSbieWndStation">
-                 <property name="text">
-                  <string>Emulate sandboxed window station for all processes</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="lblCompatibility">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Compatibility</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="1">
                 <widget class="QCheckBox" name="chkComTimeout">
                  <property name="text">
                   <string>Disable the use of RpcMgmtSetComTimeout by default (this may resolve compatibility issues)</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1">
-                <widget class="QCheckBox" name="chkPreferExternalManifest">
-                 <property name="text">
-                  <string>Force usage of custom dummy Manifest files (legacy behaviour)</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
+               <item row="4" column="1">
                 <widget class="QCheckBox" name="chkUseSbieDeskHack">
                  <property name="text">
                   <string>Use desktop object workaround for all processes</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="1">
+                <widget class="QCheckBox" name="chkForceRestart">
+                 <property name="text">
+                  <string>Restart force process before they begin to execute</string>
                  </property>
                 </widget>
                </item>
@@ -3714,6 +4323,33 @@ The process match level has a higher priority than the specificity and describes
                  </property>
                 </spacer>
                </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="lblCompatibility">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Compatibility</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QCheckBox" name="chkPreferExternalManifest">
+                 <property name="text">
+                  <string>Force usage of custom dummy Manifest files (legacy behaviour)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QCheckBox" name="chkUseSbieWndStation">
+                 <property name="text">
+                  <string>Emulate sandboxed window station for all processes</string>
+                 </property>
+                </widget>
+               </item>
                <item row="8" column="1">
                 <spacer name="horizontalSpacer_12">
                  <property name="orientation">
@@ -3726,23 +4362,6 @@ The process match level has a higher priority than the specificity and describes
                   </size>
                  </property>
                 </spacer>
-               </item>
-               <item row="4" column="1">
-                <widget class="QCheckBox" name="chkNestedJobs">
-                 <property name="text">
-                  <string>Allow use of nested job objects (works on Windows 8 and later)</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QCheckBox" name="chkNoPanic">
-                 <property name="toolTip">
-                  <string>When the global hotkey is pressed 3 times in short succession this exception will be ignored.</string>
-                 </property>
-                 <property name="text">
-                  <string>Exclude this sandbox from being terminated when &quot;Terminate All Processes&quot; is invoked.</string>
-                 </property>
-                </widget>
                </item>
               </layout>
              </item>
@@ -3772,7 +4391,6 @@ The process match level has a higher priority than the specificity and describes
                 <widget class="QLabel" name="lblProtection">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                    <kerning>true</kerning>
                   </font>
@@ -3808,7 +4426,7 @@ The process match level has a higher priority than the specificity and describes
                <item row="4" column="1" colspan="2">
                 <widget class="QCheckBox" name="chkHostProtect">
                  <property name="toolTip">
-                  <string>Sandboxie’s resource access rules often discriminate against program binaries located inside the sandbox. OpenFilePath and OpenKeyPath work only for application binaries located on the host natively. In order to define a rule without this restriction, OpenPipePath or OpenConfPath must be used. Likewise, all Closed(File|Key|Ipc)Path directives which are defined by negation e.g. ‘ClosedFilePath=! iexplore.exe,C:Users*’ will be always closed for binaries located inside a sandbox. Both restriction policies can be disabled on the “Access policies” page.
+                  <string>Sandboxie's resource access rules often discriminate against program binaries located inside the sandbox. OpenFilePath and OpenKeyPath work only for application binaries located on the host natively. In order to define a rule without this restriction, OpenPipePath or OpenConfPath must be used. Likewise, all Closed(File|Key|Ipc)Path directives which are defined by negation e.g. 'ClosedFilePath=!iexplore.exe,C:Users*' will be always closed for binaries located inside a sandbox. Both restriction policies can be disabled on the &quot;Access policies&quot; page.
 This is done to prevent rogue processes inside the sandbox from creating a renamed copy of themselves and accessing protected resources. Another exploit vector is the injection of a library into an authorized process to get access to everything it is allowed to access. Using Host Image Protection, this can be prevented by blocking applications (installed on the host) running inside a sandbox from loading libraries from the sandbox itself.</string>
                  </property>
                  <property name="text">
@@ -3882,13 +4500,12 @@ This is done to prevent rogue processes inside the sandbox from creating a renam
           <widget class="QTabWidget" name="tabsAdvanced">
            <property name="font">
             <font>
-             <weight>50</weight>
              <bold>false</bold>
              <kerning>true</kerning>
             </font>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="tabMisc">
             <attribute name="title">
@@ -4263,76 +4880,36 @@ This is done to prevent rogue processes inside the sandbox from creating a renam
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="tabHideProc">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-              <kerning>true</kerning>
-             </font>
-            </property>
+           <widget class="QWidget" name="tabProcesses">
             <attribute name="title">
-             <string>Hide Processes</string>
+             <string>Processes</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_29">
-             <property name="leftMargin">
-              <number>3</number>
-             </property>
-             <property name="topMargin">
-              <number>6</number>
-             </property>
-             <property name="rightMargin">
-              <number>3</number>
-             </property>
-             <property name="bottomMargin">
-              <number>3</number>
-             </property>
-             <item row="2" column="1">
-              <widget class="QPushButton" name="btnAddProcess">
-               <property name="text">
-                <string>Add Process</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QCheckBox" name="chkHideOtherBoxes">
-               <property name="text">
-                <string>Don't allow sandboxed processes to see processes running in other boxes</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <spacer name="verticalSpacer_16">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item row="1" column="0" colspan="2">
-              <widget class="QLabel" name="label_24">
-               <property name="text">
-                <string>Hide host processes from processes running in the sandbox.</string>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="1">
+            <layout class="QGridLayout" name="gridLayout_86">
+             <item row="6" column="2">
               <widget class="QCheckBox" name="chkShowHiddenProcTmpl">
                <property name="text">
                 <string>Show Templates</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="0" rowspan="5">
+             <item row="8" column="0" colspan="2">
+              <widget class="QCheckBox" name="chkBlockWMI">
+               <property name="toolTip">
+                <string>Some programs read system details through WMI (a Windows built-in database) instead of normal ways. For example, &quot;tasklist.exe&quot; could get full processes list through accessing WMI, even if &quot;HideOtherBoxes&quot; is used. Enable this option to stop this behaviour.</string>
+               </property>
+               <property name="text">
+                <string>Prevent sandboxed processes from accessing system details through WMI (see tooltip for more info)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0" rowspan="4" colspan="2">
               <widget class="QTreeWidget" name="treeHideProc">
+               <property name="minimumSize">
+                <size>
+                 <width>258</width>
+                 <height>200</height>
+                </size>
+               </property>
                <property name="sortingEnabled">
                 <bool>true</bool>
                </property>
@@ -4348,19 +4925,201 @@ This is done to prevent rogue processes inside the sandbox from creating a renam
                </column>
               </widget>
              </item>
-             <item row="6" column="1">
+             <item row="2" column="1">
+              <widget class="QCheckBox" name="chkHideNonSystemProcesses">
+               <property name="text">
+                <string>Don't allow sandboxed processes to see processes running outside any boxes</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lblProcessHiding">
+               <property name="font">
+                <font>
+                 <bold>true</bold>
+                 <kerning>true</kerning>
+                </font>
+               </property>
+               <property name="text">
+                <string>Process Hiding</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0" colspan="2">
+              <widget class="QLabel" name="label_24">
+               <property name="text">
+                <string>Hide host processes from processes running in the sandbox.</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="2">
+              <spacer name="verticalSpacer_16">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="1" column="1">
+              <widget class="QCheckBox" name="chkHideOtherBoxes">
+               <property name="text">
+                <string>Don't allow sandboxed processes to see processes running in other boxes</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="2">
               <widget class="QPushButton" name="btnDelProcess">
                <property name="text">
                 <string>Remove</string>
                </property>
               </widget>
              </item>
+             <item row="4" column="2">
+              <widget class="QPushButton" name="btnAddProcess">
+               <property name="text">
+                <string>Add Process</string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="0" colspan="2">
+              <widget class="QCheckBox" name="chkHideHostApps">
+               <property name="toolTip">
+                <string>This option hides the registry path *\Software*\Microsoft\Windows\CurrentVersion\Uninstall\*, allowing software installed on the host to be reinstalled in the sandbox. However, it does not hide software-specific files and folders. If the installer still encounters issues, you will need to define custom WriteFilePath entries to hide the relevant files on disk.</string>
+               </property>
+               <property name="text">
+                <string>Hide the host software's uninstall key (see tooltip)</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="tabPrivacy">
+            <property name="font">
+             <font>
+              <bold>false</bold>
+              <kerning>true</kerning>
+             </font>
+            </property>
+            <attribute name="title">
+             <string>Privacy</string>
+            </attribute>
+            <layout class="QGridLayout" name="gridLayout_29">
+             <item row="1" column="1" colspan="3">
+              <widget class="QCheckBox" name="chkHideFirmware">
+               <property name="toolTip">
+                <string/>
+               </property>
+               <property name="text">
+                <string>Hide Firmware Information</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1" colspan="3">
+              <widget class="QCheckBox" name="chkHideSerial">
+               <property name="text">
+                <string>Hide Disk Serial Number</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1" colspan="3">
+              <widget class="QCheckBox" name="chkHideUID">
+               <property name="text">
+                <string>Obfuscate known unique identifiers in the registry</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3">
+              <spacer name="horizontalSpacer_24">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="1" column="4">
+              <widget class="QToolButton" name="btnDumpFW">
+               <property name="toolTip">
+                <string>Dump the current Firmware Tables to HKCU\System\SbieCustom</string>
+               </property>
+               <property name="text">
+                <string>Dump FW Tables</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QComboBox" name="cmbLangID"/>
+             </item>
+             <item row="4" column="1" colspan="3">
+              <widget class="QCheckBox" name="chkHideMac">
+               <property name="text">
+                <string>Hide Network Adapter MAC Address</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lblPrivacyProtection">
+               <property name="font">
+                <font>
+                 <bold>true</bold>
+                 <kerning>true</kerning>
+                </font>
+               </property>
+               <property name="text">
+                <string>Data Protection</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="label_72">
+               <property name="text">
+                <string>Use a custom Locale/LangID</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1" colspan="4">
+              <spacer name="horizontalSpacer_22">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="6" column="0">
+              <spacer name="verticalSpacer_44">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
             </layout>
            </widget>
            <widget class="QWidget" name="tabUsers">
             <property name="font">
              <font>
-              <weight>50</weight>
               <bold>false</bold>
               <kerning>true</kerning>
              </font>
@@ -4464,7 +5223,6 @@ Note:  Forced Programs and Force Folders settings for a sandbox do not apply to 
                 <widget class="QLabel" name="lblMonitor">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                    <kerning>true</kerning>
                   </font>
@@ -4548,6 +5306,13 @@ Note:  Forced Programs and Force Folders settings for a sandbox do not apply to 
                  </property>
                 </widget>
                </item>
+               <item row="10" column="4">
+                <widget class="QCheckBox" name="chkDnsTrace">
+                 <property name="text">
+                  <string>DNS Request Logging</string>
+                 </property>
+                </widget>
+               </item>
                <item row="8" column="1" colspan="2">
                 <widget class="QCheckBox" name="chkGuiTrace">
                  <property name="text">
@@ -4586,7 +5351,6 @@ instead of &quot;*&quot;.</string>
                 <widget class="QLabel" name="lblTracing">
                  <property name="font">
                   <font>
-                   <weight>75</weight>
                    <bold>true</bold>
                    <kerning>true</kerning>
                   </font>
@@ -4630,7 +5394,6 @@ instead of &quot;*&quot;.</string>
            <widget class="QWidget" name="tabDebug">
             <property name="font">
              <font>
-              <weight>50</weight>
               <bold>false</bold>
               <kerning>true</kerning>
              </font>
@@ -4661,8 +5424,8 @@ instead of &quot;*&quot;.</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>75</width>
-                  <height>16</height>
+                  <width>98</width>
+                  <height>28</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="dbgLayout">
@@ -4686,7 +5449,6 @@ instead of &quot;*&quot;.</string>
               <widget class="QLabel" name="label_25">
                <property name="font">
                 <font>
-                 <weight>75</weight>
                  <bold>true</bold>
                  <kerning>true</kerning>
                 </font>
@@ -4744,8 +5506,105 @@ instead of &quot;*&quot;.</string>
              </property>
              <item row="0" column="0">
               <layout class="QGridLayout" name="gridLayout_3">
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_6">
+                 <property name="text">
+                  <string>Filter Categories</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                 <property name="buddy">
+                  <cstring>cmbCategories</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="4">
+                <widget class="QToolButton" name="btnDelTemplate">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Remove</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0" rowspan="6" colspan="4">
+                <widget class="QTreeWidget" name="treeTemplates">
+                 <property name="selectionMode">
+                  <enum>QAbstractItemView::ExtendedSelection</enum>
+                 </property>
+                 <property name="sortingEnabled">
+                  <bool>true</bool>
+                 </property>
+                 <column>
+                  <property name="text">
+                   <string>Category</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Name</string>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+               <item row="2" column="4">
+                <widget class="QToolButton" name="btnAddTemplate">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Add Template</string>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="1">
                 <widget class="QComboBox" name="cmbCategories"/>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="label_15">
+                 <property name="text">
+                  <string>Text Filter</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>txtTemplates</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QLineEdit" name="txtTemplates"/>
+               </item>
+               <item row="4" column="4">
+                <widget class="QToolButton" name="btnOpenTemplate">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>Open Template</string>
+                 </property>
+                </widget>
                </item>
                <item row="0" column="0" colspan="4">
                 <widget class="QLabel" name="label_13">
@@ -4770,83 +5629,18 @@ instead of &quot;*&quot;.</string>
                  </property>
                 </spacer>
                </item>
-               <item row="1" column="2">
-                <widget class="QLabel" name="label_15">
-                 <property name="text">
-                  <string>Text Filter</string>
+               <item row="5" column="4">
+                <spacer name="verticalSpacer_42">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
                  </property>
-                </widget>
-               </item>
-               <item row="1" column="3">
-                <widget class="QLineEdit" name="txtTemplates"/>
-               </item>
-               <item row="2" column="4">
-                <widget class="QToolButton" name="btnAddTemplate">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
+                 <property name="sizeHint" stdset="0">
                   <size>
-                   <width>0</width>
-                   <height>23</height>
+                   <width>20</width>
+                   <height>40</height>
                   </size>
                  </property>
-                 <property name="text">
-                  <string>Add Template</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_6">
-                 <property name="text">
-                  <string>Filter Categories</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0" rowspan="4" colspan="4">
-                <widget class="QTreeWidget" name="treeTemplates">
-                 <property name="selectionMode">
-                  <enum>QAbstractItemView::ExtendedSelection</enum>
-                 </property>
-                 <property name="sortingEnabled">
-                  <bool>true</bool>
-                 </property>
-                 <column>
-                  <property name="text">
-                   <string>Category</string>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
-                   <string>Name</string>
-                  </property>
-                 </column>
-                </widget>
-               </item>
-               <item row="4" column="4">
-                <widget class="QToolButton" name="btnDelTemplate">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>23</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>Remove</string>
-                 </property>
-                </widget>
+                </spacer>
                </item>
               </layout>
              </item>
@@ -5103,64 +5897,259 @@ Please note that this values are currently user specific and saved globally for 
  </widget>
  <tabstops>
   <tabstop>tabs</tabstop>
+  <tabstop>tabsGeneral</tabstop>
   <tabstop>cmbBoxIndicator</tabstop>
   <tabstop>cmbBoxBorder</tabstop>
   <tabstop>btnBorderColor</tabstop>
   <tabstop>spinBorderWidth</tabstop>
-  <tabstop>treeRun</tabstop>
-  <tabstop>btnAddCmd</tabstop>
-  <tabstop>btnDelCmd</tabstop>
+  <tabstop>chkShowForRun</tabstop>
+  <tabstop>chkPinToTray</tabstop>
+  <tabstop>cmbDblClick</tabstop>
+  <tabstop>cmbBoxType</tabstop>
+  <tabstop>cmbVersion</tabstop>
+  <tabstop>chkSeparateUserFolders</tabstop>
+  <tabstop>chkUseVolumeSerialNumbers</tabstop>
+  <tabstop>chkRamBox</tabstop>
+  <tabstop>chkEncrypt</tabstop>
+  <tabstop>btnPassword</tabstop>
+  <tabstop>chkForceProtection</tabstop>
   <tabstop>chkAutoEmpty</tabstop>
   <tabstop>chkProtectBox</tabstop>
-  <tabstop>treeTriggers</tabstop>
-  <tabstop>btnDelAuto</tabstop>
+  <tabstop>chkRawDiskRead</tabstop>
+  <tabstop>chkRawDiskNotify</tabstop>
+  <tabstop>chkAllowEfs</tabstop>
+  <tabstop>chkCopyLimit</tabstop>
+  <tabstop>txtCopyLimit</tabstop>
+  <tabstop>chkCopyPrompt</tabstop>
+  <tabstop>chkNoCopyWarn</tabstop>
+  <tabstop>chkDenyWrite</tabstop>
+  <tabstop>treeCopy</tabstop>
+  <tabstop>btnAddCopy</tabstop>
+  <tabstop>chkShowCopyTmpl</tabstop>
+  <tabstop>btnDelCopy</tabstop>
+  <tabstop>chkNoCopyMsg</tabstop>
+  <tabstop>chkBlockSpooler</tabstop>
+  <tabstop>chkOpenSpooler</tabstop>
+  <tabstop>chkOpenWpadEndpoint</tabstop>
+  <tabstop>chkPrintToFile</tabstop>
+  <tabstop>chkOpenProtectedStorage</tabstop>
+  <tabstop>chkOpenCredentials</tabstop>
+  <tabstop>chkCloseClipBoard</tabstop>
+  <tabstop>chkVmRead</tabstop>
+  <tabstop>chkVmReadNotify</tabstop>
+  <tabstop>chkProtectPower</tabstop>
+  <tabstop>chkUserOperation</tabstop>
+  <tabstop>chkCoverBar</tabstop>
+  <tabstop>chkBlockCapture</tabstop>
+  <tabstop>chkOpenDevCMApi</tabstop>
+  <tabstop>chkOpenSamEndpoint</tabstop>
+  <tabstop>chkOpenLsaEndpoint</tabstop>
+  <tabstop>treeRun</tabstop>
+  <tabstop>btnAddCmd</tabstop>
+  <tabstop>btnCmdUp</tabstop>
+  <tabstop>btnCmdDown</tabstop>
+  <tabstop>btnDelCmd</tabstop>
+  <tabstop>tabsSecurity</tabstop>
+  <tabstop>chkSecurityMode</tabstop>
+  <tabstop>chkLockDown</tabstop>
+  <tabstop>chkRestrictDevices</tabstop>
+  <tabstop>chkDropRights</tabstop>
+  <tabstop>chkFakeElevation</tabstop>
+  <tabstop>chkMsiExemptions</tabstop>
+  <tabstop>chkACLs</tabstop>
+  <tabstop>chkNoSecurityIsolation</tabstop>
+  <tabstop>chkNoSecurityFiltering</tabstop>
+  <tabstop>chkConfidential</tabstop>
+  <tabstop>chkLessConfidential</tabstop>
+  <tabstop>chkProtectWindow</tabstop>
+  <tabstop>chkAdminOnly</tabstop>
+  <tabstop>treeHostProc</tabstop>
+  <tabstop>btnHostProcessAllow</tabstop>
+  <tabstop>btnHostProcessDeny</tabstop>
+  <tabstop>chkShowHostProcTmpl</tabstop>
+  <tabstop>btnDelHostProcess</tabstop>
+  <tabstop>chkNotifyProtect</tabstop>
+  <tabstop>chkAddToJob</tabstop>
+  <tabstop>chkNestedJobs</tabstop>
+  <tabstop>txtSingleMemory</tabstop>
+  <tabstop>txtTotalMemory</tabstop>
+  <tabstop>txtTotalNumber</tabstop>
+  <tabstop>chkProtectSCM</tabstop>
+  <tabstop>chkRestrictServices</tabstop>
+  <tabstop>chkElevateRpcss</tabstop>
+  <tabstop>chkProtectSystem</tabstop>
+  <tabstop>chkDropPrivileges</tabstop>
+  <tabstop>chkDropConHostIntegrity</tabstop>
+  <tabstop>chkSbieLogon</tabstop>
+  <tabstop>chkCreateToken</tabstop>
   <tabstop>treeGroups</tabstop>
   <tabstop>btnAddGroup</tabstop>
   <tabstop>btnAddProg</tabstop>
+  <tabstop>chkShowGroupTmpl</tabstop>
   <tabstop>btnDelProg</tabstop>
+  <tabstop>tabsForce</tabstop>
+  <tabstop>treeForced</tabstop>
+  <tabstop>btnForceProg</tabstop>
+  <tabstop>btnForceChild</tabstop>
+  <tabstop>btnForceDir</tabstop>
+  <tabstop>chkShowForceTmpl</tabstop>
+  <tabstop>btnDelForce</tabstop>
+  <tabstop>chkDisableForced</tabstop>
+  <tabstop>treeBreakout</tabstop>
+  <tabstop>btnBreakoutProg</tabstop>
+  <tabstop>btnBreakoutDir</tabstop>
+  <tabstop>chkShowBreakoutTmpl</tabstop>
+  <tabstop>btnDelBreakout</tabstop>
+  <tabstop>tabsStop</tabstop>
   <tabstop>treeStop</tabstop>
   <tabstop>btnAddLingering</tabstop>
   <tabstop>chkShowStopTmpl</tabstop>
   <tabstop>btnDelStopProg</tabstop>
+  <tabstop>treeLeader</tabstop>
+  <tabstop>btnAddLeader</tabstop>
+  <tabstop>chkShowLeaderTmpl</tabstop>
+  <tabstop>btnDelLeader</tabstop>
+  <tabstop>chkNoStopWnd</tabstop>
+  <tabstop>chkLingerLeniency</tabstop>
   <tabstop>radStartAll</tabstop>
   <tabstop>radStartExcept</tabstop>
   <tabstop>radStartSelected</tabstop>
   <tabstop>treeStart</tabstop>
   <tabstop>btnAddStartProg</tabstop>
+  <tabstop>chkShowStartTmpl</tabstop>
   <tabstop>btnDelStartProg</tabstop>
   <tabstop>chkStartBlockMsg</tabstop>
+  <tabstop>chkAlertBeforeStart</tabstop>
+  <tabstop>tabsAccess</tabstop>
+  <tabstop>treeFiles</tabstop>
+  <tabstop>btnAddFile</tabstop>
+  <tabstop>chkShowFilesTmpl</tabstop>
+  <tabstop>btnDelFile</tabstop>
+  <tabstop>treeKeys</tabstop>
+  <tabstop>btnAddKey</tabstop>
+  <tabstop>chkShowKeysTmpl</tabstop>
+  <tabstop>btnDelKey</tabstop>
+  <tabstop>treeIPC</tabstop>
+  <tabstop>btnAddIPC</tabstop>
+  <tabstop>chkShowIPCTmpl</tabstop>
+  <tabstop>btnDelIPC</tabstop>
+  <tabstop>treeWnd</tabstop>
+  <tabstop>btnAddWnd</tabstop>
+  <tabstop>chkShowWndTmpl</tabstop>
+  <tabstop>btnDelWnd</tabstop>
+  <tabstop>chkNoWindowRename</tabstop>
+  <tabstop>treeCOM</tabstop>
+  <tabstop>btnAddCOM</tabstop>
+  <tabstop>chkShowCOMTmpl</tabstop>
+  <tabstop>btnDelCOM</tabstop>
+  <tabstop>chkOpenCOM</tabstop>
+  <tabstop>chkPrivacy</tabstop>
+  <tabstop>chkUseSpecificity</tabstop>
+  <tabstop>chkCloseForBox</tabstop>
+  <tabstop>chkNoOpenForBox</tabstop>
+  <tabstop>tabsInternet</tabstop>
+  <tabstop>cmbBlockINet</tabstop>
   <tabstop>chkINetBlockPrompt</tabstop>
   <tabstop>treeINet</tabstop>
   <tabstop>btnAddINetProg</tabstop>
   <tabstop>btnDelINetProg</tabstop>
   <tabstop>chkINetBlockMsg</tabstop>
+  <tabstop>treeNetFw</tabstop>
+  <tabstop>btnAddFwRule</tabstop>
+  <tabstop>chkShowNetFwTmpl</tabstop>
+  <tabstop>btnDelFwRule</tabstop>
+  <tabstop>txtProgFwTest</tabstop>
+  <tabstop>txtPortFwTest</tabstop>
+  <tabstop>txtIPFwTest</tabstop>
+  <tabstop>cmbProtFwTest</tabstop>
+  <tabstop>btnClearFwTest</tabstop>
+  <tabstop>treeDns</tabstop>
+  <tabstop>btnAddDns</tabstop>
+  <tabstop>btnDelDns</tabstop>
+  <tabstop>treeProxy</tabstop>
+  <tabstop>btnAddProxy</tabstop>
+  <tabstop>btnTestProxy</tabstop>
+  <tabstop>btnMoveProxyUp</tabstop>
+  <tabstop>btnMoveProxyDown</tabstop>
+  <tabstop>chkProxyResolveHostnames</tabstop>
+  <tabstop>btnDelProxy</tabstop>
+  <tabstop>chkBlockSamba</tabstop>
+  <tabstop>chkBlockDns</tabstop>
+  <tabstop>chkBlockNetShare</tabstop>
+  <tabstop>chkBlockNetParam</tabstop>
+  <tabstop>tabsRecovery</tabstop>
   <tabstop>treeRecovery</tabstop>
   <tabstop>btnAddRecovery</tabstop>
   <tabstop>chkShowRecoveryTmpl</tabstop>
   <tabstop>btnDelRecovery</tabstop>
+  <tabstop>chkAutoRecovery</tabstop>
+  <tabstop>treeRecIgnore</tabstop>
+  <tabstop>btnAddRecIgnore</tabstop>
+  <tabstop>btnAddRecIgnoreExt</tabstop>
+  <tabstop>chkShowRecIgnoreTmpl</tabstop>
+  <tabstop>btnDelRecIgnore</tabstop>
+  <tabstop>tabsOther</tabstop>
+  <tabstop>chkNoPanic</tabstop>
+  <tabstop>chkPreferExternalManifest</tabstop>
+  <tabstop>chkElevateCreateProcessFix</tabstop>
+  <tabstop>chkUseSbieDeskHack</tabstop>
+  <tabstop>chkUseSbieWndStation</tabstop>
+  <tabstop>chkComTimeout</tabstop>
+  <tabstop>chkForceRestart</tabstop>
+  <tabstop>treeInjectDll</tabstop>
+  <tabstop>chkHostProtect</tabstop>
+  <tabstop>chkHostProtectMsg</tabstop>
   <tabstop>tabsAdvanced</tabstop>
-  <tabstop>chkHideOtherBoxes</tabstop>
-  <tabstop>btnAddProcess</tabstop>
-  <tabstop>btnDelProcess</tabstop>
+  <tabstop>treeOptions</tabstop>
+  <tabstop>btnAddOption</tabstop>
+  <tabstop>chkShowOptionsTmpl</tabstop>
+  <tabstop>btnDelOption</tabstop>
+  <tabstop>treeTriggers</tabstop>
+  <tabstop>btnAddAutoExec</tabstop>
+  <tabstop>btnAddAutoRun</tabstop>
+  <tabstop>btnAddAutoSvc</tabstop>
+  <tabstop>btnAddTerminateCmd</tabstop>
+  <tabstop>btnAddRecoveryCmd</tabstop>
+  <tabstop>btnAddDeleteCmd</tabstop>
+  <tabstop>chkShowTriggersTmpl</tabstop>
+  <tabstop>btnDelAuto</tabstop>
+  <tabstop>chkHideFirmware</tabstop>
+  <tabstop>btnDumpFW</tabstop>
+  <tabstop>cmbLangID</tabstop>
+  <tabstop>chkHideSerial</tabstop>
+  <tabstop>chkHideMac</tabstop>
+  <tabstop>chkHideUID</tabstop>
   <tabstop>lstUsers</tabstop>
   <tabstop>btnAddUser</tabstop>
   <tabstop>btnDelUser</tabstop>
   <tabstop>chkMonitorAdminOnly</tabstop>
+  <tabstop>chkDisableMonitor</tabstop>
+  <tabstop>chkCallTrace</tabstop>
   <tabstop>chkFileTrace</tabstop>
   <tabstop>chkPipeTrace</tabstop>
   <tabstop>chkKeyTrace</tabstop>
   <tabstop>chkIpcTrace</tabstop>
   <tabstop>chkGuiTrace</tabstop>
   <tabstop>chkComTrace</tabstop>
+  <tabstop>chkNetFwTrace</tabstop>
+  <tabstop>chkDnsTrace</tabstop>
+  <tabstop>chkHookTrace</tabstop>
   <tabstop>chkDbgTrace</tabstop>
+  <tabstop>chkErrTrace</tabstop>
   <tabstop>scrollArea</tabstop>
-  <tabstop>treeTemplates</tabstop>
+  <tabstop>tabsTemplates</tabstop>
   <tabstop>cmbCategories</tabstop>
   <tabstop>txtTemplates</tabstop>
+  <tabstop>treeTemplates</tabstop>
+  <tabstop>btnAddTemplate</tabstop>
+  <tabstop>btnOpenTemplate</tabstop>
+  <tabstop>btnDelTemplate</tabstop>
+  <tabstop>treeFolders</tabstop>
+  <tabstop>chkScreenReaders</tabstop>
   <tabstop>btnEditIni</tabstop>
-  <tabstop>txtIniSection</tabstop>
   <tabstop>btnSaveIni</tabstop>
   <tabstop>btnCancelEdit</tabstop>
+  <tabstop>txtIniSection</tabstop>
  </tabstops>
  <resources/>
  <connections/>

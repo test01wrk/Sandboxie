@@ -139,6 +139,10 @@ BOOL ProcessServer::KillProcess(ULONG ProcessId)
             LastError = GetLastError();
         CloseHandle(hProcess);
     }
+
+    if (!ok)
+        ok = NT_SUCCESS(SbieApi_Call(API_KILL_PROCESS, 1, ProcessId));
+
     //WCHAR txt[512]; wsprintf(txt, L"Killing Process Id %d --> %d/%d\n", ProcessId, ok, LastError); OutputDebugString(txt);
     return ok;
 }
@@ -851,19 +855,34 @@ HANDLE ProcessServer::RunSandboxedGetToken(
 
     if (CallerInSandbox) {
 
-        if ((wcscmp(cmd, L"*RPCSS*") == 0 /* || wcscmp(cmd, L"*DCOM*") == 0 */) 
-          && ProcessServer__RunRpcssAsSystem(boxname, CompartmentMode)) {
+        if ((wcscmp(cmd, L"*RPCSS*") == 0 /* || wcscmp(cmd, L"*DCOM*") == 0 */)) {
             
-            //
-            // use our system token
-            //
+            if (ProcessServer__RunRpcssAsSystem(boxname, CompartmentMode)) {
 
-            ok = OpenProcessToken(
-                        GetCurrentProcess(), TOKEN_RIGHTS, &OldTokenHandle);
+                //
+                // use our system token
+                //
+
+                ok = OpenProcessToken(
+                    GetCurrentProcess(), TOKEN_RIGHTS, &OldTokenHandle);
+
+                ShouldAdjustDacl = true;
+            }
+            else {
+
+                //
+                // use the session token
+                //
+
+                ULONG SessionId = PipeServer::GetCallerSessionId();
+
+                ok = WTSQueryUserToken(SessionId, &OldTokenHandle);
+
+                ShouldAdjustSessionId = false;
+            }
+
             if (! ok)
                 return NULL;
-
-            ShouldAdjustDacl = true;
 
         }
         else

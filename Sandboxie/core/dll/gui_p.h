@@ -57,7 +57,7 @@
 #define WM_DDE_LAST         (WM_DDE_FIRST+8)
 
 #define GET_WIN_API(name, lib) \
-    P_##name name = Ldr_GetProcAddrNew(lib, #name, #name); \
+    P_##name name = Ldr_GetProcAddrNew(lib, L#name, #name); \
     if(!name) return NULL;
 
 //---------------------------------------------------------------------------
@@ -91,6 +91,21 @@ typedef BOOL (*P_IsZoomed)(HWND hWnd);
 typedef BOOL (*P_ClipCursor)(const RECT *lpRect);
 
 typedef BOOL (*P_GetClipCursor)(RECT *lpRect);
+
+typedef int(*P_ShowCursor)(BOOL bShow);
+
+typedef BOOL(*P_BringWindowToTop)(HWND hWnd);
+
+typedef void (*P_SwitchToThisWindow)(HWND hWnd, BOOL fAlt);
+
+typedef HWND(*P_SetActiveWindow)(HWND hWnd);
+
+typedef UINT_PTR (*P_SetTimer)(
+	 HWND hWnd,
+     UINT_PTR nIDEvent,
+     UINT uElapse,
+	 TIMERPROC lpTimerFunc
+);
 
 typedef BOOL (*P_GetCursorPos)(LPPOINT lpPoint);
 
@@ -421,6 +436,8 @@ typedef int (*P_LoadString)(
 
 typedef BOOL (*P_SetProcessWindowStation)(HWINSTA hWinSta);
 
+typedef HWINSTA (*P_GetProcessWindowStation)();
+
 typedef HDC(*P_GetWindowDC)(HWND hWnd);
 
 typedef HDC(*P_GetDC)(HWND hWnd);
@@ -444,8 +461,6 @@ typedef int (*P_GetDeviceCaps)(_In_opt_ HDC hdc, _In_ int index);
 typedef HBITMAP(*P_CreateCompatibleBitmap)(_In_ HDC hdc, _In_ int cx, _In_ int cy);
 
 typedef BOOL (*P_ShutdownBlockReasonCreate)(HWND hWnd, LPCWSTR pwszReason);
-
-typedef EXECUTION_STATE (*P_SetThreadExecutionState)(EXECUTION_STATE esFlags);
 
 typedef BOOL (*P_SetThreadDesktop)(HDESK hDesktop);
 
@@ -493,6 +508,9 @@ extern BOOLEAN Gui_RenameClasses;
 extern BOOLEAN Gui_OpenAllWinClasses;   // not running in a restricted job
 extern BOOLEAN Gui_UseProtectScreen;
 extern BOOLEAN Gui_UseBlockCapture;
+
+extern BOOLEAN Gui_BlockInterferenceControl;
+extern BOOLEAN Gui_DontAllowCoverTaskbar;
 
 extern BOOLEAN Gui_UseProxyService;
 
@@ -602,11 +620,12 @@ GUI_SYS_VAR_2(SendMessage)
 GUI_SYS_VAR_2(SendMessageTimeout)
 //GUI_SYS_VAR_2(SendMessageCallback)
 GUI_SYS_VAR(ShutdownBlockReasonCreate)
-GUI_SYS_VAR(SetThreadExecutionState)
 GUI_SYS_VAR_2(SendNotifyMessage)
 GUI_SYS_VAR_2(PostMessage)
 GUI_SYS_VAR_2(PostThreadMessage)
 GUI_SYS_VAR_2(DispatchMessage)
+
+GUI_SYS_VAR(SetTimer)
 
 GUI_SYS_VAR(MapWindowPoints)
 GUI_SYS_VAR(ClientToScreen)
@@ -622,6 +641,11 @@ GUI_SYS_VAR_2(DdeInitialize)
 
 GUI_SYS_VAR(BlockInput)
 GUI_SYS_VAR(SendInput)
+
+GUI_SYS_VAR(SetActiveWindow);
+GUI_SYS_VAR(BringWindowToTop);
+GUI_SYS_VAR(ShowCursor);
+GUI_SYS_VAR(SwitchToThisWindow);
 
 GUI_SYS_VAR(OpenClipboard)
 GUI_SYS_VAR(CloseClipboard)

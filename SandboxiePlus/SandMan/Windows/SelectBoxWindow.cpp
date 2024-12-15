@@ -27,13 +27,16 @@ CBoxPicker::CBoxPicker(QString DefaultBox, QWidget* parent)
 	pLayout->setContentsMargins(0, 0, 0, 0);
 	pLayout->addWidget(new CFinder(this, this, 0));
 	pLayout->insertWidget(0, m_pTreeBoxes);
-	
-	this->setMaximumWidth(300);
 
 	if(DefaultBox.isEmpty() && theAPI->IsConnected())
 		DefaultBox = theAPI->GetGlobalSettings()->GetText("DefaultBox", "DefaultBox");
 
 	LoadBoxed("", DefaultBox);
+}
+
+void CBoxPicker::EnableMultiSel(bool bEnable)
+{
+	m_pTreeBoxes->setSelectionMode(bEnable ? QAbstractItemView::ExtendedSelection : QAbstractItemView::SingleSelection);
 }
 
 void CBoxPicker::SetFilter(const QString& Exp, int iOptions, int Column)
@@ -101,6 +104,14 @@ QString CBoxPicker::GetBoxName() const
 	auto pItem = m_pTreeBoxes->currentItem();
 	if (!pItem) return QString();
 	return pItem->data(0, Qt::UserRole).toString();
+}
+
+QStringList CBoxPicker::GetBoxNames() const
+{
+	QStringList BoxNames;
+	foreach(auto pItem, m_pTreeBoxes->selectedItems())
+		BoxNames.append(pItem->data(0, Qt::UserRole).toString());
+	return BoxNames;
 }
 
 QTreeWidgetItem* CBoxPicker::GetBoxParent(const QMap<QString, QStringList>& Groups, QMap<QString, QTreeWidgetItem*>& GroupItems, QTreeWidget* treeBoxes, const QString& Name, int Depth)
@@ -186,23 +197,32 @@ CSelectBoxWindow::CSelectBoxWindow(const QStringList& Commands, const QString& B
 	connect(ui.radBoxed, SIGNAL(clicked(bool)), this, SLOT(OnBoxType()));
 	connect(ui.radBoxedNew, SIGNAL(clicked(bool)), this, SLOT(OnBoxType()));
 	connect(ui.radUnBoxed, SIGNAL(clicked(bool)), this, SLOT(OnBoxType()));
+	connect(ui.chkFCP, SIGNAL(clicked(bool)), this, SLOT(OnBoxType()));
+	ui.chkFCP->setEnabled(false);
+	ui.chkFCP->setVisible(false);
 
 	connect(ui.buttonBox, SIGNAL(accepted()), SLOT(OnRun()));
 	connect(ui.buttonBox, SIGNAL(rejected()), SLOT(reject()));
 
 	m_pBoxPicker = new CBoxPicker(BoxName);
+	m_pBoxPicker->EnableMultiSel(true);
 	connect(m_pBoxPicker, SIGNAL(BoxDblClick()), this, SLOT(OnRun()));
 	ui.treeBoxes->parentWidget()->layout()->replaceWidget(ui.treeBoxes, m_pBoxPicker);
 	delete ui.treeBoxes;
 
 	m_pBoxPicker->setFocus();
 
-	//restoreGeometry(theConf->GetBlob("SelectBoxWindow/Window_Geometry"));
+	restoreGeometry(theConf->GetBlob("SelectBoxWindow/Window_Geometry"));
 }
 
 CSelectBoxWindow::~CSelectBoxWindow()
 {
-	//theConf->SetBlob("SelectBoxWindow/Window_Geometry", saveGeometry());
+	theConf->SetBlob("SelectBoxWindow/Window_Geometry", saveGeometry());
+}
+
+void CSelectBoxWindow::ShowFCP()
+{
+	ui.chkFCP->setVisible(true);
 }
 
 void CSelectBoxWindow::closeEvent(QCloseEvent *e)
@@ -213,37 +233,47 @@ void CSelectBoxWindow::closeEvent(QCloseEvent *e)
 
 void CSelectBoxWindow::OnBoxType()
 {
-	m_pBoxPicker->setEnabled(ui.radBoxed->isChecked());
+	ui.chkFCP->setEnabled(ui.radUnBoxed->isChecked());
+	m_pBoxPicker->setEnabled(ui.radBoxed->isChecked() || (ui.chkFCP->isEnabled() && ui.chkFCP->isChecked()));
 }
 
 void CSelectBoxWindow::OnRun()
 {
-	QString BoxName;
-
+	QStringList BoxNames;
+	int Flags = CSbieAPI::eStartDefault;
+	if (ui.chkAdmin->isChecked())
+		Flags |= CSbieAPI::eStartElevated;
 	if (ui.radUnBoxed->isChecked())
 	{
 		if (QMessageBox("Sandboxie-Plus", tr("Are you sure you want to run the program outside the sandbox?"), QMessageBox::Question, QMessageBox::Yes, QMessageBox::No | QMessageBox::Default | QMessageBox::Escape, QMessageBox::NoButton, this).exec() != QMessageBox::Yes)
 			return;
+
+		BoxNames.append("");
 	}
-	else  if (ui.radBoxedNew->isChecked())
+	if (ui.radBoxedNew->isChecked())
 	{
-		BoxName = theGUI->GetBoxView()->AddNewBox(true);
+		QString BoxName = theGUI->GetBoxView()->AddNewBox(true);
 		if (BoxName.isEmpty()) {
 			close();
 			return;
 		}
+		BoxNames.append(BoxName);
 	}
-	else 
+	else if (!ui.radUnBoxed->isChecked() || ui.chkFCP->isChecked())
 	{
-		BoxName = m_pBoxPicker->GetBoxName();
-		if (BoxName.isEmpty()) {
+		if (ui.chkFCP->isChecked())
+			Flags |= CSbieAPI::eStartFCP;
+		BoxNames = m_pBoxPicker->GetBoxNames();
+		if (BoxNames.isEmpty()) {
 			QMessageBox("Sandboxie-Plus", tr("Please select a sandbox."), QMessageBox::Information, QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton, this).exec();
 			return;
 		}
 	}
 
-	foreach(const QString & Command, m_Commands)
-		theGUI->RunStart(BoxName, Command, ui.chkAdmin->isChecked(), m_WrkDir);
+	foreach(const QString & BoxName, BoxNames) {
+		foreach(const QString & Command, m_Commands)
+			theGUI->RunStart(BoxName, Command, (CSbieAPI::EStartFlags)Flags, m_WrkDir);
+	}
 
 	setResult(1);
 	close();

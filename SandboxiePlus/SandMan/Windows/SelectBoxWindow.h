@@ -15,9 +15,12 @@ class CBoxPicker : public QWidget
 public:
 	CBoxPicker(QString DefaultBox = "", QWidget *parent = Q_NULLPTR);
 
+	void EnableMultiSel(bool bEnable);
+
 	void LoadBoxed(const QString& Filter = QString(), const QString& SelectBox = QString());
 
 	QString GetBoxName() const;
+	QStringList GetBoxNames() const;
 
 	static QTreeWidgetItem* GetBoxParent(const QMap<QString, QStringList>& Groups, QMap<QString, QTreeWidgetItem*>& GroupItems, QTreeWidget* treeBoxes, const QString& Name, int Depth = 0);
 	static double GetBoxOrder(const QMap<QString, QStringList>& Groups, const QString& Name, double value = 0.0, int Depth = 0);
@@ -43,6 +46,8 @@ class CSelectBoxWindow : public QDialog
 public:
 	CSelectBoxWindow(const QStringList& Commands, const QString& BoxName, const QString& WrkDir = QString(), QWidget *parent = Q_NULLPTR);
 	~CSelectBoxWindow();
+
+	void ShowFCP();
 
 private slots:
 	void OnBoxType();

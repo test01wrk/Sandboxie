@@ -104,7 +104,7 @@ void CPopUpWindow::Show()
 		this->move(scrRect.width() - 600 - 20, scrRect.height() - 200 - 50);
 	}
 
-	SafeShow(this);
+	CSandMan::SafeShow(this);
 }
 
 void CPopUpWindow::Poke()
@@ -248,7 +248,7 @@ void CPopUpWindow::ReloadHiddenMessages()
 
 void CPopUpWindow::OnDismissMessage()
 {
-	CPopUpMessage* pEntry = qobject_cast<CPopUpMessage*>(sender());
+	CPopUpEntry* pEntry = qobject_cast<CPopUpEntry*>(sender());
 	RemoveEntry(pEntry);
 }
 
@@ -305,7 +305,7 @@ void CPopUpWindow::AddUserPrompt(quint32 RequestId, const QVariantMap& Data, qui
 	if (retval != -1)
 	{
 		Result["retval"] = retval;
-		theAPI->SendReplyData(RequestId, Result);
+		theAPI->SendQueueRpl(RequestId, Result);
 		return;
 	}
 
@@ -368,7 +368,7 @@ void CPopUpWindow::SendPromptResult(CPopUpPrompt* pEntry, int retval)
 		return;
 
 	pEntry->m_Result["retval"] = retval;
-	theAPI->SendReplyData(pEntry->m_RequestId, pEntry->m_Result);
+	theAPI->SendQueueRpl(pEntry->m_RequestId, pEntry->m_Result);
 
 	if (pEntry->m_pRemember->isChecked())
 		pEntry->m_pProcess.objectCast<CSbieProcess>()->SetRememberedAction(pEntry->m_Result["id"].toInt(), retval);

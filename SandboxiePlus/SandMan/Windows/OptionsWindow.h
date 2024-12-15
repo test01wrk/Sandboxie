@@ -29,7 +29,8 @@ public:
 		eProcess,
 		ePath,
 		eText,
-		eTemplate
+		eTemplate,
+		eParent
 	};
 
 signals:
@@ -84,7 +85,9 @@ private slots:
 	void OnGroupsChanged(QTreeWidgetItem* pItem, int Index) { m_GroupsChanged = true;  OnOptChanged(); }
 
 	void OnForceProg();
-	void OnForceBrowse();
+	void OnForceBrowseProg();
+	void OnForceChild();
+	void OnForceBrowseChild();
 	void OnForceDir();
 	void OnDelForce();
 	void OnShowForceTmpl()			{ LoadForcedTmpl(true); }
@@ -94,6 +97,7 @@ private slots:
 	void OnBreakoutProg();
 	void OnBreakoutBrowse();
 	void OnBreakoutDir();
+	void OnBreakoutDoc();
 	void OnDelBreakout();
 	void OnShowBreakoutTmpl()		{ LoadBreakoutTmpl(true); }
 	void OnBreakoutChanged(QTreeWidgetItem *pItem, int);
@@ -135,6 +139,20 @@ private slots:
 	void OnTestNetFwRule();
 	void OnClearNetFwTest();
 
+	void OnAddDnsFilter();
+	void OnDelDnsFilter();
+	void OnDnsFilterChanged(QTreeWidgetItem * pItem, int Column) { m_DnsFilterChanged = true; OnOptChanged(); }
+
+	void OnNetProxyItemDoubleClicked(QTreeWidgetItem* pItem, int Column);
+	void OnNetProxySelectionChanged() { CloseNetProxyEdit(); OnOptChanged(); }
+	void OnAddNetProxy();
+	void OnDelNetProxy();
+	void OnTestNetProxy();
+	void OnProxyResolveHostnames();
+	void OnNetProxyMoveUp();
+	void OnNetProxyMoveDown();
+	void OnNetProxyChanged(QTreeWidgetItem * pItem, int Column) { m_NetProxyChanged = true; OnOptChanged(); }
+
 	void OnBlockDns();
 	void OnBlockSamba();
 	//
@@ -145,24 +163,24 @@ private slots:
 	void OnAccessSelectionChanged() { CloseAccessEdit(); OnOptChanged();}
 	void OnAccessChanged(QTreeWidgetItem* pItem, int Column);
 
-	void OnAddFile()				{ AddAccessEntry(eFile, eOpen, "", ""); m_AccessChanged = true; OnOptChanged(); }
+	void OnAddFile()				{ AddAccessEntry(eFile, eOpen, "", ""); OnAccessChanged(); }
 	void OnBrowseFile();
 	void OnBrowseFolder();
-	void OnDelFile()				{ DeleteAccessEntry(ui.treeFiles->currentItem()); m_AccessChanged = true; OnOptChanged(); }
+	void OnDelFile()				{ DeleteAccessEntry(ui.treeFiles->currentItem()); OnAccessChanged(); }
 	void OnShowFilesTmpl()			{ LoadAccessListTmpl(eFile, ui.chkShowFilesTmpl->isChecked(), true); }
-	void OnAddKey()					{ AddAccessEntry(eKey, eOpen, "", ""); m_AccessChanged = true; OnOptChanged(); }
-	void OnDelKey()					{ DeleteAccessEntry(ui.treeKeys->currentItem()); m_AccessChanged = true; OnOptChanged(); }
+	void OnAddKey()					{ AddAccessEntry(eKey, eOpen, "", ""); OnAccessChanged(); }
+	void OnDelKey()					{ DeleteAccessEntry(ui.treeKeys->currentItem()); OnAccessChanged(); }
 	void OnShowKeysTmpl()			{ LoadAccessListTmpl(eKey, ui.chkShowKeysTmpl->isChecked(), true); }
-	void OnAddIPC()					{ AddAccessEntry(eIPC, eOpen, "", ""); m_AccessChanged = true; OnOptChanged(); }
-	void OnDelIPC()					{ DeleteAccessEntry(ui.treeIPC->currentItem()); m_AccessChanged = true; OnOptChanged(); }
+	void OnAddIPC()					{ AddAccessEntry(eIPC, eOpen, "", ""); OnAccessChanged(); }
+	void OnDelIPC()					{ DeleteAccessEntry(ui.treeIPC->currentItem()); OnAccessChanged(); }
 	void OnShowIPCTmpl()			{ LoadAccessListTmpl(eIPC, ui.chkShowIPCTmpl->isChecked(), true); }
-	void OnAddWnd()					{ AddAccessEntry(eWnd, eOpen, "", ""); m_AccessChanged = true; OnOptChanged(); }
-	void OnDelWnd()					{ DeleteAccessEntry(ui.treeWnd->currentItem()); m_AccessChanged = true; OnOptChanged(); }
+	void OnAddWnd()					{ AddAccessEntry(eWnd, eOpen, "", ""); OnAccessChanged(); }
+	void OnDelWnd()					{ DeleteAccessEntry(ui.treeWnd->currentItem()); OnAccessChanged(); }
 	void OnShowWndTmpl()			{ LoadAccessListTmpl(eWnd, ui.chkShowWndTmpl->isChecked(), true); }
-	void OnAddCOM()					{ AddAccessEntry(eCOM, eOpen, "", ""); m_AccessChanged = true; OnOptChanged(); }
-	void OnDelCOM()					{ DeleteAccessEntry(ui.treeCOM->currentItem()); m_AccessChanged = true; OnOptChanged(); }
+	void OnAddCOM()					{ AddAccessEntry(eCOM, eOpen, "", ""); OnAccessChanged(); }
+	void OnDelCOM()					{ DeleteAccessEntry(ui.treeCOM->currentItem()); OnAccessChanged(); }
 	void OnShowCOMTmpl()			{ LoadAccessListTmpl(eCOM, ui.chkShowCOMTmpl->isChecked(), true); }
-	//void OnDelAccess()			{ DeleteAccessEntry(ui.treeAccess->currentItem()); m_AccessChanged = true; OnOptChanged(); }
+	//void OnDelAccess()			{ DeleteAccessEntry(ui.treeAccess->currentItem()); OnAccessChanged(); }
 	//void OnShowAccessTmpl()			{ LoadAccessListTmpl(true); }
 	//
 
@@ -197,6 +215,8 @@ private slots:
 	void OnAddTerminateCmd();
 	void OnDelAuto();
 
+	void OnDumpFW();
+
 	void OnAddProcess();
 	void OnDelProcess();
 	void OnShowHiddenProcTmpl()		{ ShowHiddenProcTmpl(true); }
@@ -217,12 +237,14 @@ private slots:
 	void OnTemplateDoubleClicked(QTreeWidgetItem* pItem, int Column);
 	void OnAddTemplates();
 	void OnTemplateWizard();
+	void OnOpenTemplate();
 	void OnDelTemplates();
 	void OnFolderChanged();
 	void OnScreenReaders();
 
 	void OnTab() { OnTab(ui.tabs->currentWidget()); }
 	void OnAccessTab()  { OnTab(ui.tabsAccess->currentWidget()); }
+	void OnInternetTab()  { OnTab(ui.tabsInternet->currentWidget()); }
 
 	void OnGeneralChanged();
 	void OnPSTChanged();
@@ -233,6 +255,7 @@ private slots:
 	void OnINetBlockChanged()		{ m_INetBlockChanged = true; OnOptChanged(); }
 	void OnRecoveryChanged()		{ m_RecoveryChanged = true; OnOptChanged(); }
 	void OnAccessChanged();
+	void OnAccessChangedEx();
 	void OnSysSvcChanged();
 	void OnAdvancedChanged();
 	void OnOpenCOM();
@@ -342,12 +365,19 @@ public:
 		eTerminateCmd
 	};
 
+    enum EAuthMode {
+		eAuthDisabled,
+		eAuthEnabled ,
+	};
+
 	static QString AccessTypeToName(EAccessEntry Type);
 	static QPair<EAccessType, EAccessMode> SplitAccessType(EAccessEntry Type);
 
 	static QString	GetAccessTypeStr(EAccessType Type);
 	static QString	GetAccessModeStr(EAccessMode Mode);
 	static QString	GetAccessModeTip(EAccessMode Mode);
+
+    static QString GetAuthModeStr(EAuthMode Mode);
 
 protected:
 	void SetBoxColor(const QColor& color);
@@ -435,6 +465,19 @@ protected:
 	void LoadNetFwRules();
 	void SaveNetFwRules();
 	void LoadNetFwRulesTmpl(bool bUpdate = false);
+
+	void LoadDnsFilter();
+	void AddDnsFilter(const QString& Value, bool disabled = false, const QString& Template = QString());
+	void AddDnsFilter(const QString& Prog, const QString& Domain, const QStringList& IPs = QStringList(), bool disabled = false, const QString& Template = QString());
+	void SaveDnsFilter();
+
+	void ParseAndAddNetProxy(const QString& Value, bool disabled = false, const QString& Template = QString());
+	void CloseNetProxyEdit(bool bSave = true);
+	void CloseNetProxyEdit(QTreeWidgetItem* pItem, bool bSave = true);
+	EAuthMode GetAuthMode(const QString& Value);
+	void LoadNetProxy();
+	void SaveNetProxy();
+	void WriteNetProxy(const QString& Setting, const QStringList& List);
 	//
 	
 	// access
@@ -457,6 +500,8 @@ protected:
 
 	void UpdateAccessPolicy();
 
+	void UpdateJobOptions();
+
 	QTreeWidget* GetAccessTree(EAccessType Type);
 	//
 
@@ -473,7 +518,7 @@ protected:
 	void SaveAdvanced();
 	void UpdateBoxIsolation();
 	void ShowTriggersTmpl(bool bUpdate = false);
-	void AddTriggerItem(const QString& Value, ETriggerAction Type, const QString& Template = QString());
+	void AddTriggerItem(const QString& Value, ETriggerAction Type, bool disabled = false, const QString& Template = QString());
 	void ShowHiddenProcTmpl(bool bUpdate = false);
 	void ShowHostProcTmpl(bool bUpdate = false);
 	void AddHiddenProcEntry(const QString& Name, const QString& Template = QString());
@@ -527,6 +572,8 @@ protected:
 	//bool m_RestrictionChanged;
 	bool m_INetBlockChanged;
 	bool m_NetFwRulesChanged;
+	bool m_DnsFilterChanged;
+	bool m_NetProxyChanged;
 	bool m_AccessChanged;
 	bool m_TemplatesChanged;
 	bool m_FoldersChanged;
@@ -552,6 +599,7 @@ protected:
 		eNoSpec,
 		eSpec,
 		eOnlySpec,
+		eList
 	};
 
 	struct SAdvOption
@@ -589,5 +637,9 @@ private:
 		bool Changed;
 	};
 	QMap<QCheckBox*, SDbgOpt> m_DebugOptions;
+
+	void InitLangID();
+
+	class CCodeEdit* m_pCodeEdit;
 };
 
